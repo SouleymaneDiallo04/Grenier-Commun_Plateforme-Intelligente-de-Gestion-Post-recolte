@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Connexion" %}{% endblock %}
+
+{% block content %}
+<div class="min-h-screen flex items-center justify-center py-12 px-4">
+  <div class="w-full max-w-md">
+
+    <!-- Logo -->
+    <div class="text-center mb-8">
+      <div class="w-16 h-16 bg-gc-700 rounded-2xl flex items-center justify-center mx-auto mb-4">
+        <span class="text-3xl">🌾</span>
+      </div>
+      <h1 class="text-2xl font-bold text-gray-900">{% trans "Connexion" %}</h1>
+      <p class="text-gray-500 mt-1">{% trans "Accédez à votre espace Grenier Commun" %}</p>
+    </div>
+
+    <div class="gc-card">
+      <form method="POST" action="{% url 'accounts:connexion' %}" class="space-y-5">
+        {% csrf_token %}
+
+        <div>
+          <label class="gc-label">{% trans "Adresse email" %}</label>
+          <input type="email" name="email" class="gc-input" placeholder="votre@email.com"
+            value="{{ request.POST.email }}" required autocomplete="email">
+        </div>
+
+        <div>
+          <div class="flex justify-between items-center mb-1">
+            <label class="gc-label mb-0">{% trans "Mot de passe" %}</label>
+            <a href="#" class="text-xs text-gc-700 hover:underline">{% trans "Mot de passe oublié ?" %}</a>
+          </div>
+          <input type="password" name="password" class="gc-input" placeholder="••••••••"
+            required autocomplete="current-password">
+        </div>
+
+        <button type="submit" class="btn btn-primary w-full btn-lg">
+          {% trans "Se connecter" %}
+        </button>
+      </form>
+
+      <p class="text-center text-sm text-gray-500 mt-6">
+        {% trans "Pas encore de compte ?" %}
+        <a href="{% url 'accounts:inscription' %}" class="text-gc-700 font-medium hover:underline">{% trans "S'inscrire" %}</a>
+      </p>
+    </div>
+
+  </div>
+</div>
+{% endblock %}

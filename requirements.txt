@@ -1,0 +1,63 @@
+# ─── CORE ─────────────────────────────────────────────────────────────────────
+Django==5.0.6
+psycopg2-binary==2.9.9
+python-decouple==3.8
+dj-database-url==2.1.0
+
+# ─── AUTHENTIFICATION ─────────────────────────────────────────────────────────
+django-allauth==0.63.3
+djangorestframework==3.15.1
+djangorestframework-simplejwt==5.3.1
+django-phonenumber-field==7.3.0
+phonenumbers==8.13.39
+
+# ─── ASYNC / CACHE ────────────────────────────────────────────────────────────
+celery==5.4.0
+redis==5.0.6
+django-redis==5.4.0
+
+# ─── FRONTEND ─────────────────────────────────────────────────────────────────
+django-htmx==1.17.3
+django-widget-tweaks==1.5.0
+Pillow==10.3.0
+
+# ─── PDF ──────────────────────────────────────────────────────────────────────
+weasyprint==62.3
+
+# ─── FORMULAIRES & UTILS ──────────────────────────────────────────────────────
+django-crispy-forms==2.1
+crispy-tailwind==1.0.3
+django-filter==24.2
+
+# ─── SMS ──────────────────────────────────────────────────────────────────────
+twilio==9.2.3
+
+# ─── IA / TRADUCTION ──────────────────────────────────────────────────────────
+requests==2.32.3
+deep-translator==1.11.4
+transformers==4.41.2
+torch==2.3.1
+sentencepiece==0.2.0
+
+# ─── DONNÉES & VISUALISATION ──────────────────────────────────────────────────
+pandas==2.2.2
+scikit-learn==1.5.0
+
+# ─── SÉCURITÉ ─────────────────────────────────────────────────────────────────
+django-axes==6.4.0
+django-csp==3.8
+django-ratelimit==4.1.0
+
+# ─── STOCKAGE FICHIERS ────────────────────────────────────────────────────────
+cloudinary==1.40.0
+django-cloudinary-storage==0.3.0
+
+# ─── DÉPLOIEMENT ──────────────────────────────────────────────────────────────
+gunicorn==22.0.0
+whitenoise==6.7.0
+
+# ─── DEV & TESTS ──────────────────────────────────────────────────────────────
+pytest-django==4.8.0
+factory-boy==3.3.0
+faker==25.4.0
+django-debug-toolbar==4.4.1

@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% load humanize i18n %}
+
+{% block title %}{% trans "Rapport Mensuel" %}{% endblock %}
+{% block page_title %}{% trans "Rapport mensuel" %}{% endblock %}
+{% block page_subtitle %}{{ mois }} — {{ silo.nom }}{% endblock %}
+{% block sidebar_nav %}{% include "partials/sidebar_nav.html" %}{% endblock %}
+
+{% block content %}
+<div class="max-w-3xl mx-auto space-y-6">
+
+  <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+
+    <div class="kpi-card text-center">
+      <p class="kpi-label">{% trans "Dépôts" %}</p>
+      <p class="kpi-value text-gc-700">{{ stats_mois.nb_depots }}</p>
+    </div>
+
+    <div class="kpi-card text-center">
+      <p class="kpi-label">{% trans "Kg entrés" %}</p>
+      <p class="kpi-value">{{ stats_mois.kg_entres|floatformat:0|intcomma }}</p>
+    </div>
+
+    <div class="kpi-card text-center">
+      <p class="kpi-label">{% trans "Retraits" %}</p>
+      <p class="kpi-value">{{ stats_mois.nb_retraits }}</p>
+    </div>
+
+    <div class="kpi-card text-center">
+      <p class="kpi-label">{% trans "Kg sortis" %}</p>
+      <p class="kpi-value">{{ stats_mois.kg_sortis|floatformat:0|intcomma }}</p>
+    </div>
+
+  </div>
+
+  <div class="gc-card">
+    <h2 class="font-semibold text-gray-900 mb-4">{% trans "Dépôts du mois" %}</h2>
+    {% if depots_mois %}
+    <table class="gc-table">
+      <thead>
+        <tr>
+          <th>{% trans "N° Reçu" %}</th>
+          <th>{% trans "Agriculteur" %}</th>
+          <th>{% trans "Denrée" %}</th>
+          <th>{% trans "Quantité (kg)" %}</th>
+          <th>{% trans "Statut" %}</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for depot in depots_mois %}
+        <tr>
+          <td class="font-mono text-xs text-gc-700">{{ depot.numero_recu }}</td>
+          <td>{{ depot.agriculteur.nom_complet }}</td>
+          <td>{{ depot.denree.nom }}</td>
+          <td class="font-semibold">{{ depot.quantite_initiale_kg|floatformat:0|intcomma }}</td>
+          <td><span class="badge badge-gc text-xs">{{ depot.get_statut_display }}</span></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+    <p class="text-sm text-gray-500">{% trans "Aucun dépôt ce mois-ci." %}</p>
+    {% endif %}
+  </div>
+
+</div>
+{% endblock %}

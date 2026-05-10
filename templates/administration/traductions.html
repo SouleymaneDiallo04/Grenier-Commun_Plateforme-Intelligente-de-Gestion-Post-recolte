@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% load humanize i18n %}
+{% block title %}{% trans "Supervision Traductions" %}{% endblock %}
+{% block page_title %}{% trans "Supervision du module traduction" %}{% endblock %}
+{% block sidebar_nav %}{% include "partials/sidebar_nav.html" %}{% endblock %}
+
+{% block content %}
+<div class="space-y-6">
+
+  {% if stats_qualite %}
+  <div class="grid grid-cols-3 gap-4">
+    {% for stat in stats_qualite %}
+    <div class="kpi-card text-center">
+      <p class="kpi-label">
+        {% if stat.langue_cible == 'fr' %}🇫🇷 {% trans "Français" %}
+        {% elif stat.langue_cible == 'en' %}🇬🇧 {% trans "Anglais" %}
+        {% else %}🇸🇳 Wolof{% endif %}
+      </p>
+      <p class="kpi-value text-gc-700">{{ stat.avg_note|floatformat:1 }}</p>
+      <p class="gc-helper">/ 5 — {% trans "note moyenne" %}</p>
+    </div>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  <div class="gc-card">
+    <h2 class="font-semibold text-gray-900 mb-4">{% trans "Suggestions de correction soumises" %}</h2>
+    {% if logs %}
+    <div class="space-y-4">
+      {% for log in logs %}
+      <div class="p-4 rounded-xl border {% if log.correction_traitee %}border-gray-100 bg-gray-50 opacity-60{% else %}border-yellow-200 bg-yellow-50{% endif %}">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mb-3">
+          <div>
+            <p class="text-xs text-gray-500 mb-1">{% trans "SOURCE" %} ({{ log.langue_source|upper }})</p>
+            <p class="text-sm text-gray-700">{{ log.texte_source|truncatewords:15 }}</p>
+          </div>
+          <div>
+            <p class="text-xs text-gray-500 mb-1">{% trans "TRADUCTION" %} {{ log.langue_cible|upper }} ({{ log.get_moteur_display }})</p>
+            <p class="text-sm text-gray-600">{{ log.texte_traduit|truncatewords:15 }}</p>
+          </div>
+          <div>
+            <p class="text-xs font-medium text-yellow-700 mb-1">💡 {% trans "SUGGESTION" %}</p>
+            <p class="text-sm text-gray-900 font-medium">{{ log.suggestion_correction|truncatewords:20 }}</p>
+          </div>
+        </div>
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-3 text-xs text-gray-400">
+            <span>{% trans "Par" %} : {{ log.user.nom_complet|default:"—" }}</span>
+            <span>{{ log.cree_le|date:"d/m/Y H:i" }}</span>
+          </div>
+          {% if not log.correction_traitee %}
+          <form method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="log_id" value="{{ log.pk }}">
+            <button type="submit" class="btn btn-secondary btn-sm">✓ {% trans "Marquer traitée" %}</button>
+          </form>
+          {% else %}
+          <span class="badge badge-vert text-xs">{% trans "Traitée" %}</span>
+          {% endif %}
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    {% else %}
+    <div class="empty-state">
+      <div class="empty-state-icon">✓</div>
+      <h3>{% trans "Aucune correction soumise" %}</h3>
+      <p>{% trans "Les suggestions des utilisateurs pour améliorer les traductions apparaîtront ici." %}</p>
+    </div>
+    {% endif %}
+  </div>
+
+</div>
+{% endblock %}

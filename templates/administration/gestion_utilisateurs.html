@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+{% load humanize i18n %}
+{% block title %}{% trans "Gestion Utilisateurs" %}{% endblock %}
+{% block page_title %}{% trans "Gestion des utilisateurs" %}{% endblock %}
+{% block page_subtitle %}{{ users|length }} {% trans "utilisateur(s)" %}{% endblock %}
+{% block sidebar_nav %}{% include "partials/sidebar_nav.html" %}{% endblock %}
+
+{% block content %}
+<div class="space-y-6">
+
+  <div class="gc-card">
+    <form method="GET" class="flex flex-wrap gap-3 items-end">
+      <div>
+        <label class="gc-label">{% trans "Rôle" %}</label>
+        <select name="role" class="gc-select">
+          <option value="">{% trans "Tous les rôles" %}</option>
+          {% for code, label in roles %}
+          <option value="{{ code }}" {% if role_filtre == code %}selected{% endif %}>{{ label }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <button type="submit" class="btn btn-secondary">{% trans "Filtrer" %}</button>
+      <a href="{% url 'administration:gestion_utilisateurs' %}" class="btn btn-ghost">{% trans "Réinitialiser" %}</a>
+    </form>
+  </div>
+
+  <div class="gc-card">
+    <div class="overflow-x-auto">
+      <table class="gc-table">
+        <thead>
+          <tr>
+            <th>{% trans "Utilisateur" %}</th>
+            <th>{% trans "Rôle" %}</th>
+            <th>{% trans "Contact" %}</th>
+            <th>{% trans "Pays" %}</th>
+            <th>{% trans "Vérifié" %}</th>
+            <th>{% trans "Actif" %}</th>
+            <th>{% trans "Inscrit le" %}</th>
+            <th>{% trans "Action" %}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for u in users %}
+          <tr>
+            <td>
+              <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-full bg-gc-100 flex items-center justify-center flex-shrink-0">
+                  <span class="text-xs font-bold text-gc-700">{{ u.prenom.0|upper }}{{ u.nom.0|upper }}</span>
+                </div>
+                <div>
+                  <p class="font-medium text-gray-900">{{ u.nom_complet }}</p>
+                  <p class="text-xs text-gray-400">{{ u.email }}</p>
+                </div>
+              </div>
+            </td>
+            <td><span class="badge badge-gris text-xs">{{ u.get_role_display }}</span></td>
+            <td class="text-sm text-gray-500">{{ u.telephone|default:"—" }}</td>
+            <td class="text-sm">{{ u.pays }}</td>
+            <td>
+              {% if u.is_verified %}
+              <span class="text-green-600">✓</span>
+              {% else %}
+              <span class="text-red-400">✗</span>
+              {% endif %}
+            </td>
+            <td>
+              {% if u.is_active %}
+              <span class="badge badge-vert text-xs">{% trans "Actif" %}</span>
+              {% else %}
+              <span class="badge badge-rouge text-xs">{% trans "Inactif" %}</span>
+              {% endif %}
+            </td>
+            <td class="text-sm text-gray-500">{{ u.date_joined|date:"d/m/Y" }}</td>
+            <td>
+              {% if u.role == 'ACHETEUR' and not u.is_verified %}
+              <form method="POST" class="inline">
+                {% csrf_token %}
+                <input type="hidden" name="action" value="valider_acheteur">
+                <input type="hidden" name="user_id" value="{{ u.pk }}">
+                <button type="submit" class="btn btn-primary btn-sm">{% trans "Valider" %}</button>
+              </form>
+              {% endif %}
+            </td>
+          </tr>
+          {% empty %}
+          <tr><td colspan="8" class="text-center text-gray-400 py-8">{% trans "Aucun utilisateur trouvé" %}</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+{% endblock %}

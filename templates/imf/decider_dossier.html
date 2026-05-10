@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+{% load humanize i18n %}
+{% block title %}{% trans "Décision Dossier" %}{% endblock %}
+{% block page_title %}{% trans "Prendre une décision" %}{% endblock %}
+{% block page_subtitle %}{% trans "Dossier" %} WA-{{ dossier.pk|stringformat:"05d" }} — {{ dossier.agriculteur.nom_complet }}{% endblock %}
+{% block sidebar_nav %}{% include "partials/sidebar_nav.html" %}{% endblock %}
+
+{% block content %}
+<div class="max-w-xl mx-auto space-y-6">
+
+  <div class="gc-card bg-gc-50 border-gc-200">
+    <div class="grid grid-cols-3 gap-4 text-center">
+      <div>
+        <p class="text-xs text-gray-500">{% trans "Montant demandé" %}</p>
+        <p class="font-bold text-gc-700 text-lg">{{ dossier.montant_demande_fcfa|floatformat:0|intcomma }}</p>
+        <p class="text-xs text-gray-400">FCFA</p>
+      </div>
+      <div>
+        <p class="text-xs text-gray-500">{% trans "Durée" %}</p>
+        <p class="font-bold text-gray-900 text-lg">{{ dossier.duree_mois }}</p>
+        <p class="text-xs text-gray-400">{% trans "mois" %}</p>
+      </div>
+      <div>
+        <p class="text-xs text-gray-500">{% trans "Score crédit" %}</p>
+        <p class="font-bold text-lg {% if dossier.score_credit_snapshot >= 70 %}text-gc-700{% elif dossier.score_credit_snapshot >= 40 %}text-yellow-600{% else %}text-red-600{% endif %}">
+          {{ dossier.score_credit_snapshot|default:"—" }}
+        </p>
+        <p class="text-xs text-gray-400">/100</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="gc-card border-green-200">
+    <h2 class="font-semibold text-green-700 mb-4 flex items-center gap-2">✅ {% trans "Approuver le crédit" %}</h2>
+    <form method="POST" action="{% url 'imf:decider_dossier' dossier.pk %}">
+      {% csrf_token %}
+      <input type="hidden" name="action" value="approuver">
+      <div class="space-y-4">
+        <div>
+          <label class="gc-label">{% trans "Montant accordé (FCFA)" %} <span class="text-red-500">*</span></label>
+          <input type="number" name="montant_accorde" class="gc-input"
+            value="{{ dossier.montant_demande_fcfa|floatformat:0 }}"
+            max="{{ dossier.montant_demande_fcfa|floatformat:0 }}" min="1000" step="100" required>
+          <p class="gc-helper">{% trans "Maximum" %} : {{ dossier.montant_demande_fcfa|floatformat:0|intcomma }} FCFA</p>
+        </div>
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="gc-label">{% trans "Taux d'intérêt mensuel (%)" %} <span class="text-red-500">*</span></label>
+            <input type="number" name="taux_interet" class="gc-input"
+              value="2.0" min="0.5" max="10" step="0.5" required>
+          </div>
+          <div>
+            <label class="gc-label">{% trans "Durée accordée (mois)" %}</label>
+            <input type="number" name="duree_mois" class="gc-input"
+              value="{{ dossier.duree_mois }}" min="1" max="12">
+          </div>
+        </div>
+        {% trans "Approuver ce crédit ?" as confirm_approve %}
+        <button type="submit" class="btn btn-primary w-full"
+          onclick="return confirm('{{ confirm_approve|escapejs }}')">
+          ✅ {% trans "Approuver et notifier l'agriculteur" %}
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <div class="gc-card border-red-200">
+    <h2 class="font-semibold text-red-700 mb-4 flex items-center gap-2">❌ {% trans "Refuser le dossier" %}</h2>
+    <form method="POST" action="{% url 'imf:decider_dossier' dossier.pk %}">
+      {% csrf_token %}
+      <input type="hidden" name="action" value="refuser">
+      <div class="space-y-4">
+        <div>
+          <label class="gc-label">{% trans "Motif du refus" %}</label>
+          <textarea name="motif_refus" rows="3" class="gc-input resize-none"
+            placeholder="{% trans 'Expliquez brièvement la raison du refus...' %}"></textarea>
+        </div>
+        {% trans "Refuser ce dossier ?" as confirm_refus %}
+        <button type="submit" class="btn btn-danger w-full"
+          onclick="return confirm('{{ confirm_refus|escapejs }}')">
+          ❌ {% trans "Refuser et notifier l'agriculteur" %}
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <a href="{% url 'imf:detail_dossier' dossier.pk %}" class="btn btn-ghost w-full">← {% trans "Retour au dossier" %}</a>
+
+</div>
+{% endblock %}

@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% load humanize i18n %}
+{% block title %}{% trans "Données & IA" %}{% endblock %}
+{% block page_title %}{% trans "Données & Intelligence IA" %}{% endblock %}
+{% block sidebar_nav %}{% include "partials/sidebar_nav.html" %}{% endblock %}
+
+{% block content %}
+<div class="space-y-6">
+
+  <div class="gc-card">
+    <h2 class="font-semibold text-gray-900 mb-4">{% trans "Volumes stockés par denrée" %}</h2>
+    {% if volumes %}
+    <div class="space-y-3">
+      {% for v in volumes %}
+      <div class="flex items-center gap-4">
+        <p class="w-32 text-sm font-medium text-gray-700 flex-shrink-0">{{ v.denree__nom }}</p>
+        <div class="flex-1">
+          <div class="progress-bar">
+            {% with max_vol=volumes.0.total_kg %}
+            <div class="progress-fill low"
+              style="width: {% widthratio v.total_kg max_vol 100 %}%"></div>
+            {% endwith %}
+          </div>
+        </div>
+        <p class="text-sm font-bold text-gc-700 w-28 text-right">{{ v.total_kg|floatformat:0|intcomma }} kg</p>
+      </div>
+      {% endfor %}
+    </div>
+    {% else %}
+    <p class="text-sm text-gray-500">{% trans "Aucun stock actif dans le réseau." %}</p>
+    {% endif %}
+  </div>
+
+  <div class="gc-card">
+    <h2 class="font-semibold text-gray-900 mb-4">
+      {% trans "Recommandations IA à valider" %}
+      {% if reco_en_attente %}
+      <span class="badge badge-orange ml-2">{{ reco_en_attente|length }}</span>
+      {% endif %}
+    </h2>
+    {% if reco_en_attente %}
+    <div class="space-y-4">
+      {% for reco in reco_en_attente %}
+      <div class="p-4 rounded-xl border
+        {% if reco.action_recommandee == 'VENDRE' %}border-green-200 bg-green-50
+        {% else %}border-yellow-200 bg-yellow-50{% endif %}">
+        <div class="flex items-start justify-between gap-4">
+          <div class="flex-1">
+            <div class="flex items-center gap-2 mb-2">
+              <span>{% if reco.action_recommandee == 'VENDRE' %}✅{% else %}⏳{% endif %}</span>
+              <p class="font-semibold text-gray-900">{{ reco.denree.nom }}</p>
+              <span class="badge badge-{% if reco.action_recommandee == 'VENDRE' %}vert{% else %}orange{% endif %} text-xs">
+                {{ reco.get_action_recommandee_display }}
+              </span>
+            </div>
+            <p class="text-sm text-gray-700">{{ reco.message_fr }}</p>
+            {% if reco.prix_actuel_fcfa %}
+            <div class="flex gap-4 mt-2 text-xs text-gray-500">
+              <span>{% trans "Maintenant" %} : <strong>{{ reco.prix_actuel_fcfa|floatformat:0 }} FCFA/kg</strong></span>
+              {% if reco.prix_prevu_8sem_fcfa %}
+              <span>+8 {% trans "sem" %} : <strong>{{ reco.prix_prevu_8sem_fcfa|floatformat:0 }} FCFA/kg</strong></span>
+              {% endif %}
+            </div>
+            {% endif %}
+          </div>
+          <form method="POST" class="flex-shrink-0">
+            {% csrf_token %}
+            <input type="hidden" name="action" value="valider_reco">
+            <input type="hidden" name="reco_id" value="{{ reco.pk }}">
+            <button type="submit" class="btn btn-primary btn-sm">✅ {% trans "Publier" %}</button>
+          </form>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    {% else %}
+    <div class="empty-state">
+      <div class="empty-state-icon">🤖</div>
+      <h3>{% trans "Aucune recommandation en attente" %}</h3>
+      <p>{% trans "Les recommandations sont générées automatiquement chaque lundi." %}</p>
+    </div>
+    {% endif %}
+  </div>
+
+</div>
+{% endblock %}

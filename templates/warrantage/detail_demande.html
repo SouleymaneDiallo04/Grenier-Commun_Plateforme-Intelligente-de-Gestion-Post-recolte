@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% load humanize i18n %}
+{% block title %}{% trans "Warrantage" %} WA-{{ warrantage.pk|stringformat:"05d" }}{% endblock %}
+{% block page_title %}{% trans "Détail du warrantage" %}{% endblock %}
+{% block page_subtitle %}WA-{{ warrantage.pk|stringformat:"05d" }}{% endblock %}
+{% block sidebar_nav %}{% include "partials/sidebar_nav.html" %}{% endblock %}
+
+{% block content %}
+<div class="max-w-xl mx-auto gc-card">
+
+  <div class="flex items-center justify-between mb-6">
+    <p class="font-mono text-xl font-bold text-gc-700">WA-{{ warrantage.pk|stringformat:"05d" }}</p>
+    <span class="badge px-3 py-1
+      {% if warrantage.statut == 'APPROUVE' or warrantage.statut == 'VIRE' %}badge-vert
+      {% elif warrantage.statut == 'REFUSE' %}badge-rouge
+      {% elif warrantage.statut == 'REMBOURSE' %}badge-gc
+      {% else %}badge-orange{% endif %}">
+      {{ warrantage.get_statut_display }}
+    </span>
+  </div>
+
+  <dl class="space-y-3">
+    <div class="flex justify-between text-sm py-2 border-b border-gray-50">
+      <dt class="text-gray-500">{% trans "Agriculteur" %}</dt>
+      <dd class="font-medium">{{ warrantage.agriculteur.nom_complet }}</dd>
+    </div>
+    <div class="flex justify-between text-sm py-2 border-b border-gray-50">
+      <dt class="text-gray-500">{% trans "Dépôt concerné" %}</dt>
+      <dd class="font-mono text-gc-700">{{ warrantage.depot.numero_recu }}</dd>
+    </div>
+    <div class="flex justify-between text-sm py-2 border-b border-gray-50">
+      <dt class="text-gray-500">{% trans "Denrée en garantie" %}</dt>
+      <dd class="font-medium">{{ warrantage.depot.denree.nom }}</dd>
+    </div>
+    <div class="flex justify-between text-sm py-2 border-b border-gray-50">
+      <dt class="text-gray-500">{% trans "Montant demandé" %}</dt>
+      <dd class="font-bold">{{ warrantage.montant_demande_fcfa|floatformat:0|intcomma }} FCFA</dd>
+    </div>
+    {% if warrantage.montant_accorde_fcfa %}
+    <div class="flex justify-between text-sm py-2 border-b border-gray-50">
+      <dt class="text-gray-500">{% trans "Montant accordé" %}</dt>
+      <dd class="font-bold text-gc-700 text-lg">{{ warrantage.montant_accorde_fcfa|floatformat:0|intcomma }} FCFA</dd>
+    </div>
+    <div class="flex justify-between text-sm py-2 border-b border-gray-50">
+      <dt class="text-gray-500">{% trans "Taux mensuel" %}</dt>
+      <dd class="font-medium">{{ warrantage.taux_interet_mensuel }}%</dd>
+    </div>
+    {% endif %}
+    <div class="flex justify-between text-sm py-2 border-b border-gray-50">
+      <dt class="text-gray-500">{% trans "Durée" %}</dt>
+      <dd class="font-medium">{{ warrantage.duree_mois }} {% trans "mois" %}</dd>
+    </div>
+    {% if warrantage.imf %}
+    <div class="flex justify-between text-sm py-2 border-b border-gray-50">
+      <dt class="text-gray-500">{% trans "IMF partenaire" %}</dt>
+      <dd class="font-medium">{{ warrantage.imf.nom }}</dd>
+    </div>
+    {% endif %}
+    <div class="flex justify-between text-sm py-2 border-b border-gray-50">
+      <dt class="text-gray-500">{% trans "Mode de paiement" %}</dt>
+      <dd>{{ warrantage.mode_paiement }} {% if warrantage.numero_paiement %}— {{ warrantage.numero_paiement }}{% endif %}</dd>
+    </div>
+    <div class="flex justify-between text-sm py-2">
+      <dt class="text-gray-500">{% trans "Date de demande" %}</dt>
+      <dd>{{ warrantage.date_demande|date:"d/m/Y H:i" }}</dd>
+    </div>
+  </dl>
+
+  {% if warrantage.motif_refus %}
+  <div class="mt-4 p-3 bg-red-50 border border-red-200 rounded-lg">
+    <p class="text-xs font-medium text-red-700 mb-1">{% trans "Motif du refus" %}</p>
+    <p class="text-sm text-red-800">{{ warrantage.motif_refus }}</p>
+  </div>
+  {% endif %}
+
+  <div class="mt-6">
+    <a href="javascript:history.back()" class="btn btn-secondary w-full">← {% trans "Retour" %}</a>
+  </div>
+
+</div>
+{% endblock %}

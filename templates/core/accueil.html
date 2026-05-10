@@ -1,0 +1,118 @@
+{% extends "base.html" %}
+{% load static i18n %}
+
+{% block title %}{% trans "Stockez mieux, vendez au bon moment" %}{% endblock %}
+
+{% block content %}
+<!-- Hero -->
+<section class="relative text-white py-32 px-4 overflow-hidden min-h-[600px] flex items-center"
+  style="background-image: url('{% static 'img/hero_silos.png' %}'); background-size: cover; background-position: center; background-repeat: no-repeat;">
+
+  <!-- Overlay dégradé sombre pour lisibilité du texte -->
+  <div class="absolute inset-0" style="background: linear-gradient(135deg, rgba(20,77,44,0.82) 0%, rgba(10,40,22,0.75) 60%, rgba(0,0,0,0.55) 100%);"></div>
+
+  <div class="relative z-10 max-w-4xl mx-auto text-center w-full">
+    <div class="inline-flex items-center gap-2 bg-white/15 backdrop-blur-sm rounded-full px-4 py-1.5 text-sm mb-6 border border-white/20">
+      <span>🌾</span> {% trans "Plateforme agricole intelligente — Sénégal" %}
+    </div>
+    <h1 class="text-4xl lg:text-6xl font-bold leading-tight mb-6 drop-shadow-lg">
+      {% trans "Stockez mieux." %}<br>{% trans "Vendez au bon prix." %}
+    </h1>
+    <p class="text-xl text-white/85 max-w-2xl mx-auto mb-10 leading-relaxed drop-shadow">
+      {% blocktrans %}Grenier Commun connecte les agriculteurs sénégalais à des silos sécurisés, au financement warrantage et aux meilleurs acheteurs — dans votre langue.{% endblocktrans %}
+    </p>
+    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+      <a href="{% url 'accounts:inscription' %}" class="btn btn-gold btn-lg shadow-lg">
+        {% trans "Ouvrir mon compte gratuit" %}
+      </a>
+      <a href="#comment-ca-marche"
+        class="btn btn-lg bg-white/15 text-white hover:bg-white/25 border border-white/30 backdrop-blur-sm">
+        {% trans "Comment ça marche ?" %}
+      </a>
+    </div>
+    <div class="flex items-center justify-center gap-6 mt-12 text-sm text-white/70 flex-wrap">
+      <span>🇫🇷 Français</span>
+      <span>🇸🇳 Wolof</span>
+      <span>🇬🇧 English</span>
+      <span>🇸🇦 العربية</span>
+    </div>
+  </div>
+</section>
+
+<!-- Stats -->
+<section class="bg-white py-12 border-b border-gray-100">
+  <div class="max-w-5xl mx-auto px-4">
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-8 text-center">
+      <div>
+        <p class="text-3xl font-bold text-gc-700">30-40%</p>
+        <p class="text-sm text-gray-500 mt-1">{% trans "de récoltes perdues" %}<br>{% trans "faute de stockage" %}</p>
+      </div>
+      <div>
+        <p class="text-3xl font-bold text-gc-700">2×</p>
+        <p class="text-sm text-gray-500 mt-1">{% trans "le prix peut doubler" %}<br>{% trans "en 3-4 mois" %}</p>
+      </div>
+      <div>
+        <p class="text-3xl font-bold text-gc-700">70%</p>
+        <p class="text-sm text-gray-500 mt-1">{% trans "du stock valorisable" %}<br>{% trans "en crédit warrantage" %}</p>
+      </div>
+      <div>
+        <p class="text-3xl font-bold text-gc-700">{% trans "4 langues" %}</p>
+        <p class="text-sm text-gray-500 mt-1">FR · EN · WO · AR<br>IA Meta NLLB-200</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Comment ça marche -->
+<section class="py-20 px-4 bg-gray-50" id="comment-ca-marche">
+  <div class="max-w-5xl mx-auto">
+    <h2 class="text-3xl font-bold text-center text-gray-900 mb-4">{% trans "Comment ça marche ?" %}</h2>
+    <p class="text-center text-gray-500 mb-14 max-w-xl mx-auto">
+      {% trans "Trois étapes simples pour sortir de la trappe du vendeur contraint" %}
+    </p>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div class="gc-card text-center">
+        <div class="w-14 h-14 bg-gc-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
+          <span class="text-3xl">🏪</span>
+        </div>
+        <div class="w-7 h-7 bg-gc-700 text-white rounded-full text-sm font-bold flex items-center justify-center mx-auto mb-4">1</div>
+        <h3 class="font-semibold text-gray-900 mb-2">{% trans "Déposez votre récolte" %}</h3>
+        <p class="text-sm text-gray-500 leading-relaxed">
+          {% blocktrans %}Le gestionnaire de votre silo enregistre votre dépôt. Vous recevez un reçu numérique par SMS et l'état de votre stock est mis à jour en temps réel.{% endblocktrans %}
+        </p>
+      </div>
+      <div class="gc-card text-center">
+        <div class="w-14 h-14 bg-gold-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
+          <span class="text-3xl">💳</span>
+        </div>
+        <div class="w-7 h-7 bg-gold-500 text-white rounded-full text-sm font-bold flex items-center justify-center mx-auto mb-4">2</div>
+        <h3 class="font-semibold text-gray-900 mb-2">{% trans "Obtenez un crédit" %}</h3>
+        <p class="text-sm text-gray-500 leading-relaxed">
+          {% blocktrans %}Empruntez jusqu'à 70% de la valeur de votre stock sans vous déplacer. Fonds virés en 48h sur Wave ou Orange Money.{% endblocktrans %}
+        </p>
+      </div>
+      <div class="gc-card text-center">
+        <div class="w-14 h-14 bg-gc-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
+          <span class="text-3xl">📈</span>
+        </div>
+        <div class="w-7 h-7 bg-gc-700 text-white rounded-full text-sm font-bold flex items-center justify-center mx-auto mb-4">3</div>
+        <h3 class="font-semibold text-gray-900 mb-2">{% trans "Vendez au bon moment" %}</h3>
+        <p class="text-sm text-gray-500 leading-relaxed">
+          {% blocktrans %}Suivez les prix du marché et recevez des recommandations hebdomadaires. Vendez quand les prix sont au plus haut, pas quand vous êtes pressé.{% endblocktrans %}
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA final -->
+<section class="py-20 px-4 bg-gc-700 text-white text-center">
+  <h2 class="text-3xl font-bold mb-4">{% trans "Prêt à rejoindre Grenier Commun ?" %}</h2>
+  <p class="text-gc-200 mb-8 max-w-xl mx-auto">
+    {% blocktrans %}Que vous soyez agriculteur, gestionnaire de commune ou acheteur professionnel — votre espace vous attend.{% endblocktrans %}
+  </p>
+  <a href="{% url 'accounts:inscription' %}" class="btn btn-gold btn-lg">
+    {% trans "Créer mon compte gratuitement" %}
+  </a>
+</section>
+{% endblock %}

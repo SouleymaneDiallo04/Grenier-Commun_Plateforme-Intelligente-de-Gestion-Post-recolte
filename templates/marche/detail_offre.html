@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% load humanize i18n %}
+
+{% block title %}{% trans "Offre" %} OFF-{{ offre.pk|stringformat:"05d" }}{% endblock %}
+{% block page_title %}{% trans "Détail de l'offre" %}{% endblock %}
+{% block sidebar_nav %}{% include "partials/sidebar_nav.html" %}{% endblock %}
+
+{% block content %}
+<div class="max-w-xl mx-auto gc-card">
+
+  <div class="flex items-center justify-between mb-6">
+    <p class="font-mono text-lg font-bold text-gc-700">OFF-{{ offre.pk|stringformat:"05d" }}</p>
+    <span class="badge badge-{% if offre.statut == 'SOUMISE' %}orange{% elif offre.statut == 'ACCEPTEE' %}vert{% elif offre.statut == 'REFUSEE' %}rouge{% else %}gc{% endif %} px-3 py-1">
+      {{ offre.get_statut_display }}
+    </span>
+  </div>
+
+  <dl class="space-y-3">
+    <div class="flex justify-between text-sm py-2 border-b border-gray-50">
+      <dt class="text-gray-500">{% trans "Denrée" %}</dt><dd class="font-bold">{{ offre.denree.nom }}</dd>
+    </div>
+    <div class="flex justify-between text-sm py-2 border-b border-gray-50">
+      <dt class="text-gray-500">{% trans "Quantité souhaitée" %}</dt><dd class="font-bold">{{ offre.quantite_kg|floatformat:0|intcomma }} kg</dd>
+    </div>
+    <div class="flex justify-between text-sm py-2 border-b border-gray-50">
+      <dt class="text-gray-500">{% trans "Prix proposé" %}</dt><dd class="font-bold text-gold-600">{{ offre.prix_propose_fcfa|floatformat:0|intcomma }} FCFA/kg</dd>
+    </div>
+    <div class="flex justify-between text-sm py-2 border-b border-gray-50">
+      <dt class="text-gray-500">{% trans "Région préférée" %}</dt><dd>{{ offre.region_preferee|default:"—" }}</dd>
+    </div>
+    <div class="flex justify-between text-sm py-2">
+      <dt class="text-gray-500">{% trans "Date de soumission" %}</dt><dd>{{ offre.date_offre|date:"d/m/Y H:i" }}</dd>
+    </div>
+  </dl>
+
+  {% if offre.notes %}
+  <div class="mt-4 p-3 bg-gray-50 rounded-lg">
+    <p class="text-xs text-gray-500 mb-1">{% trans "Notes" %}</p>
+    <p class="text-sm">{{ offre.notes }}</p>
+  </div>
+  {% endif %}
+
+  <div class="mt-6">
+    <a href="{% url 'marche:dashboard' %}" class="btn btn-secondary w-full">← {% trans "Retour" %}</a>
+  </div>
+
+</div>
+{% endblock %}

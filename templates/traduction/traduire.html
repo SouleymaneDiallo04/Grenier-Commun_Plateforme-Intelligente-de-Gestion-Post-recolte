@@ -1,0 +1,223 @@
+{% extends "base.html" %}
+{% load static i18n %}
+
+{% block title %}{% trans "Module Traduction IA" %}{% endblock %}
+{% block page_title %}{% trans "Module Traduction IA" %}{% endblock %}
+{% block page_subtitle %}{% trans "Traduisez le contenu métier en Français, Anglais, Arabe et Wolof" %}{% endblock %}
+
+{% block sidebar_nav %}
+{% include "partials/sidebar_nav.html" %}
+{% endblock %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto space-y-6">
+
+  <div class="gc-card border-l-4 border-l-gc-700 bg-gradient-to-r from-gc-50 to-white">
+    <div class="flex items-start gap-4">
+      <div class="w-12 h-12 bg-gc-700 rounded-xl flex items-center justify-center flex-shrink-0">
+        <svg class="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"/>
+        </svg>
+      </div>
+      <div>
+        <h2 class="font-semibold text-gray-900 mb-1">{% trans "Traduction intelligente multilingue" %}</h2>
+        <p class="text-sm text-gray-600 leading-relaxed">
+          {% trans "Ce module utilise Google Translate pour le Français, l'Anglais et l'Arabe, et Meta NLLB-200 pour le Wolof." %}
+        </p>
+        <div class="flex flex-wrap items-center gap-3 mt-3">
+          <span class="badge badge-gc">🇫🇷 Français</span>
+          <span class="text-gray-300">↔</span>
+          <span class="badge badge-bleu">🇬🇧 English</span>
+          <span class="text-gray-300">↔</span>
+          <span class="badge" style="background:#fef3c7;color:#92400e;">🇸🇦 العربية</span>
+          <span class="text-gray-300">↔</span>
+          <span class="badge badge-gold">🇸🇳 Wolof</span>
+        </div>
+        <p class="text-xs text-gray-400 mt-2">⚠️ {% trans "La traduction Wolof nécessite une clé Hugging Face (HUGGINGFACE_API_KEY)." %}</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="gc-card">
+    <h3 class="font-semibold text-gray-900 mb-5">{% trans "Traduire un contenu" %}</h3>
+
+    <form method="POST" action="{% url 'traduction:traduire' %}" class="space-y-5" id="form-traduction">
+      {% csrf_token %}
+
+      <div class="flex items-center gap-3">
+        <div class="flex-1">
+          <label class="gc-label">{% trans "Langue source" %}</label>
+          <select name="langue_source" class="gc-select">
+            {% for code, info in langues.items %}
+            <option value="{{ code }}" {% if code == 'fr' %}selected{% endif %}>
+              {{ info.flag }} {{ info.nom }}
+            </option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <div class="flex-shrink-0 mt-6">
+          <button type="button" id="btn-inverser"
+            class="w-10 h-10 flex items-center justify-center rounded-lg border border-gray-200 hover:border-gc-700 hover:bg-gc-50 transition-colors text-gray-500 hover:text-gc-700">
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/>
+            </svg>
+          </button>
+        </div>
+
+        <div class="flex-1">
+          <label class="gc-label">{% trans "Langue cible" %}</label>
+          <select name="langue_cible" class="gc-select">
+            {% for code, info in langues.items %}
+            <option value="{{ code }}" {% if code == 'wo' %}selected{% endif %}>
+              {{ info.flag }} {{ info.nom }}
+            </option>
+            {% endfor %}
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <label class="gc-label">{% trans "Type de contenu" %}</label>
+        <select name="type_contenu" class="gc-select">
+          {% for code, label in types_contenu %}
+          <option value="{{ code }}">{{ label }}</option>
+          {% endfor %}
+        </select>
+        <p class="gc-helper">{% trans "Aide à améliorer la qualité des traductions futures" %}</p>
+      </div>
+
+      <div>
+        <label class="gc-label">{% trans "Texte à traduire" %}</label>
+        <textarea name="texte" rows="6" class="gc-input resize-none"
+          placeholder="{% trans 'Collez ici le texte à traduire : reçu de dépôt, message alerte, recommandation...' %}"
+          id="texte-source">{{ request.POST.texte }}</textarea>
+        <div class="flex justify-between mt-1">
+          <p class="gc-helper">{% trans "Contenu métier uniquement — reçus, alertes, recommandations, messages" %}</p>
+          <span class="gc-helper" id="compteur">{% trans "0 caractères" %}</span>
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-primary w-full btn-lg">
+        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"/>
+        </svg>
+        {% trans "Traduire" %}
+      </button>
+    </form>
+  </div>
+
+  {% if resultat and resultat.succes %}
+  <div class="gc-card border border-gc-200 animate-slide-up" id="resultat-traduction">
+    <div class="flex items-center justify-between mb-4">
+      <h3 class="font-semibold text-gray-900">{% trans "Traduction" %}</h3>
+      <div class="flex items-center gap-2">
+        {% if resultat.depuis_cache %}
+        <span class="badge badge-gris">⚡ Cache</span>
+        {% else %}
+        <span class="badge badge-gc">🤖 {{ resultat.moteur }}</span>
+        {% endif %}
+        {% if resultat.temps_ms %}
+        <span class="text-xs text-gray-400">{{ resultat.temps_ms }}ms</span>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="translate-box mb-4">
+      <p class="text-gray-800 leading-relaxed whitespace-pre-wrap" id="texte-traduit">{{ resultat.texte_traduit }}</p>
+    </div>
+
+    <div class="flex flex-wrap items-center gap-3">
+      <button onclick="copierTraduction()" class="btn btn-secondary btn-sm">
+        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+        </svg>
+        {% trans "Copier" %}
+      </button>
+
+      {% if log_id %}
+      <button onclick="document.getElementById('form-correction').classList.toggle('hidden')"
+        class="btn btn-ghost btn-sm">
+        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
+        </svg>
+        {% trans "Suggérer une correction" %}
+      </button>
+
+      <div id="form-correction" class="hidden w-full mt-3 p-4 bg-yellow-50 border border-yellow-200 rounded-xl">
+        <p class="text-sm font-medium text-yellow-800 mb-3">
+          💡 {% trans "Votre suggestion aide à améliorer les traductions futures en Wolof" %}
+        </p>
+        <form method="POST" action="{% url 'traduction:evaluer' log_id %}">
+          {% csrf_token %}
+          <textarea name="suggestion" rows="3" class="gc-input resize-none mb-3"
+            placeholder="{% trans 'Écrivez ici la meilleure traduction selon vous...' %}"></textarea>
+          <div class="flex gap-2">
+            <button type="submit" class="btn btn-gold btn-sm">{% trans "Envoyer la suggestion" %}</button>
+            <button type="button" onclick="document.getElementById('form-correction').classList.add('hidden')"
+              class="btn btn-ghost btn-sm">{% trans "Annuler" %}</button>
+          </div>
+        </form>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+  {% elif resultat and not resultat.succes %}
+  <div class="gc-card border border-red-200 bg-red-50">
+    <p class="text-sm text-red-700">
+      ❌ {% trans "La traduction a échoué" %} : {{ resultat.erreur|default:"Erreur inconnue" }}. {% trans "Veuillez réessayer." %}
+    </p>
+  </div>
+  {% endif %}
+
+  <div class="flex justify-between items-center">
+    <a href="{% url 'traduction:historique' %}" class="btn btn-ghost btn-sm">
+      <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+      </svg>
+      {% trans "Voir mon historique" %}
+    </a>
+    <p class="text-xs text-gray-400">Powered by Google Translate (fr/en/ar) · Meta NLLB-200 (wo)</p>
+  </div>
+
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+  const texteSource = document.getElementById('texte-source');
+  const compteur = document.getElementById('compteur');
+  if (texteSource) {
+    function updateCompteur() {
+      compteur.textContent = texteSource.value.length + ' {% trans "caractères" %}';
+    }
+    texteSource.addEventListener('input', updateCompteur);
+    updateCompteur();
+  }
+
+  document.getElementById('btn-inverser')?.addEventListener('click', () => {
+    const src = document.querySelector('[name="langue_source"]');
+    const tgt = document.querySelector('[name="langue_cible"]');
+    const tmp = src.value;
+    src.value = tgt.value;
+    tgt.value = tmp;
+  });
+
+  function copierTraduction() {
+    const texte = document.getElementById('texte-traduit')?.textContent;
+    if (texte) {
+      navigator.clipboard.writeText(texte).then(() => {
+        const btn = event.target.closest('button');
+        btn.textContent = '✅ {% trans "Copié !" %}';
+        setTimeout(() => btn.innerHTML = `<svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg> {% trans "Copier" %}`, 2000);
+      });
+    }
+  }
+
+  {% if resultat %}
+  document.getElementById('resultat-traduction')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  {% endif %}
+</script>
+{% endblock %}

@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Nouvelle offre" %}{% endblock %}
+{% block page_title %}{% trans "Soumettre une offre d'achat" %}{% endblock %}
+
+{% block sidebar_nav %}{% include "partials/sidebar_nav.html" %}{% endblock %}
+
+{% block content %}
+
+<div class="max-w-xl mx-auto gc-card">
+
+  <form method="POST" class="space-y-5">
+    {% csrf_token %}
+
+    <div>
+      <label class="gc-label">{% trans "Denrée" %} <span class="text-red-500">*</span></label>
+      <select name="denree" class="gc-select" required id="denree_select">
+        <option value="">-- {% trans "Sélectionnez" %} --</option>
+        {% for d in denrees %}<option value="{{ d.pk }}">{{ d.nom }}</option>{% endfor %}
+      </select>
+    </div>
+
+    <div class="grid grid-cols-2 gap-4">
+      <div>
+        <label class="gc-label">{% trans "Quantité souhaitée (kg)" %} <span class="text-red-500">*</span></label>
+        <input type="number" name="quantite_kg" class="gc-input" placeholder="ex: 2000" min="100" step="50" required>
+      </div>
+      <div>
+        <label class="gc-label">{% trans "Prix proposé (FCFA/kg)" %} <span class="text-red-500">*</span></label>
+        <input type="number" name="prix_propose_fcfa" class="gc-input" id="prix_input" placeholder="ex: 200" min="1" step="1" required>
+        <p class="gc-helper" id="prix_ref_hint"></p>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-2 gap-4">
+      <div>
+        <label class="gc-label">{% trans "Région préférée" %}</label>
+        <input type="text" name="region_preferee" class="gc-input" placeholder="ex: Kaolack">
+      </div>
+      <div>
+        <label class="gc-label">{% trans "Délai souhaité (jours)" %}</label>
+        <input type="number" name="delai_souhaite_jours" class="gc-input" value="30" min="7" max="180">
+      </div>
+    </div>
+
+    <div>
+      <label class="gc-label">{% trans "Notes complémentaires" %}</label>
+      <textarea name="notes" rows="3" class="gc-input resize-none" placeholder="{% trans 'Qualité souhaitée, conditions particulières...' %}"></textarea>
+    </div>
+
+    <p class="text-sm text-gray-500 bg-gray-50 p-3 rounded-lg">
+      ℹ️ {% trans "Votre offre sera transmise à notre équipe qui identifiera les agriculteurs correspondants et vous contactera sous 48h." %}
+    </p>
+
+    <div class="flex gap-3">
+      <button type="submit" class="btn btn-primary btn-lg flex-1">✅ {% trans "Soumettre l'offre" %}</button>
+      <a href="{% url 'marche:catalogue' %}" class="btn btn-ghost btn-lg">{% trans "Annuler" %}</a>
+    </div>
+
+  </form>
+
+</div>
+
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+const prixSuggestions = {{ prix_suggestions|safe }};
+document.getElementById('denree_select').addEventListener('change', function() {
+  const hint = document.getElementById('prix_ref_hint');
+  const prix = prixSuggestions[this.value];
+  hint.textContent = prix ? `{% trans "Prix marché actuel" %} : ${parseInt(prix).toLocaleString()} FCFA/kg` : '';
+});
+</script>
+{% endblock %}

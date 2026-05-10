@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Mon profil" %}{% endblock %}
+{% block page_title %}{% trans "Mon profil" %}{% endblock %}
+{% block sidebar_nav %}{% include "partials/sidebar_nav.html" %}{% endblock %}
+
+{% block content %}
+<div class="max-w-xl mx-auto gc-card">
+  <form method="POST" enctype="multipart/form-data" class="space-y-5">
+    {% csrf_token %}
+
+    <div class="grid grid-cols-2 gap-4">
+      <div>
+        <label class="gc-label">{% trans "Prénom" %}</label>
+        <input type="text" name="prenom" class="gc-input" value="{{ user.prenom }}">
+      </div>
+      <div>
+        <label class="gc-label">{% trans "Nom" %}</label>
+        <input type="text" name="nom" class="gc-input" value="{{ user.nom }}">
+      </div>
+    </div>
+
+    <div>
+      <label class="gc-label">{% trans "Langue préférée" %}</label>
+      <select name="langue_preferee" class="gc-select">
+        {% for code, nom in langues.items %}
+        <option value="{{ code }}" {% if user.langue_preferee == code %}selected{% endif %}>{{ nom }}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <div>
+      <label class="gc-label">{% trans "Village" %}</label>
+      <input type="text" name="village" class="gc-input" value="{{ profil.village }}">
+    </div>
+
+    <div>
+      <label class="gc-label">{% trans "Superficie (hectares)" %}</label>
+      <input type="number" name="superficie_ha" class="gc-input" value="{{ profil.superficie_ha|default:'' }}" step="0.1">
+    </div>
+
+    <div>
+      <label class="gc-label">{% trans "Présentation" %}</label>
+      <textarea name="bio" rows="3" class="gc-input resize-none">{{ profil.bio }}</textarea>
+    </div>
+
+    <div class="p-4 bg-gc-50 rounded-xl border border-gc-200">
+      <div class="flex justify-between items-center mb-2">
+        <p class="text-sm font-medium text-gc-700">{% trans "Score de crédit" %}</p>
+        <span class="font-bold text-gc-700">{{ profil.score_credit }}/100</span>
+      </div>
+      <div class="progress-bar">
+        <div class="progress-fill {% if profil.score_credit >= 70 %}low{% elif profil.score_credit >= 40 %}medium{% else %}high{% endif %}"
+          style="width: {{ profil.score_credit }}%"></div>
+      </div>
+      <p class="text-xs text-gray-500 mt-1">
+        {% trans "Catégorie" %} : <strong>{{ profil.categorie_risque }}</strong> —
+        {% trans "Le score s'améliore avec l'ancienneté et les remboursements" %}
+      </p>
+    </div>
+
+    <button type="submit" class="btn btn-primary w-full">{% trans "Enregistrer les modifications" %}</button>
+  </form>
+</div>
+{% endblock %}

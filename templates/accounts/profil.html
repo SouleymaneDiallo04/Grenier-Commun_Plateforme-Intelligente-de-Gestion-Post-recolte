@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Mon Profil" %}{% endblock %}
+{% block page_title %}{% trans "Mon profil" %}{% endblock %}
+{% block sidebar_nav %}{% include "partials/sidebar_nav.html" %}{% endblock %}
+
+{% block content %}
+<div class="max-w-xl mx-auto space-y-6">
+
+  <div class="gc-card text-center">
+    <div class="w-20 h-20 rounded-full bg-gc-100 flex items-center justify-center mx-auto mb-3">
+      {% if user.avatar %}
+      <img src="{{ user.avatar.url }}" alt="" class="w-20 h-20 rounded-full object-cover">
+      {% else %}
+      <span class="text-3xl font-bold text-gc-700">{{ user.prenom.0|upper }}{{ user.nom.0|upper }}</span>
+      {% endif %}
+    </div>
+    <p class="text-xl font-bold text-gray-900">{{ user.nom_complet }}</p>
+    <span class="badge badge-gc mt-2">{{ user.get_role_display }}</span>
+    <p class="text-sm text-gray-500 mt-2">{{ user.email }}</p>
+    {% if user.telephone %}<p class="text-sm text-gray-500">{{ user.telephone }}</p>{% endif %}
+  </div>
+
+  <div class="gc-card">
+    <h2 class="font-semibold text-gray-900 mb-5">{% trans "Modifier mes informations" %}</h2>
+    <form method="POST" enctype="multipart/form-data" class="space-y-5">
+      {% csrf_token %}
+
+      <div class="grid grid-cols-2 gap-4">
+        <div>
+          <label class="gc-label">{% trans "Prénom" %}</label>
+          <input type="text" name="prenom" class="gc-input" value="{{ user.prenom }}" required>
+        </div>
+        <div>
+          <label class="gc-label">{% trans "Nom" %}</label>
+          <input type="text" name="nom" class="gc-input" value="{{ user.nom }}" required>
+        </div>
+      </div>
+
+      <div>
+        <label class="gc-label">{% trans "Langue préférée" %}</label>
+        <select name="langue_preferee" class="gc-select">
+          {% for code, nom in langues.items %}
+          <option value="{{ code }}" {% if user.langue_preferee == code %}selected{% endif %}>
+            {% if code == 'fr' %}🇫🇷{% elif code == 'en' %}🇬🇧{% else %}🇸🇳{% endif %} {{ nom }}
+          </option>
+          {% endfor %}
+        </select>
+        <p class="gc-helper">{% trans "Les SMS et notifications vous seront envoyés dans cette langue" %}</p>
+      </div>
+
+      <div>
+        <label class="gc-label">{% trans "Photo de profil" %}</label>
+        <input type="file" name="avatar" accept="image/*" class="gc-input">
+      </div>
+
+      <button type="submit" class="btn btn-primary w-full">{% trans "Enregistrer les modifications" %}</button>
+    </form>
+  </div>
+
+</div>
+{% endblock %}

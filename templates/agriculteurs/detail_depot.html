@@ -1,0 +1,144 @@
+{% extends "base.html" %}
+{% load humanize i18n %}
+
+{% block title %}{% trans "Dépôt" %} {{ depot.numero_recu }}{% endblock %}
+{% block page_title %}{% trans "Mon dépôt" %}{% endblock %}
+{% block page_subtitle %}{{ depot.denree.nom }} — {{ depot.numero_recu }}{% endblock %}
+{% block sidebar_nav %}{% include "partials/sidebar_nav.html" %}{% endblock %}
+
+{% block content %}
+<div class="max-w-2xl mx-auto space-y-6">
+
+  <div class="gc-card border-l-4 {% if depot.silo.sante == 'VERT' %}border-l-green-500 bg-green-50{% elif depot.silo.sante == 'ORANGE' %}border-l-yellow-400 bg-yellow-50{% else %}border-l-red-500 bg-red-50{% endif %}">
+    <div class="flex items-center gap-3">
+      <span class="sante-dot {{ depot.silo.sante|lower }}"></span>
+      <div>
+        <p class="font-semibold text-gray-900">
+          {% if depot.silo.sante == 'VERT' %}{% trans "Votre récolte est en bon état" %} ✅
+          {% elif depot.silo.sante == 'ORANGE' %}{% trans "Surveillance requise" %} ⚠️
+          {% else %}{% trans "Intervention urgente nécessaire" %} 🚨{% endif %}
+        </p>
+        <p class="text-sm text-gray-600">{% trans "Silo" %} : {{ depot.silo.nom }} — {{ depot.silo.commune.nom }}</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="gc-card">
+    <h2 class="font-semibold text-gray-900 mb-4">{% trans "Mon stock" %}</h2>
+    <dl class="space-y-3">
+      <div class="flex justify-between items-center py-2 border-b border-gray-50">
+        <dt class="text-sm text-gray-500">{% trans "N° de reçu" %}</dt>
+        <dd class="font-mono text-gc-700 font-bold">{{ depot.numero_recu }}</dd>
+      </div>
+      <div class="flex justify-between items-center py-2 border-b border-gray-50">
+        <dt class="text-sm text-gray-500">{% trans "Denrée" %}</dt>
+        <dd class="font-medium">{{ depot.denree.nom }}</dd>
+      </div>
+      <div class="flex justify-between items-center py-2 border-b border-gray-50">
+        <dt class="text-sm text-gray-500">{% trans "Quantité déposée" %}</dt>
+        <dd class="font-medium">{{ depot.quantite_initiale_kg|floatformat:0|intcomma }} kg</dd>
+      </div>
+      <div class="flex justify-between items-center py-2 border-b border-gray-50">
+        <dt class="text-sm text-gray-500">{% trans "Quantité disponible" %}</dt>
+        <dd class="font-bold text-gc-700 text-lg">{{ depot.quantite_disponible_kg|floatformat:0|intcomma }} kg</dd>
+      </div>
+      {% if depot.valeur_estimee_fcfa %}
+      <div class="flex justify-between items-center py-2 border-b border-gray-50">
+        <dt class="text-sm text-gray-500">{% trans "Valeur estimée" %}</dt>
+        <dd class="font-bold text-gold-600">{{ depot.valeur_estimee_fcfa|floatformat:0|intcomma }} FCFA</dd>
+      </div>
+      {% if depot.montant_warrantable_fcfa %}
+      <div class="flex justify-between items-center py-2 border-b border-gray-50">
+        <dt class="text-sm text-gray-500">{% trans "Crédit disponible (70%)" %}</dt>
+        <dd class="font-bold text-gc-700">{{ depot.montant_warrantable_fcfa|floatformat:0|intcomma }} FCFA</dd>
+      </div>
+      {% endif %}
+      {% endif %}
+      <div class="flex justify-between items-center py-2">
+        <dt class="text-sm text-gray-500">{% trans "Date de dépôt" %}</dt>
+        <dd class="font-medium">{{ depot.date_depot|date:"d/m/Y" }}</dd>
+      </div>
+    </dl>
+  </div>
+
+  {% if warrantage %}
+  <div class="gc-card border-gold-200">
+    <h2 class="font-semibold text-gray-900 mb-3">{% trans "Crédit warrantage" %}</h2>
+    <div class="flex items-center justify-between">
+      <div>
+        <p class="text-sm text-gray-500">{% trans "Montant accordé" %}</p>
+        <p class="font-bold text-xl text-gc-700">{{ warrantage.montant_accorde_fcfa|floatformat:0|intcomma|default:"En attente" }} FCFA</p>
+      </div>
+      <span class="badge badge-gold px-3 py-1">{{ warrantage.get_statut_display }}</span>
+    </div>
+  </div>
+  {% elif depot.statut == 'ACTIF' and depot.montant_warrantable_fcfa %}
+  <div class="gc-card border-dashed border-2 border-gc-200 bg-gc-50">
+    <h2 class="font-semibold text-gc-700 mb-2">💳 {% trans "Vous pouvez emprunter" %}</h2>
+    <p class="text-2xl font-bold text-gc-700 mb-1">{{ depot.montant_warrantable_fcfa|floatformat:0|intcomma }} FCFA</p>
+    <p class="text-sm text-gray-600 mb-4">{% trans "Crédit warrantage adossé à votre stock — fonds virés en 48h sur Wave ou Orange Money." %}</p>
+    <a href="{% url 'agriculteurs:demander_warrantage' depot.pk %}" class="btn btn-gold btn-lg w-full">
+      🏦 {% trans "Demander ce crédit" %}
+    </a>
+  </div>
+  {% endif %}
+
+  <div class="gc-card">
+    <div class="flex items-center justify-between mb-3">
+      <h2 class="font-semibold text-gray-900">{% trans "Traduire ce reçu" %}</h2>
+      <div class="flex gap-2">
+        {% for code, info in langues.items %}
+        <button onclick="traduireRecu('{{ code }}')"
+          class="text-xs px-3 py-1 rounded-full border border-gc-200 hover:bg-gc-50 transition-colors">
+          {{ info.flag }} {{ info.nom }}
+        </button>
+        {% endfor %}
+      </div>
+    </div>
+    <div id="resultat-traduction" class="hidden translate-box">
+      <p class="text-sm text-gray-700" id="texte-traduit-recu"></p>
+    </div>
+  </div>
+
+  {% if retraits %}
+  <div class="gc-card">
+    <h2 class="font-semibold text-gray-900 mb-4">{% trans "Historique des mouvements" %}</h2>
+    <div class="space-y-2">
+      {% for r in retraits %}
+      <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+        <div>
+          <p class="text-sm font-medium">{{ r.get_type_retrait_display }}</p>
+          <p class="text-xs text-gray-500">{{ r.date_retrait|date:"d/m/Y H:i" }}</p>
+        </div>
+        <div class="text-right">
+          <p class="font-bold text-gray-900">{{ r.quantite_kg|floatformat:0 }} kg</p>
+          {% if r.prix_vente_fcfa %}
+          <p class="text-xs text-gold-600">à {{ r.prix_vente_fcfa|floatformat:0 }} FCFA/kg</p>
+          {% endif %}
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  {% endif %}
+
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+function traduireRecu(langue) {
+  const contenu = `{% trans "Reçu de dépôt" %} N°{{ depot.numero_recu }}. {% trans "Agriculteur" %}: {{ depot.agriculteur.nom_complet }}. {% trans "Denrée" %}: {{ depot.denree.nom }}. {% trans "Quantité" %}: {{ depot.quantite_disponible_kg|floatformat:0 }} kg. {% trans "Silo" %}: {{ depot.silo.nom }}, {{ depot.silo.commune.nom }}. {% trans "Date" %}: {{ depot.date_depot|date:"d/m/Y" }}.`;
+  fetch("{% url 'traduction:api_traduire' %}", {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json', 'X-CSRFToken': '{{ csrf_token }}'},
+    body: JSON.stringify({texte: contenu, langue_cible: langue, langue_source: 'fr', type_contenu: 'RECU'})
+  })
+  .then(r => r.json())
+  .then(data => {
+    document.getElementById('texte-traduit-recu').textContent = data.texte_traduit;
+    document.getElementById('resultat-traduction').classList.remove('hidden');
+  });
+}
+</script>
+{% endblock %}

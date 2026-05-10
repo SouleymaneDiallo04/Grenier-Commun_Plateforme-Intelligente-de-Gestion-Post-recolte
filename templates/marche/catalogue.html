@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% load humanize i18n %}
+
+{% block title %}{% trans "Catalogue" %}{% endblock %}
+{% block page_title %}{% trans "Catalogue des stocks disponibles" %}{% endblock %}
+
+{% block sidebar_nav %}{% include "partials/sidebar_nav.html" %}{% endblock %}
+
+{% block content %}
+
+<div class="space-y-6">
+
+  <div class="gc-card">
+    <form method="GET" class="flex flex-wrap gap-3 items-end">
+
+      <div>
+        <label class="gc-label">{% trans "Denrée" %}</label>
+        <select name="denree" class="gc-select">
+          <option value="">{% trans "Toutes" %}</option>
+          {% for d in denrees %}<option value="{{ d.pk }}" {% if denree_filtre == d.pk|stringformat:"s" %}selected{% endif %}>{{ d.nom }}</option>{% endfor %}
+        </select>
+      </div>
+
+      <div>
+        <label class="gc-label">{% trans "Région" %}</label>
+        <input type="text" name="region" class="gc-input" placeholder="ex: Kaolack" value="{{ region_filtre }}">
+      </div>
+
+      <div>
+        <label class="gc-label">{% trans "Quantité min (kg)" %}</label>
+        <input type="number" name="qte_min" class="gc-input" placeholder="ex: 500" value="{{ qte_min }}">
+      </div>
+
+      <button type="submit" class="btn btn-secondary">{% trans "Rechercher" %}</button>
+      <a href="{% url 'marche:catalogue' %}" class="btn btn-ghost">{% trans "Réinitialiser" %}</a>
+
+    </form>
+  </div>
+
+  <div class="gc-card">
+
+    <div class="flex items-center justify-between mb-4">
+      <h2 class="font-semibold text-gray-900">{% trans "Stocks disponibles" %}</h2>
+      <a href="{% url 'marche:nouvelle_offre' %}" class="btn btn-primary btn-sm">{% trans "Faire une offre →" %}</a>
+    </div>
+
+    {% if stocks %}
+    <div class="overflow-x-auto">
+      <table class="gc-table">
+        <thead>
+          <tr>
+            <th>{% trans "Denrée" %}</th>
+            <th>{% trans "Silo" %}</th>
+            <th>{% trans "Région" %}</th>
+            <th>{% trans "Quantité (kg)" %}</th>
+            <th>{% trans "Prix indicatif" %}</th>
+            <th>{% trans "Action" %}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for s in stocks %}
+          <tr>
+            <td class="font-semibold">{{ s.denree__nom }}</td>
+            <td>{{ s.silo__nom }}</td>
+            <td>{{ s.silo__commune__region }}</td>
+            <td class="font-bold text-gc-700">{{ s.quantite_totale|floatformat:0|intcomma }}</td>
+            <td>
+              {% if s.prix_min %}{{ s.prix_min|floatformat:0 }} – {{ s.prix_max|floatformat:0 }} FCFA/kg
+              {% else %}—{% endif %}
+            </td>
+            <td>
+              <a href="{% url 'marche:nouvelle_offre' %}?denree={{ s.denree__id }}" class="btn btn-secondary btn-sm">{% trans "Faire une offre" %}</a>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% else %}
+    <div class="empty-state">
+      <div class="empty-state-icon">📦</div>
+      <h3>{% trans "Aucun stock disponible" %}</h3>
+      <p>{% trans "Les stocks apparaissent ici dès que les agriculteurs déposent leurs récoltes." %}</p>
+    </div>
+    {% endif %}
+
+  </div>
+
+</div>
+
+{% endblock %}

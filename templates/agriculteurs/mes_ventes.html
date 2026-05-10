@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load humanize i18n %}
+
+{% block title %}{% trans "Mes ventes" %}{% endblock %}
+{% block page_title %}{% trans "Mes ventes" %}{% endblock %}
+{% block sidebar_nav %}{% include "partials/sidebar_nav.html" %}{% endblock %}
+
+{% block content %}
+<div class="gc-card">
+  {% if ventes %}
+  <table class="gc-table">
+    <thead><tr>
+      <th>{% trans "Date" %}</th>
+      <th>{% trans "Denrée" %}</th>
+      <th>{% trans "Quantité" %}</th>
+      <th>{% trans "Prix/kg" %}</th>
+      <th>{% trans "Total" %}</th>
+      <th>{% trans "Silo" %}</th>
+    </tr></thead>
+    <tbody>
+      {% for v in ventes %}
+      <tr>
+        <td>{{ v.date_retrait|date:"d/m/Y" }}</td>
+        <td class="font-semibold">{{ v.depot.denree.nom }}</td>
+        <td>{{ v.quantite_kg|floatformat:0|intcomma }} kg</td>
+        <td>{{ v.prix_vente_fcfa|floatformat:0|default:"—" }} FCFA</td>
+        <td class="font-bold text-gold-600">
+          {% if v.prix_vente_fcfa %}{{ v.quantite_kg|floatformat:0 }} × {{ v.prix_vente_fcfa|floatformat:0 }} FCFA{% else %}—{% endif %}
+        </td>
+        <td class="text-gray-500 text-sm">{{ v.depot.silo.nom }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <div class="empty-state">
+    <div class="empty-state-icon">💰</div>
+    <h3>{% trans "Aucune vente enregistrée" %}</h3>
+    <p>{% trans "Vos ventes apparaîtront ici une fois les transactions finalisées." %}</p>
+  </div>
+  {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+{% load humanize i18n %}
+{% block title %}{% trans "Gestion Marché" %}{% endblock %}
+{% block page_title %}{% trans "Gestion du marché" %}{% endblock %}
+{% block page_subtitle %}{% trans "Offres d'achat et matching" %}{% endblock %}
+{% block sidebar_nav %}{% include "partials/sidebar_nav.html" %}{% endblock %}
+
+{% block content %}
+<div class="space-y-6">
+
+  <div class="gc-card">
+    <h2 class="font-semibold text-gray-900 mb-4">{% trans "Offres d'achat reçues" %}</h2>
+    <div class="overflow-x-auto">
+      <table class="gc-table">
+        <thead>
+          <tr>
+            <th>{% trans "Réf." %}</th>
+            <th>{% trans "Acheteur" %}</th>
+            <th>{% trans "Denrée" %}</th>
+            <th>{% trans "Quantité" %}</th>
+            <th>{% trans "Prix proposé" %}</th>
+            <th>{% trans "Région" %}</th>
+            <th>{% trans "Statut" %}</th>
+            <th>{% trans "Action" %}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for offre in offres %}
+          <tr>
+            <td class="font-mono text-xs text-gc-700">OFF-{{ offre.pk|stringformat:"05d" }}</td>
+            <td>
+              <p class="font-medium text-sm">{{ offre.acheteur.nom_complet }}</p>
+              <p class="text-xs text-gray-400">{{ offre.date_offre|date:"d/m/Y" }}</p>
+            </td>
+            <td class="font-semibold">{{ offre.denree.nom }}</td>
+            <td>{{ offre.quantite_kg|floatformat:0|intcomma }} kg</td>
+            <td class="font-bold text-gold-600">{{ offre.prix_propose_fcfa|floatformat:0|intcomma }} FCFA/kg</td>
+            <td class="text-sm text-gray-500">{{ offre.region_preferee|default:"—" }}</td>
+            <td>
+              <span class="badge text-xs
+                {% if offre.statut == 'SOUMISE' %}badge-orange
+                {% elif offre.statut == 'ACCEPTEE' %}badge-vert
+                {% elif offre.statut == 'FINALISEE' %}badge-gc
+                {% else %}badge-gris{% endif %}">
+                {{ offre.get_statut_display }}
+              </span>
+            </td>
+            <td>
+              {% if offre.statut == 'SOUMISE' %}
+              <a href="?matcher={{ offre.pk }}" class="btn btn-secondary btn-sm">🎯 {% trans "Matcher" %}</a>
+              {% endif %}
+            </td>
+          </tr>
+          {% empty %}
+          <tr><td colspan="8" class="text-center text-gray-400 py-8">{% trans "Aucune offre" %}</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  {% if offre_selectionnee %}
+  <div class="gc-card border-gold-200 bg-gold-50">
+    <h2 class="font-semibold text-gold-700 mb-4">
+      🎯 {% trans "Stocks disponibles pour l'offre" %} OFF-{{ offre_selectionnee.pk|stringformat:"05d" }}
+      — {{ offre_selectionnee.denree.nom }} ({{ offre_selectionnee.quantite_kg|floatformat:0|intcomma }} kg)
+    </h2>
+    {% if depots_correspondants %}
+    <div class="space-y-3">
+      {% for depot in depots_correspondants %}
+      <div class="flex items-center justify-between p-4 bg-white rounded-xl border border-gold-200">
+        <div>
+          <p class="font-semibold text-gray-900">{{ depot.agriculteur.nom_complet }}</p>
+          <p class="text-sm text-gray-600">{{ depot.quantite_disponible_kg|floatformat:0|intcomma }} kg — {{ depot.silo.nom }}, {{ depot.silo.commune.nom }}</p>
+          {% if depot.prix_reference_fcfa %}
+          <p class="text-xs text-gray-500">{% trans "Prix ref" %} : {{ depot.prix_reference_fcfa|floatformat:0 }} FCFA/kg</p>
+          {% endif %}
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="sante-dot {{ depot.silo.sante|lower }}"></span>
+          <span class="text-sm font-medium">{{ depot.silo.get_sante_display }}</span>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    {% else %}
+    <p class="text-sm text-gray-600">{% trans "Aucun stock correspondant disponible pour cette offre." %}</p>
+    {% endif %}
+  </div>
+  {% endif %}
+
+</div>
+{% endblock %}

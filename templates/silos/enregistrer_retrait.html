@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% load humanize i18n %}
+
+{% block title %}{% trans "Enregistrer un retrait" %}{% endblock %}
+{% block page_title %}{% trans "Enregistrer un retrait" %}{% endblock %}
+{% block page_subtitle %}{% trans "Dépôt" %} {{ depot.numero_recu }} — {{ depot.agriculteur.nom_complet }}{% endblock %}
+{% block sidebar_nav %}{% include "partials/sidebar_nav.html" %}{% endblock %}
+
+{% block content %}
+<div class="max-w-xl mx-auto space-y-6">
+
+  <div class="gc-card border-gc-200 bg-gc-50">
+    <div class="grid grid-cols-3 gap-4 text-center">
+      <div>
+        <p class="text-xs text-gray-500">{% trans "Denrée" %}</p>
+        <p class="font-bold text-gray-900">{{ depot.denree.nom }}</p>
+      </div>
+      <div>
+        <p class="text-xs text-gray-500">{% trans "Disponible" %}</p>
+        <p class="font-bold text-gc-700">{{ depot.quantite_disponible_kg|floatformat:0|intcomma }} kg</p>
+      </div>
+      <div>
+        <p class="text-xs text-gray-500">{% trans "Silo" %}</p>
+        <p class="font-bold text-gray-900">{{ depot.silo.nom }}</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="gc-card">
+    <h2 class="font-semibold text-gray-900 mb-6">{% trans "Détails du retrait" %}</h2>
+    <form method="POST" class="space-y-5">
+      {% csrf_token %}
+
+      <div>
+        <label class="gc-label">{% trans "Type de sortie" %} <span class="text-red-500">*</span></label>
+        <select name="type_retrait" class="gc-select" id="type_retrait" required>
+          <option value="RETRAIT">{% trans "Retrait par l'agriculteur" %}</option>
+          <option value="VENTE">{% trans "Vente via la plateforme" %}</option>
+        </select>
+      </div>
+
+      <div>
+        <label class="gc-label">{% trans "Quantité à retirer (kg)" %} <span class="text-red-500">*</span></label>
+        <input type="number" name="quantite_kg" class="gc-input"
+          placeholder="ex: 200" min="1" max="{{ depot.quantite_disponible_kg }}" step="0.1" required>
+        <p class="gc-helper">{% trans "Maximum disponible" %} : {{ depot.quantite_disponible_kg|floatformat:0|intcomma }} kg</p>
+      </div>
+
+      <div id="prix_vente_block" class="hidden">
+        <label class="gc-label">{% trans "Prix de vente (FCFA/kg)" %}</label>
+        <input type="number" name="prix_vente_fcfa" class="gc-input" placeholder="ex: 280" min="1" step="0.01">
+        <p class="gc-helper">{% trans "Prix négocié avec l'acheteur" %}</p>
+      </div>
+
+      <div>
+        <label class="gc-label">{% trans "Observations" %}</label>
+        <textarea name="observations" rows="2" class="gc-input resize-none"
+          placeholder="{% trans 'Remarques éventuelles...' %}"></textarea>
+      </div>
+
+      <div class="flex gap-3 pt-2">
+        <button type="submit" class="btn btn-primary btn-lg flex-1"
+          onclick="return confirm('{% trans 'Confirmer ce retrait ?' %}')">
+          ✅ {% trans "Confirmer le retrait" %}
+        </button>
+        <a href="{% url 'silos:detail_depot' depot.pk %}" class="btn btn-ghost btn-lg">{% trans "Annuler" %}</a>
+      </div>
+    </form>
+  </div>
+
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+  document.getElementById('type_retrait').addEventListener('change', function() {
+    const prixBlock = document.getElementById('prix_vente_block');
+    prixBlock.classList.toggle('hidden', this.value !== 'VENTE');
+  });
+</script>
+{% endblock %}

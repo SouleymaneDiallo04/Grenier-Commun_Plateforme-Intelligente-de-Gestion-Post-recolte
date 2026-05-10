@@ -1,0 +1,1247 @@
+# English translations for Grenier Commun
+# Copyright (C) 2024 Grenier Commun
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: en\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+# ── Interface commune ──────────────────────────────────────────────────────────
+msgid "Langue"
+msgstr "Language"
+
+msgid "Déconnexion"
+msgstr "Logout"
+
+msgid "Traduire"
+msgstr "Translate"
+
+msgid "Connexion"
+msgstr "Login"
+
+msgid "S'inscrire"
+msgstr "Sign up"
+
+msgid "Aide"
+msgstr "Help"
+
+msgid "Confidentialité"
+msgstr "Privacy"
+
+msgid "Stockage intelligent · Financement warrantage · Mise en marché"
+msgstr "Smart storage · Warrant financing · Market access"
+
+# ── Navigation gestionnaire silo ──────────────────────────────────────────────
+msgid "Mon Silo"
+msgstr "My Silo"
+
+msgid "Tableau de bord"
+msgstr "Dashboard"
+
+msgid "Nouveau dépôt"
+msgstr "New Deposit"
+
+msgid "Alertes"
+msgstr "Alerts"
+
+msgid "Outils"
+msgstr "Tools"
+
+msgid "Traduction IA"
+msgstr "AI Translation"
+
+# ── Navigation acheteur ────────────────────────────────────────────────────────
+msgid "Marché"
+msgstr "Market"
+
+msgid "Catalogue"
+msgstr "Catalog"
+
+msgid "Nouvelle offre"
+msgstr "New Offer"
+
+msgid "Mes transactions"
+msgstr "My Transactions"
+
+# ── Navigation IMF ─────────────────────────────────────────────────────────────
+msgid "Espace IMF"
+msgstr "IMF Space"
+
+msgid "Dossiers warrantage"
+msgstr "Warrant Files"
+
+# ── Navigation agriculteur ─────────────────────────────────────────────────────
+msgid "Mes stocks"
+msgstr "My Stocks"
+
+msgid "Prix du marché"
+msgstr "Market Prices"
+
+msgid "Financement"
+msgstr "Financing"
+
+msgid "Mes warrantages"
+msgstr "My Warrants"
+
+msgid "Mes ventes"
+msgstr "My Sales"
+
+msgid "Compte"
+msgstr "Account"
+
+msgid "Mon profil"
+msgstr "My Profile"
+
+# ── Navigation admin ───────────────────────────────────────────────────────────
+msgid "Administration"
+msgstr "Administration"
+
+msgid "Réseau de silos"
+msgstr "Silo Network"
+
+msgid "Utilisateurs"
+msgstr "Users"
+
+msgid "Opérations"
+msgstr "Operations"
+
+msgid "Warrantage"
+msgstr "Warrant"
+
+msgid "Finances"
+msgstr "Finances"
+
+msgid "Données & IA"
+msgstr "Data & AI"
+
+msgid "Traductions"
+msgstr "Translations"
+
+# ── Page d'accueil ─────────────────────────────────────────────────────────────
+msgid "Stockez mieux, vendez au bon moment"
+msgstr "Store smarter, sell at the right time"
+
+msgid "Plateforme agricole intelligente — Sénégal"
+msgstr "Intelligent Agricultural Platform — Senegal"
+
+msgid "Stockez mieux."
+msgstr "Store smarter."
+
+msgid "Vendez au bon prix."
+msgstr "Sell at the right price."
+
+msgid "Grenier Commun connecte les agriculteurs sénégalais à des silos sécurisés, au financement warrantage et aux meilleurs acheteurs — dans votre langue."
+msgstr "Grenier Commun connects Senegalese farmers to secure silos, warrant financing and top buyers — in your language."
+
+msgid "Ouvrir mon compte gratuit"
+msgstr "Open my free account"
+
+msgid "Comment ça marche ?"
+msgstr "How does it work?"
+
+msgid "de récoltes perdues"
+msgstr "of harvests lost"
+
+msgid "faute de stockage"
+msgstr "due to lack of storage"
+
+msgid "le prix peut doubler"
+msgstr "the price can double"
+
+msgid "en 3-4 mois"
+msgstr "in 3-4 months"
+
+msgid "du stock valorisable"
+msgstr "of stock can be leveraged"
+
+msgid "en crédit warrantage"
+msgstr "as warrant credit"
+
+msgid "4 langues"
+msgstr "4 languages"
+
+msgid "Trois étapes simples pour sortir de la trappe du vendeur contraint"
+msgstr "Three simple steps to escape the distress-sale trap"
+
+msgid "Déposez votre récolte"
+msgstr "Deposit your harvest"
+
+msgid "Le gestionnaire de votre silo enregistre votre dépôt. Vous recevez un reçu numérique par SMS et l'état de votre stock est mis à jour en temps réel."
+msgstr "The silo manager registers your deposit. You receive a digital receipt by SMS and your stock status is updated in real time."
+
+msgid "Obtenez un crédit"
+msgstr "Get financing"
+
+msgid "Empruntez jusqu'à 70% de la valeur de votre stock sans vous déplacer. Fonds virés en 48h sur Wave ou Orange Money."
+msgstr "Borrow up to 70% of your stock value without traveling. Funds transferred within 48h via Wave or Orange Money."
+
+msgid "Vendez au bon moment"
+msgstr "Sell at the right time"
+
+msgid "Suivez les prix du marché et recevez des recommandations hebdomadaires. Vendez quand les prix sont au plus haut, pas quand vous êtes pressé."
+msgstr "Track market prices and receive weekly recommendations. Sell when prices are at their highest, not when you are under pressure."
+
+msgid "Prêt à rejoindre Grenier Commun ?"
+msgstr "Ready to join Grenier Commun?"
+
+msgid "Que vous soyez agriculteur, gestionnaire de commune ou acheteur professionnel — votre espace vous attend."
+msgstr "Whether you are a farmer, commune manager or professional buyer — your space awaits."
+
+msgid "Créer mon compte gratuitement"
+msgstr "Create my account for free"
+
+# ── Dashboards ─────────────────────────────────────────────────────────────────
+msgid "Rapport mensuel"
+msgstr "Monthly Report"
+
+msgid "Dépôts actifs"
+msgstr "Active Deposits"
+
+msgid "Stock total"
+msgstr "Total Stock"
+
+msgid "Alertes actives"
+msgstr "Active Alerts"
+
+msgid "Agriculteurs"
+msgstr "Farmers"
+
+msgid "Silos actifs"
+msgstr "Active Silos"
+
+msgid "Tonnes stockées"
+msgstr "Tonnes Stored"
+
+msgid "Valeur totale"
+msgstr "Total Value"
+
+msgid "Offres en attente"
+msgstr "Pending Offers"
+
+msgid "Valeur estimée"
+msgstr "Estimated Value"
+
+msgid "Crédits actifs"
+msgstr "Active Credits"
+
+msgid "Capacité du silo"
+msgstr "Silo Capacity"
+
+msgid "kg utilisés"
+msgstr "kg used"
+
+msgid "kg capacité"
+msgstr "kg capacity"
+
+msgid "Conditions actuelles"
+msgstr "Current Conditions"
+
+msgid "Température"
+msgstr "Temperature"
+
+msgid "Humidité"
+msgstr "Humidity"
+
+msgid "Mettre à jour"
+msgstr "Update"
+
+msgid "Aucun silo assigné"
+msgstr "No silo assigned"
+
+msgid "Contactez l'administrateur Grenier Commun pour vous assigner un silo."
+msgstr "Contact the Grenier Commun administrator to assign you a silo."
+
+msgid "Gérer →"
+msgstr "Manage →"
+
+msgid "Acquitter"
+msgstr "Acknowledge"
+
+msgid "N° Reçu"
+msgstr "Receipt No."
+
+msgid "Denrée"
+msgstr "Commodity"
+
+msgid "Quantité (kg)"
+msgstr "Quantity (kg)"
+
+msgid "Statut"
+msgstr "Status"
+
+msgid "Date"
+msgstr "Date"
+
+msgid "Voir →"
+msgstr "View →"
+
+msgid "Aucun dépôt actif"
+msgstr "No active deposit"
+
+msgid "Enregistrez le premier dépôt de la saison."
+msgstr "Register the first deposit of the season."
+
+msgid "Mes stocks en cours"
+msgstr "My Active Stocks"
+
+msgid "Voir tout →"
+msgstr "View all →"
+
+msgid "Aucun stock en cours"
+msgstr "No active stock"
+
+msgid "Votre premier dépôt sera enregistré par le gestionnaire de votre silo."
+msgstr "Your first deposit will be registered by your silo manager."
+
+msgid "Recommandations cette semaine"
+msgstr "This week's recommendations"
+
+msgid "Recommandations mises à jour chaque lundi."
+msgstr "Recommendations updated every Monday."
+
+msgid "Voir les prix du marché"
+msgstr "View market prices"
+
+msgid "Dernières notifications"
+msgstr "Latest notifications"
+
+msgid "Voir toutes les notifications →"
+msgstr "View all notifications →"
+
+msgid "Maintenant"
+msgstr "Now"
+
+msgid "sem"
+msgstr "wk"
+
+msgid "Vue globale du réseau en temps réel"
+msgstr "Real-time global network view"
+
+msgid "Carte du réseau de silos"
+msgstr "Silo network map"
+
+msgid "Optimal"
+msgstr "Optimal"
+
+msgid "Surveillance"
+msgstr "Monitoring"
+
+msgid "Urgence"
+msgstr "Emergency"
+
+msgid "Alertes critiques"
+msgstr "Critical Alerts"
+
+msgid "Warrantages soumis"
+msgstr "Submitted Warrants"
+
+msgid "Traiter →"
+msgstr "Process →"
+
+msgid "Voir tous les dossiers"
+msgstr "View all files"
+
+msgid "Commissions ce mois"
+msgstr "This month's commissions"
+
+msgid "de commissions sur ventes"
+msgstr "in sales commissions"
+
+msgid "Voir les finances"
+msgstr "View finances"
+
+msgid "Voici l'état de vos stocks et recommandations du jour"
+msgstr "Here is the status of your stocks and today's recommendations"
+
+# ── Connexion / Inscription ────────────────────────────────────────────────────
+msgid "Accédez à votre espace Grenier Commun"
+msgstr "Access your Grenier Commun account"
+
+msgid "Mot de passe oublié ?"
+msgstr "Forgot your password?"
+
+msgid "Se connecter"
+msgstr "Log in"
+
+msgid "Pas encore de compte ?"
+msgstr "No account yet?"
+
+msgid "Créer un compte"
+msgstr "Create an account"
+
+msgid "Créer mon compte"
+msgstr "Create my account"
+
+msgid "Rejoignez le réseau Grenier Commun"
+msgstr "Join the Grenier Commun network"
+
+msgid "Numéro de téléphone"
+msgstr "Phone number"
+
+msgid "optionnel"
+msgstr "optional"
+
+msgid "Pour recevoir vos alertes et notifications par SMS"
+msgstr "To receive your alerts and notifications by SMS"
+
+msgid "Je suis"
+msgstr "I am"
+
+msgid "Langue préférée"
+msgstr "Preferred language"
+
+msgid "Confirmer le mot de passe"
+msgstr "Confirm password"
+
+msgid "Minimum 8 caractères"
+msgstr "Minimum 8 characters"
+
+msgid "Répétez le mot de passe"
+msgstr "Repeat your password"
+
+msgid "Déjà un compte ?"
+msgstr "Already have an account?"
+
+# ── Marché / Acheteur ─────────────────────────────────────────────────────────
+msgid "Tableau de bord Acheteur"
+msgstr "Buyer Dashboard"
+
+msgid "Mon espace acheteur"
+msgstr "My Buyer Space"
+
+msgid "Offres actives"
+msgstr "Active offers"
+
+msgid "denrées suivies"
+msgstr "tracked commodities"
+
+msgid "Mes offres en cours"
+msgstr "My ongoing offers"
+
+msgid "Nouvelle offre"
+msgstr "New offer"
+
+msgid "Aucune offre"
+msgstr "No offers"
+
+msgid "Faire une offre"
+msgstr "Make an offer"
+
+msgid "Prix du marché"
+msgstr "Market prices"
+
+msgid "Prix mis à jour chaque semaine."
+msgstr "Prices updated every week."
+
+msgid "Voir le catalogue complet"
+msgstr "View full catalogue"
+
+msgid "Catalogue des stocks disponibles"
+msgstr "Available stock catalogue"
+
+msgid "Toutes"
+msgstr "All"
+
+msgid "Rechercher"
+msgstr "Search"
+
+msgid "Réinitialiser"
+msgstr "Reset"
+
+msgid "Stocks disponibles"
+msgstr "Available stocks"
+
+msgid "Faire une offre →"
+msgstr "Make an offer →"
+
+msgid "Aucun stock disponible"
+msgstr "No stock available"
+
+msgid "Les stocks apparaissent ici dès que les agriculteurs déposent leurs récoltes."
+msgstr "Stocks appear here once farmers deposit their harvests."
+
+msgid "Prix indicatif"
+msgstr "Reference price"
+
+msgid "Nouvelle offre"
+msgstr "New offer"
+
+msgid "Soumettre une offre d'achat"
+msgstr "Submit a purchase offer"
+
+msgid "Sélectionnez"
+msgstr "Select"
+
+msgid "Quantité souhaitée (kg)"
+msgstr "Desired quantity (kg)"
+
+msgid "Prix proposé (FCFA/kg)"
+msgstr "Proposed price (FCFA/kg)"
+
+msgid "Région préférée"
+msgstr "Preferred region"
+
+msgid "Délai souhaité (jours)"
+msgstr "Desired lead time (days)"
+
+msgid "Notes complémentaires"
+msgstr "Additional notes"
+
+msgid "Qualité souhaitée, conditions particulières..."
+msgstr "Desired quality, special conditions..."
+
+msgid "Votre offre sera transmise à notre équipe qui identifiera les agriculteurs correspondants et vous contactera sous 48h."
+msgstr "Your offer will be forwarded to our team who will identify matching farmers and contact you within 48h."
+
+msgid "Soumettre l'offre"
+msgstr "Submit offer"
+
+msgid "Prix marché actuel"
+msgstr "Current market price"
+
+# ── Notifications ─────────────────────────────────────────────────────────────
+msgid "Mes notifications"
+msgstr "My notifications"
+
+msgid "notification(s)"
+msgstr "notification(s)"
+
+msgid "Lu"
+msgstr "Read"
+
+msgid "Aucune notification"
+msgstr "No notifications"
+
+msgid "Vos alertes, confirmations et messages apparaîtront ici."
+msgstr "Your alerts, confirmations and messages will appear here."
+
+# ── Mes transactions ───────────────────────────────────────────────────────────
+msgid "Historique des transactions"
+msgstr "Transaction history"
+
+msgid "Quantité"
+msgstr "Quantity"
+
+msgid "Montant total"
+msgstr "Total amount"
+
+msgid "Facture"
+msgstr "Invoice"
+
+msgid "Aucune transaction"
+msgstr "No transactions"
+
+msgid "Vos achats finalisés apparaîtront ici."
+msgstr "Your completed purchases will appear here."
+
+msgid "Voir le catalogue"
+msgstr "View catalogue"
+
+# ── Silos templates ────────────────────────────────────────────────────────────
+msgid "Rapport Mensuel"
+msgstr "Monthly Report"
+
+msgid "Dépôts"
+msgstr "Deposits"
+
+msgid "Kg entrés"
+msgstr "Kg in"
+
+msgid "Retraits"
+msgstr "Withdrawals"
+
+msgid "Kg sortis"
+msgstr "Kg out"
+
+msgid "Dépôts du mois"
+msgstr "Monthly deposits"
+
+msgid "Aucun dépôt ce mois-ci."
+msgstr "No deposits this month."
+
+msgid "Enregistrer un retrait"
+msgstr "Register a withdrawal"
+
+msgid "Type de sortie"
+msgstr "Exit type"
+
+msgid "Retrait par l'agriculteur"
+msgstr "Farmer withdrawal"
+
+msgid "Vente via la plateforme"
+msgstr "Sale via the platform"
+
+msgid "Quantité à retirer (kg)"
+msgstr "Quantity to withdraw (kg)"
+
+msgid "Maximum disponible"
+msgstr "Maximum available"
+
+msgid "Prix de vente (FCFA/kg)"
+msgstr "Sale price (FCFA/kg)"
+
+msgid "Prix négocié avec l'acheteur"
+msgstr "Price negotiated with the buyer"
+
+msgid "Observations"
+msgstr "Notes"
+
+msgid "Confirmer ce retrait ?"
+msgstr "Confirm this withdrawal?"
+
+msgid "Confirmer le retrait"
+msgstr "Confirm withdrawal"
+
+msgid "Annuler"
+msgstr "Cancel"
+
+msgid "Numéro de reçu"
+msgstr "Receipt number"
+
+msgid "Silo"
+msgstr "Silo"
+
+msgid "Commune"
+msgstr "Commune"
+
+msgid "Quantité initiale"
+msgstr "Initial quantity"
+
+msgid "Quantité disponible"
+msgstr "Available quantity"
+
+msgid "Date de dépôt"
+msgstr "Deposit date"
+
+msgid "Crédit en cours"
+msgstr "Ongoing credit"
+
+msgid "Retrait impossible tant que le crédit n'est pas remboursé."
+msgstr "Withdrawal not possible until credit is repaid."
+
+msgid "Aucun crédit warrantage sur ce dépôt."
+msgstr "No warrant credit on this deposit."
+
+msgid "Actions"
+msgstr "Actions"
+
+msgid "Historique des mouvements"
+msgstr "Movement history"
+
+msgid "Type"
+msgstr "Type"
+
+msgid "Prix/kg (FCFA)"
+msgstr "Price/kg (FCFA)"
+
+msgid "Alertes du silo"
+msgstr "Silo alerts"
+
+msgid "Mesuré"
+msgstr "Measured"
+
+msgid "Seuil"
+msgstr "Threshold"
+
+msgid "Décrivez l action corrective prise..."
+msgstr "Describe the corrective action taken..."
+
+msgid "Aucune alerte active"
+msgstr "No active alerts"
+
+msgid "Toutes les conditions du silo sont dans les normes."
+msgstr "All silo conditions are within standards."
+
+msgid "Retour au tableau de bord"
+msgstr "Back to dashboard"
+
+msgid "Capacité disponible"
+msgstr "Available capacity"
+
+msgid "utilisé"
+msgstr "used"
+
+msgid "Informations du dépôt"
+msgstr "Deposit information"
+
+msgid "L'agriculteur recevra un SMS de confirmation"
+msgstr "The farmer will receive a confirmation SMS"
+
+msgid "Prix de référence (FCFA/kg)"
+msgstr "Reference price (FCFA/kg)"
+
+msgid "Enregistrer le dépôt"
+msgstr "Register deposit"
+
+msgid "Disponible"
+msgstr "Available"
+
+msgid "Reçu N°"
+msgstr "Receipt N°"
+
+# ── IMF templates ──────────────────────────────────────────────────────────────
+msgid "En instruction"
+msgstr "Under review"
+
+msgid "Approuvés"
+msgstr "Approved"
+
+msgid "Remboursés"
+msgstr "Repaid"
+
+msgid "En défaut"
+msgstr "In default"
+
+msgid "Dossiers en attente de décision"
+msgstr "Files awaiting decision"
+
+msgid "Tous les dossiers"
+msgstr "All files"
+
+msgid "Score crédit"
+msgstr "Credit score"
+
+msgid "Instruire"
+msgstr "Review"
+
+msgid "Aucun dossier en attente"
+msgstr "No pending files"
+
+msgid "Dossiers Warrantage"
+msgstr "Warrant Files"
+
+msgid "Dossiers de warrantage"
+msgstr "Warrant files"
+
+msgid "Tous"
+msgstr "All"
+
+msgid "Filtrer"
+msgstr "Filter"
+
+msgid "Référence"
+msgstr "Reference"
+
+msgid "Montant demandé"
+msgstr "Requested amount"
+
+msgid "Score"
+msgstr "Score"
+
+msgid "Voir"
+msgstr "View"
+
+msgid "Aucun dossier"
+msgstr "No files"
+
+msgid "Dossier warrantage"
+msgstr "Warrant file"
+
+msgid "Nom"
+msgstr "Name"
+
+msgid "Téléphone"
+msgstr "Phone"
+
+msgid "Village"
+msgstr "Village"
+
+msgid "Stock en garantie"
+msgstr "Stock as collateral"
+
+msgid "Demande de crédit"
+msgstr "Credit application"
+
+msgid "Durée souhaitée"
+msgstr "Desired duration"
+
+msgid "mois"
+msgstr "months"
+
+msgid "Mode de paiement"
+msgstr "Payment method"
+
+msgid "Numéro"
+msgstr "Number"
+
+msgid "Prendre une décision"
+msgstr "Make a decision"
+
+msgid "Historique de cet agriculteur"
+msgstr "This farmer's history"
+
+msgid "Décision Dossier"
+msgstr "File Decision"
+
+msgid "Dossier"
+msgstr "File"
+
+msgid "Durée"
+msgstr "Duration"
+
+msgid "Approuver le crédit"
+msgstr "Approve the credit"
+
+msgid "Montant accordé (FCFA)"
+msgstr "Amount granted (FCFA)"
+
+msgid "Maximum"
+msgstr "Maximum"
+
+msgid "Taux d'intérêt mensuel (%)"
+msgstr "Monthly interest rate (%)"
+
+msgid "Durée accordée (mois)"
+msgstr "Granted duration (months)"
+
+msgid "Approuver et notifier l'agriculteur"
+msgstr "Approve and notify farmer"
+
+msgid "Refuser le dossier"
+msgstr "Reject the file"
+
+msgid "Motif du refus"
+msgstr "Reason for rejection"
+
+msgid "Expliquez brièvement la raison du refus..."
+msgstr "Briefly explain the reason for rejection..."
+
+msgid "Refuser et notifier l'agriculteur"
+msgstr "Reject and notify farmer"
+
+msgid "Retour au dossier"
+msgstr "Back to file"
+
+# ── Administration templates ───────────────────────────────────────────────────
+msgid "Données & Intelligence IA"
+msgstr "Data & AI Intelligence"
+
+msgid "Volumes stockés par denrée"
+msgstr "Stored volumes by commodity"
+
+msgid "Aucun stock actif dans le réseau."
+msgstr "No active stock in the network."
+
+msgid "Recommandations IA à valider"
+msgstr "AI recommendations to validate"
+
+msgid "Publier"
+msgstr "Publish"
+
+msgid "Aucune recommandation en attente"
+msgstr "No pending recommendations"
+
+msgid "Les recommandations sont générées automatiquement chaque lundi."
+msgstr "Recommendations are generated automatically every Monday."
+
+msgid "Tableau financier"
+msgstr "Financial dashboard"
+
+msgid "Total commissions sur ventes"
+msgstr "Total sales commissions"
+
+msgid "depuis le début"
+msgstr "since the beginning"
+
+msgid "Crédits warrantage actifs"
+msgstr "Active warrant credits"
+
+msgid "encours total"
+msgstr "total outstanding"
+
+msgid "Dernières transactions"
+msgstr "Latest transactions"
+
+msgid "Commission GC (2%)"
+msgstr "GC commission (2%)"
+
+msgid "Les transactions apparaîtront ici une fois les premières ventes finalisées."
+msgstr "Transactions will appear here once the first sales are finalized."
+
+msgid "Gestion Marché"
+msgstr "Market Management"
+
+msgid "Gestion du marché"
+msgstr "Market management"
+
+msgid "Offres d'achat et matching"
+msgstr "Purchase offers and matching"
+
+msgid "Offres d'achat reçues"
+msgstr "Purchase offers received"
+
+msgid "Réf."
+msgstr "Ref."
+
+msgid "Acheteur"
+msgstr "Buyer"
+
+msgid "Prix proposé"
+msgstr "Proposed price"
+
+msgid "Région"
+msgstr "Region"
+
+msgid "Action"
+msgstr "Action"
+
+msgid "Matcher"
+msgstr "Match"
+
+msgid "Stocks disponibles pour l'offre"
+msgstr "Stocks available for the offer"
+
+msgid "Prix ref"
+msgstr "Ref. price"
+
+msgid "Aucun stock correspondant disponible pour cette offre."
+msgstr "No matching stock available for this offer."
+
+msgid "Gestion des Silos"
+msgstr "Silo Management"
+
+msgid "silo(s) dans le réseau"
+msgstr "silo(s) in the network"
+
+msgid "Commune / Région"
+msgstr "Commune / Region"
+
+msgid "Gestionnaire"
+msgstr "Manager"
+
+msgid "Capacité"
+msgstr "Capacity"
+
+msgid "Remplissage"
+msgstr "Fill rate"
+
+msgid "Santé"
+msgstr "Health"
+
+msgid "Non assigné"
+msgstr "Unassigned"
+
+msgid "Aucun silo dans le réseau"
+msgstr "No silos in the network"
+
+msgid "Gestion Utilisateurs"
+msgstr "User Management"
+
+msgid "Gestion des utilisateurs"
+msgstr "User management"
+
+msgid "utilisateur(s)"
+msgstr "user(s)"
+
+msgid "Rôle"
+msgstr "Role"
+
+msgid "Tous les rôles"
+msgstr "All roles"
+
+msgid "Utilisateur"
+msgstr "User"
+
+msgid "Contact"
+msgstr "Contact"
+
+msgid "Pays"
+msgstr "Country"
+
+msgid "Vérifié"
+msgstr "Verified"
+
+msgid "Actif"
+msgstr "Active"
+
+msgid "Inactif"
+msgstr "Inactive"
+
+msgid "Inscrit le"
+msgstr "Registered on"
+
+msgid "Valider"
+msgstr "Validate"
+
+msgid "Aucun utilisateur trouvé"
+msgstr "No users found"
+
+msgid "Gestion Warrantage"
+msgstr "Warrant Management"
+
+msgid "Gestion du warrantage"
+msgstr "Warrant management"
+
+msgid "Tout voir"
+msgstr "View all"
+
+msgid "Denrée / Silo"
+msgstr "Commodity / Silo"
+
+msgid "IMF"
+msgstr "MFI"
+
+msgid "Supervision Traductions"
+msgstr "Translation Supervision"
+
+msgid "Supervision du module traduction"
+msgstr "Translation module supervision"
+
+msgid "Français"
+msgstr "French"
+
+msgid "Anglais"
+msgstr "English"
+
+msgid "note moyenne"
+msgstr "average score"
+
+msgid "Suggestions de correction soumises"
+msgstr "Submitted correction suggestions"
+
+msgid "SOURCE"
+msgstr "SOURCE"
+
+msgid "TRADUCTION"
+msgstr "TRANSLATION"
+
+msgid "SUGGESTION"
+msgstr "SUGGESTION"
+
+msgid "Par"
+msgstr "By"
+
+msgid "Anonyme"
+msgstr "Anonymous"
+
+msgid "Marquer traitée"
+msgstr "Mark as processed"
+
+msgid "Traitée"
+msgstr "Processed"
+
+msgid "Aucune correction soumise"
+msgstr "No corrections submitted"
+
+msgid "Les suggestions des utilisateurs pour améliorer les traductions apparaîtront ici."
+msgstr "User suggestions for improving translations will appear here."
+
+# ── Warrantage / Marché / Comptes ──────────────────────────────────────────────
+msgid "Détail du warrantage"
+msgstr "Warrant detail"
+
+msgid "Dépôt concerné"
+msgstr "Related deposit"
+
+msgid "Denrée en garantie"
+msgstr "Commodity as collateral"
+
+msgid "Montant accordé"
+msgstr "Amount granted"
+
+msgid "Taux mensuel"
+msgstr "Monthly rate"
+
+msgid "IMF partenaire"
+msgstr "Partner MFI"
+
+msgid "Date de demande"
+msgstr "Request date"
+
+msgid "Retour"
+msgstr "Back"
+
+msgid "Offre"
+msgstr "Offer"
+
+msgid "Détail de l'offre"
+msgstr "Offer detail"
+
+msgid "Quantité souhaitée"
+msgstr "Desired quantity"
+
+msgid "Date de soumission"
+msgstr "Submission date"
+
+msgid "Notes"
+msgstr "Notes"
+
+msgid "Mon Profil"
+msgstr "My Profile"
+
+msgid "Modifier mes informations"
+msgstr "Edit my information"
+
+msgid "Prénom"
+msgstr "First name"
+
+msgid "Les SMS et notifications vous seront envoyés dans cette langue"
+msgstr "SMS and notifications will be sent to you in this language"
+
+msgid "Photo de profil"
+msgstr "Profile photo"
+
+msgid "Enregistrer les modifications"
+msgstr "Save changes"
+
+msgid "Vérification OTP"
+msgstr "OTP Verification"
+
+msgid "Vérification du téléphone"
+msgstr "Phone verification"
+
+msgid "Entrez le code à 6 chiffres reçu par SMS"
+msgstr "Enter the 6-digit code received by SMS"
+
+msgid "Code OTP"
+msgstr "OTP Code"
+
+msgid "Vérifier mon numéro"
+msgstr "Verify my number"
+
+# ── Agriculteurs templates ─────────────────────────────────────────────────────
+msgid "Superficie (hectares)"
+msgstr "Area (hectares)"
+
+msgid "Présentation"
+msgstr "About"
+
+msgid "Score de crédit"
+msgstr "Credit score"
+
+msgid "Catégorie"
+msgstr "Category"
+
+msgid "Le score s'améliore avec l'ancienneté et les remboursements"
+msgstr "Score improves with seniority and repayments"
+
+msgid "Adresse email"
+msgstr "Email address"
+
+msgid "Mot de passe"
+msgstr "Password"
+
+msgid "Approuver ce crédit ?"
+msgstr "Approve this credit?"
+
+msgid "Refuser ce dossier ?"
+msgstr "Reject this file?"
+
+# ── Traduction templates ───────────────────────────────────────────────────────
+msgid "Historique Traductions"
+msgstr "Translation History"
+
+msgid "Historique des traductions"
+msgstr "Translation history"
+
+msgid "Toutes les langues"
+msgstr "All languages"
+
+msgid "Tous les types"
+msgstr "All types"
+
+msgid "Votre suggestion"
+msgstr "Your suggestion"
+
+msgid "Suggérer une correction"
+msgstr "Suggest a correction"
+
+msgid "Votre correction..."
+msgstr "Your correction..."
+
+msgid "Envoyer"
+msgstr "Send"
+
+msgid "Précédent"
+msgstr "Previous"
+
+msgid "Suivant"
+msgstr "Next"
+
+msgid "Aucune traduction pour l'instant"
+msgstr "No translations yet"
+
+msgid "Utilisez le module traduction pour traduire vos reçus, alertes et recommandations."
+msgstr "Use the translation module to translate your receipts, alerts and recommendations."
+
+msgid "Traduire maintenant"
+msgstr "Translate now"
+
+msgid "Module Traduction IA"
+msgstr "AI Translation Module"
+
+msgid "Traduisez le contenu métier en Français, Anglais, Arabe et Wolof"
+msgstr "Translate business content into French, English, Arabic and Wolof"
+
+msgid "Traduction intelligente multilingue"
+msgstr "Intelligent multilingual translation"
+
+msgid "Ce module utilise Google Translate pour le Français, l'Anglais et l'Arabe, et Meta NLLB-200 pour le Wolof."
+msgstr "This module uses Google Translate for French, English and Arabic, and Meta NLLB-200 for Wolof."
+
+msgid "La traduction Wolof nécessite une clé Hugging Face (HUGGINGFACE_API_KEY)."
+msgstr "Wolof translation requires a Hugging Face key (HUGGINGFACE_API_KEY)."
+
+msgid "Traduire un contenu"
+msgstr "Translate content"
+
+msgid "Langue source"
+msgstr "Source language"
+
+msgid "Type de contenu"
+msgstr "Content type"
+
+msgid "Aide à améliorer la qualité des traductions futures"
+msgstr "Helps improve the quality of future translations"
+
+msgid "Texte à traduire"
+msgstr "Text to translate"
+
+msgid "Collez ici le texte à traduire : reçu de dépôt, message alerte, recommandation..."
+msgstr "Paste the text to translate here: deposit receipt, alert message, recommendation..."
+
+msgid "Contenu métier uniquement — reçus, alertes, recommandations, messages"
+msgstr "Business content only — receipts, alerts, recommendations, messages"
+
+msgid "0 caractères"
+msgstr "0 characters"
+
+msgid "caractères"
+msgstr "characters"
+
+msgid "Traduire"
+msgstr "Translate"
+
+msgid "Traduction"
+msgstr "Translation"
+
+msgid "Copier"
+msgstr "Copy"
+
+msgid "Copié !"
+msgstr "Copied!"
+
+msgid "Votre suggestion aide à améliorer les traductions futures en Wolof"
+msgstr "Your suggestion helps improve future translations into Wolof"
+
+msgid "Écrivez ici la meilleure traduction selon vous..."
+msgstr "Write here the best translation in your opinion..."
+
+msgid "Envoyer la suggestion"
+msgstr "Send suggestion"
+
+msgid "La traduction a échoué"
+msgstr "Translation failed"
+
+msgid "Veuillez réessayer."
+msgstr "Please try again."
+
+msgid "Voir mon historique"
+msgstr "View my history"
+
+msgid "Corriger"
+msgstr "Correct"
+
+msgid "Traduction indisponible. Veuillez réessayer."
+msgstr "Translation unavailable. Please try again."

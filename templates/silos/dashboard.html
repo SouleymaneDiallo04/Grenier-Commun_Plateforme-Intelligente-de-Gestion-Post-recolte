@@ -1,0 +1,160 @@
+{% extends "base.html" %}
+{% load i18n humanize %}
+
+{% block title %}{% trans "Tableau de bord" %}{% endblock %}
+{% block page_title %}{% trans "Mon Silo" %}{% endblock %}
+{% block page_subtitle %}{% if silo %}{{ silo.nom }} — {{ silo.commune.nom }}{% endif %}{% endblock %}
+
+{% block sidebar_nav %}{% include "partials/sidebar_nav.html" %}{% endblock %}
+
+{% block content %}
+{% if not silo %}
+<div class="gc-card text-center py-12">
+  <p class="text-4xl mb-4">🏚️</p>
+  <h2 class="text-xl font-semibold text-gray-900 mb-2">{% trans "Aucun silo assigné" %}</h2>
+  <p class="text-gray-500">{% trans "Contactez l'administrateur Grenier Commun pour vous assigner un silo." %}</p>
+</div>
+{% else %}
+<div class="space-y-6">
+
+  <!-- KPIs -->
+  <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+    <div class="kpi-card">
+      <p class="kpi-label">{% trans "Dépôts actifs" %}</p>
+      <p class="kpi-value text-gc-700">{{ stats.nb_depots }}</p>
+    </div>
+    <div class="kpi-card">
+      <p class="kpi-label">{% trans "Stock total" %}</p>
+      <p class="kpi-value">{{ stats.stock_total_kg|floatformat:0|intcomma }} <span class="text-base text-gray-400">kg</span></p>
+    </div>
+    <div class="kpi-card {% if stats.nb_alertes > 0 %}border-red-200 bg-red-50{% endif %}">
+      <p class="kpi-label">{% trans "Alertes actives" %}</p>
+      <p class="kpi-value {% if stats.nb_alertes > 0 %}text-red-600{% endif %}">{{ stats.nb_alertes }}</p>
+    </div>
+    <div class="kpi-card">
+      <p class="kpi-label">{% trans "Agriculteurs" %}</p>
+      <p class="kpi-value">{{ stats.nb_agriculteurs }}</p>
+    </div>
+  </div>
+
+  <!-- Capacité silo -->
+  <div class="gc-card">
+    <div class="flex items-center justify-between mb-3">
+      <h2 class="font-semibold text-gray-900">{% trans "Capacité du silo" %}</h2>
+      <div class="flex items-center gap-2">
+        <span class="sante-dot {{ silo.sante|lower }}"></span>
+        <span class="text-sm font-medium text-gray-700">{{ silo.get_sante_display }}</span>
+      </div>
+    </div>
+    <div class="flex items-center justify-between text-sm text-gray-500 mb-2">
+      <span>{{ silo.stock_actuel_kg|intcomma }} {% trans "kg utilisés" %}</span>
+      <span>{{ silo.capacite_kg|intcomma }} {% trans "kg capacité" %}</span>
+    </div>
+    <div class="progress-bar">
+      <div class="progress-fill {% if silo.taux_remplissage > 85 %}high{% elif silo.taux_remplissage > 60 %}medium{% else %}low{% endif %}"
+        style="width: {{ silo.taux_remplissage }}%"></div>
+    </div>
+    <p class="text-right text-sm font-medium text-gray-700 mt-1">{{ silo.taux_remplissage }}%</p>
+
+    <!-- Mise à jour conditions -->
+    <div class="mt-4 pt-4 border-t border-gray-100">
+      <h3 class="text-sm font-medium text-gray-700 mb-3">{% trans "Conditions actuelles" %}</h3>
+      <div class="grid grid-cols-2 gap-4 mb-4">
+        <div class="p-3 bg-blue-50 rounded-lg text-center">
+          <p class="text-2xl font-bold text-blue-700">{{ silo.temperature_celsius|default:"—" }}°C</p>
+          <p class="text-xs text-blue-500">{% trans "Température" %}</p>
+        </div>
+        <div class="p-3 bg-teal-50 rounded-lg text-center">
+          <p class="text-2xl font-bold text-teal-700">{{ silo.humidite_pourcent|default:"—" }}%</p>
+          <p class="text-xs text-teal-500">{% trans "Humidité" %}</p>
+        </div>
+      </div>
+      <form method="POST" action="{% url 'silos:maj_conditions' %}" class="flex gap-3">
+        {% csrf_token %}
+        <input type="number" name="temperature_celsius" step="0.1" class="gc-input"
+          placeholder="Temp. (°C)" value="{{ silo.temperature_celsius|default:'' }}">
+        <input type="number" name="humidite_pourcent" step="0.1" class="gc-input"
+          placeholder="Hum. (%)" value="{{ silo.humidite_pourcent|default:'' }}">
+        <button type="submit" class="btn btn-primary flex-shrink-0">{% trans "Mettre à jour" %}</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Alertes actives -->
+  {% if alertes %}
+  <div class="gc-card">
+    <div class="flex items-center justify-between mb-4">
+      <h2 class="font-semibold text-gray-900">{% trans "Alertes actives" %}</h2>
+      <a href="{% url 'silos:alertes' %}" class="text-sm text-gc-700 hover:underline">{% trans "Gérer →" %}</a>
+    </div>
+    <div class="space-y-2">
+      {% for alerte in alertes %}
+      <div class="alerte-item {{ alerte.niveau|lower }}">
+        <span class="text-xl">{% if alerte.niveau == 'ROUGE' %}🚨{% else %}⚠️{% endif %}</span>
+        <div class="flex-1">
+          <p class="text-sm font-medium text-gray-900">{{ alerte.get_type_alerte_display }}</p>
+          <p class="text-xs text-gray-600">{{ alerte.message|truncatewords:15 }}</p>
+        </div>
+        <form method="POST" action="{% url 'silos:acquitter_alerte' alerte.pk %}">
+          {% csrf_token %}
+          <input type="hidden" name="commentaire" value="Traité">
+          <button type="submit" class="text-xs text-gc-700 hover:underline font-medium">{% trans "Acquitter" %}</button>
+        </form>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  {% endif %}
+
+  <!-- Dépôts récents -->
+  <div class="gc-card">
+    <div class="flex items-center justify-between mb-4">
+      <h2 class="font-semibold text-gray-900">{% trans "Dépôts actifs" %}</h2>
+      <a href="{% url 'silos:nouveau_depot' %}" class="btn btn-primary btn-sm">
+        + {% trans "Nouveau dépôt" %}
+      </a>
+    </div>
+    {% if depots_actifs %}
+    <div class="overflow-x-auto -mx-6 px-6">
+      <table class="gc-table">
+        <thead>
+          <tr>
+            <th>{% trans "N° Reçu" %}</th>
+            <th>{% trans "Agriculteur" %}</th>
+            <th>{% trans "Denrée" %}</th>
+            <th>{% trans "Quantité (kg)" %}</th>
+            <th>{% trans "Statut" %}</th>
+            <th>{% trans "Date" %}</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for depot in depots_actifs %}
+          <tr>
+            <td class="font-mono text-xs text-gc-700 font-medium">{{ depot.numero_recu }}</td>
+            <td class="font-medium">{{ depot.agriculteur.nom_complet }}</td>
+            <td>{{ depot.denree.nom }}</td>
+            <td class="font-semibold">{{ depot.quantite_disponible_kg|floatformat:0|intcomma }}</td>
+            <td><span class="badge badge-gc">{{ depot.get_statut_display }}</span></td>
+            <td class="text-gray-500 text-sm">{{ depot.date_depot|date:"d/m/Y" }}</td>
+            <td>
+              <a href="{% url 'silos:detail_depot' depot.pk %}" class="text-gc-700 hover:underline text-sm">{% trans "Voir →" %}</a>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% else %}
+    <div class="empty-state">
+      <div class="empty-state-icon">📦</div>
+      <h3>{% trans "Aucun dépôt actif" %}</h3>
+      <p>{% trans "Enregistrez le premier dépôt de la saison." %}</p>
+      <a href="{% url 'silos:nouveau_depot' %}" class="btn btn-primary">{% trans "Nouveau dépôt" %}</a>
+    </div>
+    {% endif %}
+  </div>
+
+</div>
+{% endif %}
+{% endblock %}

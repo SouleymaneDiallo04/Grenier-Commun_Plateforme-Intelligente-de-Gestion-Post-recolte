@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+{% load humanize i18n %}
+
+{% block title %}{% trans "Nouveau dépôt" %}{% endblock %}
+{% block page_title %}{% trans "Enregistrer un dépôt" %}{% endblock %}
+{% block page_subtitle %}{% trans "Silo" %} : {{ silo.nom }} — {{ silo.commune.nom }}{% endblock %}
+{% block sidebar_nav %}{% include "partials/sidebar_nav.html" %}{% endblock %}
+
+{% block content %}
+<div class="max-w-2xl mx-auto space-y-6">
+
+  <div class="gc-card border-gc-200 bg-gc-50">
+    <div class="flex items-center justify-between mb-2">
+      <p class="text-sm font-medium text-gc-700">{% trans "Capacité disponible" %}</p>
+      <p class="font-bold text-gc-700">{{ silo.capacite_disponible_kg|intcomma }} kg</p>
+    </div>
+    <div class="progress-bar">
+      <div class="progress-fill {% if silo.taux_remplissage > 85 %}high{% elif silo.taux_remplissage > 60 %}medium{% else %}low{% endif %}"
+        style="width: {{ silo.taux_remplissage }}%"></div>
+    </div>
+    <p class="text-xs text-gc-600 mt-1">{{ silo.taux_remplissage }}% {% trans "utilisé" %} — {{ silo.stock_actuel_kg|intcomma }} / {{ silo.capacite_kg|intcomma }} kg</p>
+  </div>
+
+  <div class="gc-card">
+    <h2 class="font-semibold text-gray-900 mb-6">{% trans "Informations du dépôt" %}</h2>
+    <form method="POST" enctype="multipart/form-data" class="space-y-5">
+      {% csrf_token %}
+
+      <div>
+        <label class="gc-label">{% trans "Agriculteur" %} <span class="text-red-500">*</span></label>
+        <select name="agriculteur" class="gc-select" required>
+          <option value="">-- {% trans "Sélectionnez un agriculteur" %} --</option>
+          {% for agri in agriculteurs %}
+          <option value="{{ agri.pk }}">{{ agri.nom_complet }} {% if agri.telephone %}— {{ agri.telephone }}{% endif %}</option>
+          {% endfor %}
+        </select>
+        <p class="gc-helper">{% trans "L'agriculteur recevra un SMS de confirmation" %}</p>
+      </div>
+
+      <div>
+        <label class="gc-label">{% trans "Denrée" %} <span class="text-red-500">*</span></label>
+        <select name="denree" class="gc-select" required>
+          <option value="">-- {% trans "Sélectionnez la denrée" %} --</option>
+          {% for d in denrees %}
+          <option value="{{ d.pk }}">{{ d.nom }} {% if d.nom_wolof %}({{ d.nom_wolof }}){% endif %}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div class="grid grid-cols-2 gap-4">
+        <div>
+          <label class="gc-label">{% trans "Quantité (kg)" %} <span class="text-red-500">*</span></label>
+          <input type="number" name="quantite_kg" class="gc-input" placeholder="ex: 500"
+            min="1" max="{{ silo.capacite_disponible_kg }}" step="0.1" required>
+          <p class="gc-helper">{% trans "Max" %} : {{ silo.capacite_disponible_kg|intcomma }} kg</p>
+        </div>
+        <div>
+          <label class="gc-label">{% trans "Prix de référence (FCFA/kg)" %}</label>
+          <input type="number" name="prix_reference_fcfa" class="gc-input" placeholder="ex: 175" min="1" step="0.01">
+          <p class="gc-helper">{% trans "Prix marché actuel" %}</p>
+        </div>
+      </div>
+
+      <div>
+        <label class="gc-label">{% trans "Observations" %}</label>
+        <textarea name="observations" rows="3" class="gc-input resize-none"
+          placeholder="{% trans 'État général de la récolte, qualité, remarques...' %}"></textarea>
+      </div>
+
+      <div>
+        <label class="gc-label">{% trans "Photo (optionnel)" %}</label>
+        <input type="file" name="photo" accept="image/*" class="gc-input">
+      </div>
+
+      <div class="flex gap-3 pt-2">
+        <button type="submit" class="btn btn-primary btn-lg flex-1">
+          ✅ {% trans "Enregistrer le dépôt" %}
+        </button>
+        <a href="{% url 'silos:dashboard' %}" class="btn btn-ghost btn-lg">{% trans "Annuler" %}</a>
+      </div>
+    </form>
+  </div>
+
+</div>
+{% endblock %}

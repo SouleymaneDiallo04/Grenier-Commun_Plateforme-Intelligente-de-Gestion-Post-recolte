@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% load humanize i18n %}
+
+{% block title %}{% trans "Mes warrantages" %}{% endblock %}
+{% block page_title %}{% trans "Mes demandes de crédit" %}{% endblock %}
+{% block sidebar_nav %}{% include "partials/sidebar_nav.html" %}{% endblock %}
+
+{% block content %}
+<div class="space-y-4">
+  {% if warrantages %}
+  {% for w in warrantages %}
+  <div class="gc-card">
+    <div class="flex items-start justify-between gap-4">
+      <div>
+        <p class="font-mono text-sm text-gc-700 font-bold">WA-{{ w.pk|stringformat:"05d" }}</p>
+        <p class="font-semibold text-gray-900 mt-1">{{ w.montant_demande_fcfa|floatformat:0|intcomma }} FCFA {% trans "demandés" %}</p>
+        {% if w.montant_accorde_fcfa %}
+        <p class="text-gold-600 font-bold">→ {{ w.montant_accorde_fcfa|floatformat:0|intcomma }} FCFA {% trans "accordés" %}</p>
+        {% endif %}
+        <p class="text-sm text-gray-500 mt-1">{{ w.depot.denree.nom }} — {{ w.depot.silo.nom }}</p>
+        <p class="text-xs text-gray-400">{% trans "Demandé le" %} {{ w.date_demande|date:"d/m/Y" }}</p>
+      </div>
+      <span class="badge
+        {% if w.statut == 'APPROUVE' or w.statut == 'VIRE' %}badge-vert
+        {% elif w.statut == 'REFUSE' %}badge-rouge
+        {% elif w.statut == 'REMBOURSE' %}badge-gc
+        {% else %}badge-orange{% endif %}">
+        {{ w.get_statut_display }}
+      </span>
+    </div>
+    {% if w.imf %}
+    <p class="text-xs text-gray-500 mt-3 pt-3 border-t border-gray-100">IMF : {{ w.imf.nom }}</p>
+    {% endif %}
+  </div>
+  {% endfor %}
+  {% else %}
+  <div class="gc-card">
+    <div class="empty-state">
+      <div class="empty-state-icon">🏦</div>
+      <h3>{% trans "Aucune demande de crédit" %}</h3>
+      <p>{% trans "Déposez votre récolte dans un silo pour accéder au crédit warrantage." %}</p>
+      <a href="{% url 'agriculteurs:mes_stocks' %}" class="btn btn-primary">{% trans "Voir mes stocks" %}</a>
+    </div>
+  </div>
+  {% endif %}
+</div>
+{% endblock %}

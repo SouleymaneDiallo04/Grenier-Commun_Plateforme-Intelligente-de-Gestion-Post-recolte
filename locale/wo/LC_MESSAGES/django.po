@@ -1,0 +1,333 @@
+# Wolof translations for Grenier Commun
+# Copyright (C) 2024 Grenier Commun
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: wo\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+# ── Interface commune ──────────────────────────────────────────────────────────
+msgid "Langue"
+msgstr "Làkk"
+
+msgid "Déconnexion"
+msgstr "Dem fi"
+
+msgid "Traduire"
+msgstr "Tekki"
+
+msgid "Connexion"
+msgstr "Duggal"
+
+msgid "S'inscrire"
+msgstr "Bindal"
+
+msgid "Aide"
+msgstr "Ndimbal"
+
+msgid "Confidentialité"
+msgstr "Sutura"
+
+# ── Navigation gestionnaire silo ──────────────────────────────────────────────
+msgid "Mon Silo"
+msgstr "Silo bi"
+
+msgid "Tableau de bord"
+msgstr "Xam-xam"
+
+msgid "Nouveau dépôt"
+msgstr "Dépôt bu bees"
+
+msgid "Alertes"
+msgstr "Tënk yi"
+
+msgid "Outils"
+msgstr "Jumtukaay yi"
+
+msgid "Traduction IA"
+msgstr "Tekki IA"
+
+# ── Navigation acheteur ────────────────────────────────────────────────────────
+msgid "Marché"
+msgstr "Marché bi"
+
+msgid "Catalogue"
+msgstr "Catalogue bi"
+
+msgid "Nouvelle offre"
+msgstr "Offre bu bees"
+
+msgid "Mes transactions"
+msgstr "Li ma jëf yi"
+
+# ── Navigation IMF ─────────────────────────────────────────────────────────────
+msgid "Espace IMF"
+msgstr "Buntu IMF"
+
+msgid "Dossiers warrantage"
+msgstr "Dossier yi"
+
+# ── Navigation agriculteur ─────────────────────────────────────────────────────
+msgid "Mes stocks"
+msgstr "Stook yi"
+
+msgid "Prix du marché"
+msgstr "Njëg marché"
+
+msgid "Financement"
+msgstr "Liggéey xalis"
+
+msgid "Mes warrantages"
+msgstr "Warrantage yi"
+
+msgid "Mes ventes"
+msgstr "Jënd yi"
+
+msgid "Compte"
+msgstr "Konte bi"
+
+msgid "Mon profil"
+msgstr "Sàñ-sàñ bi"
+
+# ── Navigation admin ───────────────────────────────────────────────────────────
+msgid "Administration"
+msgstr "Gestionner"
+
+msgid "Réseau de silos"
+msgstr "Silo yi"
+
+msgid "Utilisateurs"
+msgstr "Jëfandikukat yi"
+
+msgid "Opérations"
+msgstr "Liggéey yi"
+
+msgid "Warrantage"
+msgstr "Warrantage"
+
+msgid "Finances"
+msgstr "Xalis"
+
+msgid "Données & IA"
+msgstr "Données & IA"
+
+msgid "Traductions"
+msgstr "Tekki yi"
+
+# ── Page d'accueil ─────────────────────────────────────────────────────────────
+msgid "Stockez mieux, vendez au bon moment"
+msgstr "Bokk ak ci kanam"
+
+msgid "Plateforme agricole intelligente — Sénégal"
+msgstr "Plateforme bu ndaw — Sénégal"
+
+msgid "Ouvrir mon compte gratuit"
+msgstr "Ubbi konte"
+
+msgid "Comment ça marche ?"
+msgstr "Naka lañu def ?"
+
+msgid "Déposez votre récolte"
+msgstr "Dëkk sa moisson"
+
+msgid "Obtenez un crédit"
+msgstr "Jël crédit"
+
+msgid "Vendez au bon moment"
+msgstr "Jaay ci yoon bu baax"
+
+msgid "Créer mon compte gratuitement"
+msgstr "Defal konte"
+
+# ── Dashboards ─────────────────────────────────────────────────────────────────
+msgid "Rapport mensuel"
+msgstr "Rapport bu wëlwël"
+
+msgid "Dépôts actifs"
+msgstr "Dépôt yi"
+
+msgid "Stock total"
+msgstr "Stook yëpp"
+
+msgid "Alertes actives"
+msgstr "Tënk yi"
+
+msgid "Agriculteurs"
+msgstr "Ndëkk yi"
+
+msgid "Statut"
+msgstr "Yoon"
+
+msgid "Date"
+msgstr "Bés"
+
+msgid "Denrée"
+msgstr "Liggéey"
+
+msgid "Quantité (kg)"
+msgstr "Bari (kg)"
+
+msgid "N° Reçu"
+msgstr "N° Reçu"
+
+msgid "Acquitter"
+msgstr "Dugal"
+
+msgid "Voir →"
+msgstr "Xool →"
+
+# ── Connexion / Inscription ────────────────────────────────────────────────────
+msgid "Accédez à votre espace Grenier Commun"
+msgstr "Dugg ci sa buntu"
+
+msgid "Se connecter"
+msgstr "Duggal"
+
+msgid "Pas encore de compte ?"
+msgstr "Amul konte ?"
+
+msgid "Créer un compte"
+msgstr "Defal konte"
+
+msgid "Numéro de téléphone"
+msgstr "Numéro téléphone"
+
+msgid "Langue préférée"
+msgstr "Làkk bu neex"
+
+msgid "Confirmer le mot de passe"
+msgstr "Seytaan xeet"
+
+msgid "Mot de passe oublié ?"
+msgstr "Xeet dëkk ?"
+
+# ── Marché / Acheteur ─────────────────────────────────────────────────────────
+msgid "Toutes"
+msgstr "Yëpp"
+
+msgid "Rechercher"
+msgstr "Ñëw"
+
+msgid "Réinitialiser"
+msgstr "Seetaan"
+
+msgid "Aucune offre"
+msgstr "Amul offre"
+
+msgid "Faire une offre"
+msgstr "Def offre"
+
+msgid "Soumettre l'offre"
+msgstr "Yónnee offre"
+
+msgid "Prix marché actuel"
+msgstr "Njëg bi tey"
+
+# ── Notifications ─────────────────────────────────────────────────────────────
+msgid "Mes notifications"
+msgstr "Xib yi"
+
+msgid "Lu"
+msgstr "Dëgël"
+
+msgid "Aucune notification"
+msgstr "Amul xib"
+
+# ── Mes transactions ───────────────────────────────────────────────────────────
+msgid "Historique des transactions"
+msgstr "Liggéey yi"
+
+msgid "Quantité"
+msgstr "Bari"
+
+msgid "Montant total"
+msgstr "Xalis yëpp"
+
+msgid "Facture"
+msgstr "Facture"
+
+msgid "Aucune transaction"
+msgstr "Amul transaction"
+
+msgid "Voir le catalogue"
+msgstr "Xool catalogue bi"
+
+# ── Silos templates ────────────────────────────────────────────────────────────
+msgid "Dépôts"
+msgstr "Dépôt yi"
+
+msgid "Kg entrés"
+msgstr "Kg dëkk"
+
+msgid "Retraits"
+msgstr "Séy yi"
+
+msgid "Kg sortis"
+msgstr "Kg dem"
+
+msgid "Dépôts du mois"
+msgstr "Dépôt bi wëlwël"
+
+msgid "Annuler"
+msgstr "Bàyyi"
+
+msgid "Silo"
+msgstr "Silo bi"
+
+msgid "Commune"
+msgstr "Commune bi"
+
+msgid "Actions"
+msgstr "Ak"
+
+msgid "Retour"
+msgstr "Dellu"
+
+msgid "Filtrer"
+msgstr "Trier"
+
+msgid "Tous"
+msgstr "Yëpp"
+
+msgid "Valider"
+msgstr "Bëgël"
+
+msgid "Actif"
+msgstr "Dafa liggéey"
+
+msgid "Inactif"
+msgstr "Dafa mën"
+
+msgid "Voir"
+msgstr "Xool"
+
+msgid "Pays"
+msgstr "Réewum"
+
+msgid "Nom"
+msgstr "Tur"
+
+msgid "Prénom"
+msgstr "Biddi"
+
+msgid "Téléphone"
+msgstr "Téléphone"
+
+msgid "Village"
+msgstr "Déék bi"
+
+msgid "Notes"
+msgstr "Xam-xam"
+
+msgid "Maximum"
+msgstr "Bari bu ndaw"
+
+msgid "mois"
+msgstr "weer"
+
+msgid "Durée"
+msgstr "Yàggalu"
+
+msgid "IMF"
+msgstr "IMF"

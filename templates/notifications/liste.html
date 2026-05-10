@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Notifications" %}{% endblock %}
+{% block page_title %}{% trans "Mes notifications" %}{% endblock %}
+{% block page_subtitle %}{{ notifications|length }} {% trans "notification(s)" %}{% endblock %}
+{% block sidebar_nav %}{% include "partials/sidebar_nav.html" %}{% endblock %}
+
+{% block content %}
+<div class="max-w-2xl mx-auto space-y-3">
+  {% if notifications %}
+  {% for notif in notifications %}
+  <div class="gc-card {% if notif.statut == 'LU' %}opacity-60{% endif %} animate-fade-in">
+    <div class="flex items-start gap-3">
+      <div class="flex-shrink-0 mt-0.5">
+        {% if notif.canal == 'SMS' %}
+          <span class="text-xl">📱</span>
+        {% elif notif.canal == 'EMAIL' %}
+          <span class="text-xl">📧</span>
+        {% else %}
+          <span class="text-xl">🔔</span>
+        {% endif %}
+      </div>
+      <div class="flex-1 min-w-0">
+        {% if notif.titre %}
+        <p class="font-semibold text-gray-900 text-sm">{{ notif.titre }}</p>
+        {% endif %}
+        <p class="text-sm text-gray-700 leading-relaxed mt-0.5">
+          {% if notif.contenu_traduit and notif.langue_envoi != 'fr' %}
+            {{ notif.contenu_traduit }}
+            <span class="text-xs text-gray-400 ml-1">({{ notif.langue_envoi|upper }})</span>
+          {% else %}
+            {{ notif.contenu }}
+          {% endif %}
+        </p>
+        <div class="flex items-center gap-3 mt-2">
+          <span class="text-xs text-gray-400">{{ notif.cree_le|date:"d/m/Y H:i" }}</span>
+          <span class="badge badge-gris text-xs">{{ notif.canal }}</span>
+          {% if notif.statut == 'LU' %}
+          <span class="text-xs text-gray-400">✓ {% trans "Lu" %}</span>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+  {% else %}
+  <div class="gc-card">
+    <div class="empty-state">
+      <div class="empty-state-icon">🔔</div>
+      <h3>{% trans "Aucune notification" %}</h3>
+      <p>{% trans "Vos alertes, confirmations et messages apparaîtront ici." %}</p>
+    </div>
+  </div>
+  {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,158 @@
+{% extends "base.html" %}
+{% load i18n humanize %}
+
+{% block title %}{% trans "Tableau de bord" %}{% endblock %}
+{% block page_title %}Cockpit Grenier Commun{% endblock %}
+{% block page_subtitle %}{% trans "Vue globale du réseau en temps réel" %}{% endblock %}
+
+{% block sidebar_nav %}{% include "partials/sidebar_nav.html" %}{% endblock %}
+
+{% block content %}
+<div class="space-y-6">
+
+  <!-- KPIs globaux -->
+  <div class="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
+    <div class="kpi-card">
+      <p class="kpi-label">{% trans "Silos actifs" %}</p>
+      <p class="kpi-value text-gc-700">{{ kpis.silos_actifs }}</p>
+    </div>
+    <div class="kpi-card">
+      <p class="kpi-label">{% trans "Tonnes stockées" %}</p>
+      <p class="kpi-value">{{ kpis.tonnes_stockees_t }} <span class="text-base text-gray-400">t</span></p>
+    </div>
+    <div class="kpi-card">
+      <p class="kpi-label">{% trans "Valeur totale" %}</p>
+      <p class="kpi-value text-gold-600 text-xl">{{ valeur_totale|floatformat:0|intcomma }}</p>
+      <p class="gc-helper">FCFA</p>
+    </div>
+    <div class="kpi-card">
+      <p class="kpi-label">{% trans "Agriculteurs" %}</p>
+      <p class="kpi-value">{{ kpis.agriculteurs }}</p>
+    </div>
+    <div class="kpi-card {% if kpis.alertes_actives > 0 %}border-red-200 bg-red-50{% endif %}">
+      <p class="kpi-label">{% trans "Alertes actives" %}</p>
+      <p class="kpi-value {% if kpis.alertes_actives > 0 %}text-red-600{% endif %}">{{ kpis.alertes_actives }}</p>
+    </div>
+    <div class="kpi-card {% if kpis.offres_en_attente > 0 %}border-gold-200 bg-gold-50{% endif %}">
+      <p class="kpi-label">{% trans "Offres en attente" %}</p>
+      <p class="kpi-value text-gold-600">{{ kpis.offres_en_attente }}</p>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-1 xl:grid-cols-3 gap-6">
+
+    <!-- Carte du réseau -->
+    <div class="xl:col-span-2 gc-card">
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="font-semibold text-gray-900">{% trans "Carte du réseau de silos" %}</h2>
+        <div class="flex items-center gap-3 text-xs">
+          <span class="flex items-center gap-1"><span class="sante-dot vert"></span> {% trans "Optimal" %}</span>
+          <span class="flex items-center gap-1"><span class="sante-dot orange"></span> {% trans "Surveillance" %}</span>
+          <span class="flex items-center gap-1"><span class="sante-dot rouge"></span> {% trans "Urgence" %}</span>
+        </div>
+      </div>
+      <div id="carte-reseau" class="gc-map-container" style="height: 380px;"></div>
+    </div>
+
+    <!-- Tâches urgentes -->
+    <div class="space-y-4">
+
+      <!-- Alertes critiques -->
+      {% if alertes_critiques %}
+      <div class="gc-card border-red-200">
+        <h3 class="font-semibold text-red-700 mb-3 flex items-center gap-2">
+          🚨 {% trans "Alertes critiques" %}
+          <span class="badge badge-rouge">{{ alertes_critiques|length }}</span>
+        </h3>
+        <div class="space-y-2">
+          {% for alerte in alertes_critiques %}
+          <div class="p-3 bg-red-50 rounded-lg border border-red-100">
+            <p class="text-sm font-medium text-red-800">{{ alerte.silo.nom }}</p>
+            <p class="text-xs text-red-600 mt-0.5">{{ alerte.get_type_alerte_display }}: {{ alerte.message|truncatewords:10 }}</p>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+      {% endif %}
+
+      <!-- Warrantages à traiter -->
+      {% if derniers_warrantages %}
+      <div class="gc-card border-gold-200">
+        <h3 class="font-semibold text-gray-900 mb-3 flex items-center gap-2">
+          🏦 {% trans "Warrantages soumis" %}
+          <span class="badge badge-gold">{{ kpis.credits_en_cours }}</span>
+        </h3>
+        <div class="space-y-2">
+          {% for w in derniers_warrantages %}
+          <div class="flex items-center justify-between p-3 bg-yellow-50 rounded-lg border border-yellow-100">
+            <div>
+              <p class="text-sm font-medium text-gray-900">{{ w.agriculteur.nom_complet|truncatechars:20 }}</p>
+              <p class="text-xs text-gray-500">{{ w.montant_demande_fcfa|floatformat:0|intcomma }} FCFA — {{ w.depot.denree.nom }}</p>
+            </div>
+            <a href="{% url 'administration:gestion_warrantage' %}"
+              class="text-xs text-gc-700 hover:underline font-medium">{% trans "Traiter →" %}</a>
+          </div>
+          {% endfor %}
+        </div>
+        <a href="{% url 'administration:gestion_warrantage' %}" class="btn btn-secondary btn-sm w-full mt-3">
+          {% trans "Voir tous les dossiers" %}
+        </a>
+      </div>
+      {% endif %}
+
+      <!-- Revenus du mois -->
+      <div class="kpi-card border-gc-200 bg-gc-50">
+        <p class="kpi-label text-gc-700">{% trans "Commissions ce mois" %}</p>
+        <p class="kpi-value text-gc-700">{{ revenus_commissions|floatformat:0|intcomma }}</p>
+        <p class="gc-helper">FCFA {% trans "de commissions sur ventes" %}</p>
+        <a href="{% url 'administration:finances' %}" class="btn btn-primary btn-sm w-full mt-3">
+          {% trans "Voir les finances" %}
+        </a>
+      </div>
+    </div>
+  </div>
+
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+// Carte Leaflet du réseau de silos
+const silosData = {{ silos_json|safe }};
+
+const carte = L.map('carte-reseau').setView([14.5, -14.5], 6);
+
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  attribution: '© OpenStreetMap contributors',
+  maxZoom: 18,
+}).addTo(carte);
+
+const couleurs = { VERT: '#22c55e', ORANGE: '#f59e0b', ROUGE: '#ef4444' };
+
+silosData.forEach(silo => {
+  const couleur = couleurs[silo.sante] || '#22c55e';
+  const marker = L.circleMarker([silo.lat, silo.lng], {
+    radius: 10,
+    fillColor: couleur,
+    color: 'white',
+    weight: 2,
+    opacity: 1,
+    fillOpacity: 0.85,
+  }).addTo(carte);
+
+  marker.bindPopup(`
+    <div style="font-family: Inter, sans-serif; min-width: 180px;">
+      <p style="font-weight: 600; font-size: 14px; margin-bottom: 4px;">${silo.nom}</p>
+      <p style="color: #6b7280; font-size: 12px; margin-bottom: 8px;">${silo.commune}</p>
+      <div style="display: flex; justify-content: space-between; font-size: 12px;">
+        <span>Taux: <strong>${silo.taux}%</strong></span>
+        <span>Dépôts: <strong>${silo.nb_depots}</strong></span>
+      </div>
+      <div style="margin-top: 8px; height: 6px; background: #e5e7eb; border-radius: 3px;">
+        <div style="width: ${silo.taux}%; height: 100%; background: ${couleur}; border-radius: 3px;"></div>
+      </div>
+    </div>
+  `);
+});
+</script>
+{% endblock %}

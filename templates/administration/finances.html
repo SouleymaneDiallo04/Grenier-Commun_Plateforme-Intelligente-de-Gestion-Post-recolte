@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% load humanize i18n %}
+{% block title %}{% trans "Finances" %}{% endblock %}
+{% block page_title %}{% trans "Tableau financier" %}{% endblock %}
+{% block sidebar_nav %}{% include "partials/sidebar_nav.html" %}{% endblock %}
+
+{% block content %}
+<div class="space-y-6">
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div class="kpi-card border-gc-200 bg-gc-50">
+      <p class="kpi-label text-gc-700">{% trans "Total commissions sur ventes" %}</p>
+      <p class="kpi-value text-gc-700">{{ stats.total_commissions_vente|floatformat:0|intcomma }}</p>
+      <p class="gc-helper">FCFA — {% trans "depuis le début" %}</p>
+    </div>
+    <div class="kpi-card border-gold-200 bg-gold-50">
+      <p class="kpi-label text-gold-700">{% trans "Crédits warrantage actifs" %}</p>
+      <p class="kpi-value text-gold-700">{{ stats.total_warrantages_actifs|floatformat:0|intcomma }}</p>
+      <p class="gc-helper">FCFA — {% trans "encours total" %}</p>
+    </div>
+  </div>
+
+  <div class="gc-card">
+    <h2 class="font-semibold text-gray-900 mb-4">{% trans "Dernières transactions" %}</h2>
+    {% if transactions %}
+    <div class="overflow-x-auto">
+      <table class="gc-table">
+        <thead>
+          <tr>
+            <th>{% trans "Date" %}</th>
+            <th>{% trans "Acheteur" %}</th>
+            <th>{% trans "Denrée" %}</th>
+            <th>{% trans "Montant total" %}</th>
+            <th>{% trans "Commission GC (2%)" %}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for t in transactions %}
+          <tr>
+            <td>{{ t.date_transaction|date:"d/m/Y" }}</td>
+            <td class="font-medium">{{ t.offre.acheteur.nom_complet }}</td>
+            <td>{{ t.offre.denree.nom }}</td>
+            <td class="font-bold text-gold-600">{{ t.montant_total_fcfa|floatformat:0|intcomma }} FCFA</td>
+            <td class="font-semibold text-gc-700">{{ t.commission_gc_fcfa|floatformat:0|intcomma }} FCFA</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% else %}
+    <div class="empty-state">
+      <div class="empty-state-icon">💰</div>
+      <h3>{% trans "Aucune transaction" %}</h3>
+      <p>{% trans "Les transactions apparaîtront ici une fois les premières ventes finalisées." %}</p>
+    </div>
+    {% endif %}
+  </div>
+
+</div>
+{% endblock %}

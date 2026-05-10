@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% load humanize i18n %}
+{% block title %}{% trans "Dossier" %} WA-{{ dossier.pk|stringformat:"05d" }}{% endblock %}
+{% block page_title %}{% trans "Dossier warrantage" %}{% endblock %}
+{% block page_subtitle %}WA-{{ dossier.pk|stringformat:"05d" }} — {{ dossier.agriculteur.nom_complet }}{% endblock %}
+{% block sidebar_nav %}{% include "partials/sidebar_nav.html" %}{% endblock %}
+
+{% block content %}
+<div class="max-w-2xl mx-auto space-y-6">
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div class="gc-card">
+      <h2 class="font-semibold text-gray-900 mb-4">{% trans "Agriculteur" %}</h2>
+      <dl class="space-y-2 text-sm">
+        <div class="flex justify-between"><dt class="text-gray-500">{% trans "Nom" %}</dt><dd class="font-medium">{{ dossier.agriculteur.nom_complet }}</dd></div>
+        <div class="flex justify-between"><dt class="text-gray-500">{% trans "Téléphone" %}</dt><dd>{{ dossier.agriculteur.telephone|default:"—" }}</dd></div>
+        {% if profil %}
+        <div class="flex justify-between"><dt class="text-gray-500">{% trans "Village" %}</dt><dd>{{ profil.village|default:"—" }}</dd></div>
+        <div class="flex justify-between"><dt class="text-gray-500">{% trans "Score crédit" %}</dt>
+          <dd class="font-bold {% if profil.score_credit >= 70 %}text-gc-700{% elif profil.score_credit >= 40 %}text-yellow-600{% else %}text-red-600{% endif %}">
+            {{ profil.score_credit }}/100 ({{ profil.categorie_risque }})
+          </dd>
+        </div>
+        {% endif %}
+      </dl>
+    </div>
+
+    <div class="gc-card">
+      <h2 class="font-semibold text-gray-900 mb-4">{% trans "Stock en garantie" %}</h2>
+      <dl class="space-y-2 text-sm">
+        <div class="flex justify-between"><dt class="text-gray-500">{% trans "Denrée" %}</dt><dd class="font-medium">{{ dossier.depot.denree.nom }}</dd></div>
+        <div class="flex justify-between"><dt class="text-gray-500">{% trans "Quantité" %}</dt><dd class="font-bold">{{ dossier.depot.quantite_disponible_kg|floatformat:0|intcomma }} kg</dd></div>
+        <div class="flex justify-between"><dt class="text-gray-500">{% trans "Silo" %}</dt><dd>{{ dossier.depot.silo.nom }}</dd></div>
+        <div class="flex justify-between"><dt class="text-gray-500">{% trans "Reçu N°" %}</dt><dd class="font-mono text-gc-700">{{ dossier.depot.numero_recu }}</dd></div>
+        {% if dossier.depot.valeur_estimee_fcfa %}
+        <div class="flex justify-between border-t pt-2"><dt class="text-gray-500">{% trans "Valeur estimée" %}</dt><dd class="font-bold text-gold-600">{{ dossier.depot.valeur_estimee_fcfa|floatformat:0|intcomma }} FCFA</dd></div>
+        {% endif %}
+      </dl>
+    </div>
+  </div>
+
+  <div class="gc-card">
+    <h2 class="font-semibold text-gray-900 mb-4">{% trans "Demande de crédit" %}</h2>
+    <div class="grid grid-cols-2 gap-4 text-sm mb-4">
+      <div><p class="text-gray-500">{% trans "Montant demandé" %}</p><p class="font-bold text-xl">{{ dossier.montant_demande_fcfa|floatformat:0|intcomma }} FCFA</p></div>
+      <div><p class="text-gray-500">{% trans "Durée souhaitée" %}</p><p class="font-bold text-xl">{{ dossier.duree_mois }} {% trans "mois" %}</p></div>
+      <div><p class="text-gray-500">{% trans "Mode de paiement" %}</p><p class="font-medium">{{ dossier.mode_paiement }}</p></div>
+      <div><p class="text-gray-500">{% trans "Numéro" %}</p><p class="font-medium">{{ dossier.numero_paiement|default:"—" }}</p></div>
+    </div>
+    <div class="flex items-center justify-between">
+      <span class="badge badge-{% if dossier.statut == 'APPROUVE' %}vert{% elif dossier.statut == 'REFUSE' %}rouge{% else %}orange{% endif %} px-3 py-1">{{ dossier.get_statut_display }}</span>
+      {% if dossier.statut == 'EN_INSTRUCTION' %}
+      <a href="{% url 'imf:decider_dossier' dossier.pk %}" class="btn btn-gold">{% trans "Prendre une décision" %} →</a>
+      {% endif %}
+    </div>
+  </div>
+
+  {% if historique %}
+  <div class="gc-card">
+    <h2 class="font-semibold text-gray-900 mb-3">{% trans "Historique de cet agriculteur" %}</h2>
+    <div class="space-y-2">
+      {% for h in historique %}
+      <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg text-sm">
+        <span>{{ h.montant_demande_fcfa|floatformat:0|intcomma }} FCFA — {{ h.depot.denree.nom }}</span>
+        <span class="badge badge-{% if h.statut == 'REMBOURSE' %}vert{% elif h.statut == 'EN_DEFAUT' %}rouge{% else %}gc{% endif %} text-xs">{{ h.get_statut_display }}</span>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  {% endif %}
+
+</div>
+{% endblock %}

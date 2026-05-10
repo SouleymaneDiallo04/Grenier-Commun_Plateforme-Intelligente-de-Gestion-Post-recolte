@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% load humanize i18n %}
+{% block title %}{% trans "Gestion des Silos" %}{% endblock %}
+{% block page_title %}{% trans "Réseau de silos" %}{% endblock %}
+{% block page_subtitle %}{{ silos|length }} {% trans "silo(s) dans le réseau" %}{% endblock %}
+{% block sidebar_nav %}{% include "partials/sidebar_nav.html" %}{% endblock %}
+
+{% block content %}
+<div class="space-y-6">
+  <div class="gc-card">
+    <div class="overflow-x-auto">
+      <table class="gc-table">
+        <thead>
+          <tr>
+            <th>{% trans "Silo" %}</th>
+            <th>{% trans "Commune / Région" %}</th>
+            <th>{% trans "Gestionnaire" %}</th>
+            <th>{% trans "Capacité" %}</th>
+            <th>{% trans "Remplissage" %}</th>
+            <th>{% trans "Dépôts actifs" %}</th>
+            <th>{% trans "Santé" %}</th>
+            <th>{% trans "Statut" %}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for silo in silos %}
+          <tr>
+            <td>
+              <p class="font-semibold text-gray-900">{{ silo.nom }}</p>
+              <p class="text-xs text-gray-400 font-mono">{{ silo.code }}</p>
+            </td>
+            <td>
+              <p class="font-medium">{{ silo.commune.nom }}</p>
+              <p class="text-xs text-gray-500">{{ silo.commune.region }}</p>
+            </td>
+            <td>
+              {% if silo.gestionnaire %}
+              <p class="text-sm">{{ silo.gestionnaire.nom_complet }}</p>
+              {% else %}
+              <span class="badge badge-rouge text-xs">{% trans "Non assigné" %}</span>
+              {% endif %}
+            </td>
+            <td class="text-sm">{{ silo.capacite_kg|intcomma }} kg</td>
+            <td>
+              <div class="flex items-center gap-2">
+                <div class="progress-bar w-20">
+                  <div class="progress-fill {% if silo.taux_remplissage > 85 %}high{% elif silo.taux_remplissage > 60 %}medium{% else %}low{% endif %}"
+                    style="width: {{ silo.taux_remplissage }}%"></div>
+                </div>
+                <span class="text-xs text-gray-600">{{ silo.taux_remplissage }}%</span>
+              </div>
+            </td>
+            <td class="text-center font-bold text-gc-700">{{ silo.nb_depots_actifs }}</td>
+            <td>
+              <div class="flex items-center gap-2">
+                <span class="sante-dot {{ silo.sante|lower }}"></span>
+                <span class="text-xs">{{ silo.get_sante_display }}</span>
+              </div>
+            </td>
+            <td>
+              <span class="badge {% if silo.statut == 'ACTIF' %}badge-vert{% elif silo.statut == 'MAINTENANCE' %}badge-orange{% else %}badge-rouge{% endif %} text-xs">
+                {{ silo.get_statut_display }}
+              </span>
+            </td>
+          </tr>
+          {% empty %}
+          <tr><td colspan="8" class="text-center text-gray-400 py-8">{% trans "Aucun silo dans le réseau" %}</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Créer un compte" %}{% endblock %}
+
+{% block content %}
+<div class="min-h-screen flex items-center justify-center py-12 px-4">
+  <div class="w-full max-w-lg">
+
+    <div class="text-center mb-8">
+      <div class="w-16 h-16 bg-gc-700 rounded-2xl flex items-center justify-center mx-auto mb-4">
+        <span class="text-3xl">🌾</span>
+      </div>
+      <h1 class="text-2xl font-bold text-gray-900">{% trans "Créer mon compte" %}</h1>
+      <p class="text-gray-500 mt-1">{% trans "Rejoignez le réseau Grenier Commun" %}</p>
+    </div>
+
+    <div class="gc-card">
+      <form method="POST" action="{% url 'accounts:inscription' %}" class="space-y-5">
+        {% csrf_token %}
+
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="gc-label">{% trans "Prénom" %}</label>
+            <input type="text" name="prenom" class="gc-input" placeholder="Amadou"
+              value="{{ request.POST.prenom }}" required>
+          </div>
+          <div>
+            <label class="gc-label">{% trans "Nom" %}</label>
+            <input type="text" name="nom" class="gc-input" placeholder="Diallo"
+              value="{{ request.POST.nom }}" required>
+          </div>
+        </div>
+
+        <div>
+          <label class="gc-label">{% trans "Adresse email" %}</label>
+          <input type="email" name="email" class="gc-input" placeholder="votre@email.com"
+            value="{{ request.POST.email }}" required>
+        </div>
+
+        <div>
+          <label class="gc-label">{% trans "Numéro de téléphone" %} <span class="gc-helper inline">({% trans "optionnel" %})</span></label>
+          <input type="tel" name="telephone" class="gc-input" placeholder="+221 77 000 00 00"
+            value="{{ request.POST.telephone }}">
+          <p class="gc-helper">{% trans "Pour recevoir vos alertes et notifications par SMS" %}</p>
+        </div>
+
+        <div>
+          <label class="gc-label">{% trans "Je suis" %}</label>
+          <select name="role" class="gc-select" required>
+            {% for value, label in roles %}
+            <option value="{{ value }}" {% if request.POST.role == value %}selected{% endif %}>
+              {{ label }}
+            </option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <div>
+          <label class="gc-label">{% trans "Langue préférée" %}</label>
+          <select name="langue_preferee" class="gc-select">
+            {% for code, nom in langues.items %}
+            <option value="{{ code }}" {% if request.POST.langue_preferee == code or code == 'fr' %}selected{% endif %}>
+              {% if code == 'fr' %}🇫🇷{% elif code == 'en' %}🇬🇧{% else %}🇸🇳{% endif %} {{ nom }}
+            </option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <div>
+          <label class="gc-label">{% trans "Mot de passe" %}</label>
+          <input type="password" name="password1" class="gc-input" placeholder="{% trans 'Minimum 8 caractères' %}" required>
+        </div>
+
+        <div>
+          <label class="gc-label">{% trans "Confirmer le mot de passe" %}</label>
+          <input type="password" name="password2" class="gc-input" placeholder="{% trans 'Répétez le mot de passe' %}" required>
+        </div>
+
+        <button type="submit" class="btn btn-primary w-full btn-lg">
+          {% trans "Créer mon compte" %}
+        </button>
+      </form>
+
+      <p class="text-center text-sm text-gray-500 mt-6">
+        {% trans "Déjà un compte ?" %}
+        <a href="{% url 'accounts:connexion' %}" class="text-gc-700 font-medium hover:underline">{% trans "Se connecter" %}</a>
+      </p>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% load humanize i18n %}
+
+{% block title %}{% trans "Mes transactions" %}{% endblock %}
+{% block page_title %}{% trans "Historique des transactions" %}{% endblock %}
+
+{% block sidebar_nav %}{% include "partials/sidebar_nav.html" %}{% endblock %}
+
+{% block content %}
+
+<div class="gc-card">
+
+  {% if transactions %}
+
+  <table class="gc-table">
+
+    <thead><tr>
+      <th>{% trans "Date" %}</th>
+      <th>{% trans "Denrée" %}</th>
+      <th>{% trans "Quantité" %}</th>
+      <th>{% trans "Montant total" %}</th>
+      <th>{% trans "Facture" %}</th>
+    </tr></thead>
+
+    <tbody>
+
+      {% for t in transactions %}
+
+      <tr>
+
+        <td>{{ t.date_transaction|date:"d/m/Y" }}</td>
+
+        <td class="font-semibold">{{ t.offre.denree.nom }}</td>
+
+        <td>{{ t.retrait.quantite_kg|floatformat:0|intcomma }} kg</td>
+
+        <td class="font-bold text-gold-600">{{ t.montant_total_fcfa|floatformat:0|intcomma }} FCFA</td>
+
+        <td>{% if t.facture_pdf %}<a href="{{ t.facture_pdf.url }}" class="btn btn-ghost btn-sm">📄 PDF</a>{% else %}—{% endif %}</td>
+
+      </tr>
+
+      {% endfor %}
+
+    </tbody>
+
+  </table>
+
+  {% else %}
+
+  <div class="empty-state">
+
+    <div class="empty-state-icon">📋</div>
+
+    <h3>{% trans "Aucune transaction" %}</h3>
+
+    <p>{% trans "Vos achats finalisés apparaîtront ici." %}</p>
+
+    <a href="{% url 'marche:catalogue' %}" class="btn btn-primary">{% trans "Voir le catalogue" %}</a>
+
+  </div>
+
+  {% endif %}
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,199 @@
+{% extends "base.html" %}
+{% load i18n humanize %}
+
+{% block title %}{% trans "Tableau de bord" %}{% endblock %}
+{% block page_title %}{% blocktrans with prenom=user.prenom %}Bonjour, {{ prenom }}{% endblocktrans %} 👋{% endblock %}
+{% block page_subtitle %}{% trans "Voici l'état de vos stocks et recommandations du jour" %}{% endblock %}
+
+{% block sidebar_nav %}{% include "partials/sidebar_nav.html" %}{% endblock %}
+
+{% block content %}
+<div class="space-y-6">
+
+  <!-- Alertes urgentes -->
+  {% if alertes %}
+  <div class="space-y-2">
+    {% for alerte in alertes %}
+    <div class="alerte-item {{ alerte.niveau|lower }} animate-fade-in">
+      <span class="text-xl flex-shrink-0">
+        {% if alerte.niveau == 'ROUGE' %}🚨{% else %}⚠️{% endif %}
+      </span>
+      <div class="flex-1">
+        <p class="text-sm font-medium text-gray-900">{{ alerte.get_type_alerte_display }} — {{ alerte.silo.nom }}</p>
+        <p class="text-xs text-gray-600 mt-0.5">{{ alerte.message }}</p>
+      </div>
+      <span class="badge badge-{{ alerte.niveau|lower }} flex-shrink-0">{{ alerte.niveau }}</span>
+    </div>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  <!-- KPIs principaux -->
+  <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+    <div class="kpi-card">
+      <div class="flex items-center gap-3 mb-3">
+        <div class="w-10 h-10 bg-gc-100 rounded-xl flex items-center justify-center">
+          <span class="text-xl">🌾</span>
+        </div>
+        <p class="kpi-label">{% trans "Dépôts actifs" %}</p>
+      </div>
+      <p class="kpi-value">{{ nb_depots }}</p>
+    </div>
+
+    <div class="kpi-card">
+      <div class="flex items-center gap-3 mb-3">
+        <div class="w-10 h-10 bg-blue-50 rounded-xl flex items-center justify-center">
+          <span class="text-xl">⚖️</span>
+        </div>
+        <p class="kpi-label">{% trans "Stock total" %}</p>
+      </div>
+      <p class="kpi-value">{{ stock_total_kg|floatformat:0|intcomma }} <span class="text-base font-normal text-gray-400">kg</span></p>
+    </div>
+
+    <div class="kpi-card">
+      <div class="flex items-center gap-3 mb-3">
+        <div class="w-10 h-10 bg-gold-50 rounded-xl flex items-center justify-center">
+          <span class="text-xl">💰</span>
+        </div>
+        <p class="kpi-label">{% trans "Valeur estimée" %}</p>
+      </div>
+      <p class="kpi-value text-gold-600">{{ valeur_totale|floatformat:0|intcomma }} <span class="text-base font-normal text-gray-400">FCFA</span></p>
+    </div>
+
+    <div class="kpi-card">
+      <div class="flex items-center gap-3 mb-3">
+        <div class="w-10 h-10 bg-purple-50 rounded-xl flex items-center justify-center">
+          <span class="text-xl">🏦</span>
+        </div>
+        <p class="kpi-label">{% trans "Crédits actifs" %}</p>
+      </div>
+      <p class="kpi-value">{{ credits_actifs }}</p>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+    <!-- Mes stocks actifs -->
+    <div class="lg:col-span-2 gc-card">
+      <div class="flex items-center justify-between mb-5">
+        <h2 class="font-semibold text-gray-900">{% trans "Mes stocks en cours" %}</h2>
+        <a href="{% url 'agriculteurs:mes_stocks' %}" class="text-sm text-gc-700 hover:text-gc-800 font-medium">
+          {% trans "Voir tout →" %}
+        </a>
+      </div>
+
+      {% if depots_actifs %}
+      <div class="space-y-3">
+        {% for depot in depots_actifs %}
+        <a href="{% url 'agriculteurs:detail_depot' depot.pk %}"
+          class="flex items-center gap-4 p-4 rounded-xl border border-gray-100 hover:border-gc-200 hover:bg-gc-50 transition-all group">
+
+          <!-- Indicateur de santé -->
+          <div class="flex-shrink-0">
+            <span class="sante-dot {{ depot.silo.sante|lower }}"></span>
+          </div>
+
+          <!-- Infos denrée -->
+          <div class="flex-1 min-w-0">
+            <div class="flex items-center gap-2">
+              <p class="font-medium text-gray-900 text-sm truncate">{{ depot.denree.nom }}</p>
+              <span class="badge badge-gris text-xs">{{ depot.get_statut_display }}</span>
+            </div>
+            <p class="text-xs text-gray-500 mt-0.5 truncate">{{ depot.silo.nom }} — {{ depot.silo.commune.nom }}</p>
+          </div>
+
+          <!-- Quantité & Valeur -->
+          <div class="text-right flex-shrink-0">
+            <p class="font-semibold text-gray-900 text-sm">{{ depot.quantite_disponible_kg|floatformat:0 }} kg</p>
+            {% if depot.valeur_estimee_fcfa %}
+            <p class="text-xs text-gold-600 font-medium">{{ depot.valeur_estimee_fcfa|floatformat:0|intcomma }} FCFA</p>
+            {% endif %}
+          </div>
+
+          <svg class="w-4 h-4 text-gray-300 group-hover:text-gc-700 flex-shrink-0 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+          </svg>
+        </a>
+        {% endfor %}
+      </div>
+      {% else %}
+      <div class="empty-state">
+        <div class="empty-state-icon">🌾</div>
+        <h3>{% trans "Aucun stock en cours" %}</h3>
+        <p>{% trans "Votre premier dépôt sera enregistré par le gestionnaire de votre silo." %}</p>
+      </div>
+      {% endif %}
+    </div>
+
+    <!-- Recommandations & Prix -->
+    <div class="space-y-4">
+
+      <!-- Recommandations de la semaine -->
+      <div class="gc-card">
+        <h3 class="font-semibold text-gray-900 mb-4">{% trans "Recommandations cette semaine" %}</h3>
+        {% if recommandations %}
+        <div class="space-y-3">
+          {% for reco in recommandations %}
+          <div class="p-3 rounded-lg border
+            {% if reco.action_recommandee == 'VENDRE' %}border-green-200 bg-green-50
+            {% elif reco.action_recommandee == 'ATTENDRE' %}border-yellow-200 bg-yellow-50
+            {% else %}border-blue-200 bg-blue-50{% endif %}">
+            <div class="flex items-center gap-2 mb-1">
+              <span class="text-sm">
+                {% if reco.action_recommandee == 'VENDRE' %}✅
+                {% elif reco.action_recommandee == 'ATTENDRE' %}⏳
+                {% else %}📊{% endif %}
+              </span>
+              <p class="font-medium text-sm text-gray-900">{{ reco.denree.nom }}</p>
+            </div>
+            <p class="text-xs text-gray-700">
+              {% if user.langue_preferee == 'wo' and reco.message_wo %}
+                {{ reco.message_wo }}
+              {% elif user.langue_preferee == 'en' and reco.message_en %}
+                {{ reco.message_en }}
+              {% else %}
+                {{ reco.message_fr }}
+              {% endif %}
+            </p>
+            {% if reco.prix_actuel_fcfa %}
+            <div class="flex gap-3 mt-2">
+              <span class="text-xs font-medium text-gray-600">{% trans "Maintenant" %}: <strong>{{ reco.prix_actuel_fcfa|floatformat:0 }} FCFA</strong></span>
+              {% if reco.prix_prevu_8sem_fcfa %}
+              <span class="text-xs font-medium text-gc-700">+8 {% trans "sem" %}: <strong>{{ reco.prix_prevu_8sem_fcfa|floatformat:0 }} FCFA</strong></span>
+              {% endif %}
+            </div>
+            {% endif %}
+          </div>
+          {% endfor %}
+        </div>
+        {% else %}
+        <p class="text-sm text-gray-500">{% trans "Recommandations mises à jour chaque lundi." %}</p>
+        {% endif %}
+        <a href="{% url 'agriculteurs:prix_marche' %}" class="btn btn-secondary btn-sm w-full mt-4">
+          {% trans "Voir les prix du marché" %}
+        </a>
+      </div>
+
+      <!-- Notifications récentes -->
+      {% if notifications %}
+      <div class="gc-card">
+        <h3 class="font-semibold text-gray-900 mb-3">{% trans "Dernières notifications" %}</h3>
+        <div class="space-y-2">
+          {% for notif in notifications %}
+          <div class="flex items-start gap-2 p-2 rounded-lg hover:bg-gray-50">
+            <span class="text-sm flex-shrink-0">📩</span>
+            <p class="text-xs text-gray-700 leading-relaxed">{{ notif.contenu|truncatewords:15 }}</p>
+          </div>
+          {% endfor %}
+        </div>
+        <a href="{% url 'notifications:liste' %}" class="text-xs text-gc-700 hover:underline mt-2 block">
+          {% trans "Voir toutes les notifications →" %}
+        </a>
+      </div>
+      {% endif %}
+
+    </div>
+  </div>
+
+</div>
+{% endblock %}

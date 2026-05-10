@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% load humanize i18n %}
+
+{% block title %}{% trans "Espace IMF" %}{% endblock %}
+{% block page_title %}{% trans "Espace IMF" %}{% endblock %}
+{% block page_subtitle %}{% if imf %}{{ imf.nom }}{% endif %}{% endblock %}
+{% block sidebar_nav %}{% include "partials/sidebar_nav.html" %}{% endblock %}
+
+{% block content %}
+<div class="space-y-6">
+
+  <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+
+    <div class="kpi-card {% if stats.en_attente > 0 %}border-gold-200{% endif %}">
+      <p class="kpi-label">{% trans "En instruction" %}</p>
+      <p class="kpi-value text-gold-600">{{ stats.en_attente }}</p>
+    </div>
+
+    <div class="kpi-card">
+      <p class="kpi-label">{% trans "Approuvés" %}</p>
+      <p class="kpi-value text-gc-700">{{ stats.approuves }}</p>
+    </div>
+
+    <div class="kpi-card">
+      <p class="kpi-label">{% trans "Remboursés" %}</p>
+      <p class="kpi-value">{{ stats.rembourses }}</p>
+    </div>
+
+    <div class="kpi-card {% if stats.en_defaut > 0 %}border-red-200{% endif %}">
+      <p class="kpi-label">{% trans "En défaut" %}</p>
+      <p class="kpi-value text-red-600">{{ stats.en_defaut }}</p>
+    </div>
+
+  </div>
+
+  <div class="gc-card">
+    <div class="flex items-center justify-between mb-4">
+      <h2 class="font-semibold text-gray-900">{% trans "Dossiers en attente de décision" %}</h2>
+      <a href="{% url 'imf:dossiers' %}" class="text-sm text-gc-700 hover:underline">{% trans "Tous les dossiers" %} →</a>
+    </div>
+
+    {% if dossiers_urgents %}
+    <div class="space-y-3">
+      {% for d in dossiers_urgents %}
+      <div class="flex items-center justify-between p-4 bg-yellow-50 border border-yellow-200 rounded-xl">
+        <div>
+          <p class="font-semibold text-gray-900">{{ d.agriculteur.nom_complet }}</p>
+          <p class="text-sm text-gray-600">{{ d.montant_demande_fcfa|floatformat:0|intcomma }} FCFA — {{ d.depot.denree.nom }}</p>
+          <p class="text-xs text-gray-400">{% trans "Score crédit" %} : {{ d.score_credit_snapshot|default:"N/A" }}/100</p>
+        </div>
+        <a href="{% url 'imf:detail_dossier' d.pk %}" class="btn btn-gold btn-sm">{% trans "Instruire" %} →</a>
+      </div>
+      {% endfor %}
+    </div>
+    {% else %}
+    <div class="empty-state">
+      <div class="empty-state-icon">✅</div>
+      <h3>{% trans "Aucun dossier en attente" %}</h3>
+    </div>
+    {% endif %}
+  </div>
+
+</div>
+{% endblock %}

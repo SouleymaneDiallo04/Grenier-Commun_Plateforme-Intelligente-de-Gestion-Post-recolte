@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+{% load humanize i18n %}
+
+{% block title %}{% trans "Prix du marché" %}{% endblock %}
+{% block page_title %}{% trans "Prix du marché" %}{% endblock %}
+{% block page_subtitle %}{% trans "Cours actuels et recommandations de vente" %}{% endblock %}
+{% block sidebar_nav %}{% include "partials/sidebar_nav.html" %}{% endblock %}
+
+{% block content %}
+<div class="space-y-6">
+
+  {% if recommandations %}
+  <div class="gc-card">
+    <h2 class="font-semibold text-gray-900 mb-4">📊 {% trans "Recommandations cette semaine" %}</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      {% for reco in recommandations %}
+      <div class="p-4 rounded-xl border
+        {% if reco.action_recommandee == 'VENDRE' %}border-green-200 bg-green-50
+        {% elif reco.action_recommandee == 'ATTENDRE' %}border-yellow-200 bg-yellow-50
+        {% else %}border-blue-200 bg-blue-50{% endif %}">
+        <div class="flex items-center gap-2 mb-2">
+          <span>{% if reco.action_recommandee == 'VENDRE' %}✅{% elif reco.action_recommandee == 'ATTENDRE' %}⏳{% else %}📊{% endif %}</span>
+          <p class="font-semibold text-gray-900">{{ reco.denree.nom }}</p>
+          <span class="ml-auto badge {% if reco.action_recommandee == 'VENDRE' %}badge-vert{% else %}badge-orange{% endif %} text-xs">
+            {{ reco.get_action_recommandee_display }}
+          </span>
+        </div>
+        <p class="text-sm text-gray-700">
+          {% if user.langue_preferee == 'wo' and reco.message_wo %}{{ reco.message_wo }}
+          {% elif user.langue_preferee == 'en' and reco.message_en %}{{ reco.message_en }}
+          {% else %}{{ reco.message_fr }}{% endif %}
+        </p>
+        {% if reco.prix_actuel_fcfa %}
+        <div class="flex gap-4 mt-3 text-sm">
+          <span>{% trans "Maintenant" %} : <strong>{{ reco.prix_actuel_fcfa|floatformat:0 }} FCFA/kg</strong></span>
+          {% if reco.prix_prevu_8sem_fcfa %}
+          <span class="text-gc-700">+8 {% trans "sem" %} : <strong>{{ reco.prix_prevu_8sem_fcfa|floatformat:0 }} FCFA/kg</strong></span>
+          {% endif %}
+        </div>
+        {% endif %}
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  {% endif %}
+
+  <div class="gc-card">
+    <form method="GET" class="flex gap-3 items-end">
+      <div>
+        <label class="gc-label">{% trans "Denrée" %}</label>
+        <select name="denree" class="gc-select">
+          <option value="">{% trans "Toutes les denrées" %}</option>
+          {% for d in denrees %}
+          <option value="{{ d.pk }}" {% if denree_filtre == d.pk|stringformat:"s" %}selected{% endif %}>{{ d.nom }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <button type="submit" class="btn btn-secondary">{% trans "Filtrer" %}</button>
+    </form>
+  </div>
+
+  <div class="gc-card">
+    <h2 class="font-semibold text-gray-900 mb-4">{% trans "Cours des marchés" %}</h2>
+    {% if prix %}
+    <table class="gc-table">
+      <thead>
+        <tr>
+          <th>{% trans "Denrée" %}</th>
+          <th>{% trans "Région" %}</th>
+          <th>{% trans "Prix (FCFA/kg)" %}</th>
+          <th>{% trans "Min" %}</th>
+          <th>{% trans "Max" %}</th>
+          <th>{% trans "Mis à jour" %}</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for p in prix %}
+        <tr>
+          <td class="font-semibold">{{ p.denree.nom }}</td>
+          <td>{{ p.region }}</td>
+          <td class="font-bold text-gc-700 text-lg">{{ p.prix_kg_fcfa|floatformat:0|intcomma }}</td>
+          <td class="text-gray-500">{{ p.prix_min_fcfa|floatformat:0|default:"—" }}</td>
+          <td class="text-gray-500">{{ p.prix_max_fcfa|floatformat:0|default:"—" }}</td>
+          <td class="text-gray-400 text-sm">{{ p.date_maj|date:"d/m/Y" }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+    <div class="empty-state">
+      <div class="empty-state-icon">📊</div>
+      <h3>{% trans "Aucun prix disponible" %}</h3>
+      <p>{% trans "Les prix sont mis à jour chaque semaine par l'équipe Grenier Commun." %}</p>
+    </div>
+    {% endif %}
+  </div>
+
+</div>
+{% endblock %}

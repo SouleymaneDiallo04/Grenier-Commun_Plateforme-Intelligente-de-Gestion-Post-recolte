@@ -1,0 +1,140 @@
+{% extends "base.html" %}
+{% load humanize i18n %}
+
+{% block title %}{% trans "Dépôt" %} {{ depot.numero_recu }}{% endblock %}
+{% block page_title %}{% trans "Dépôt" %} {{ depot.numero_recu }}{% endblock %}
+{% block page_subtitle %}{{ depot.denree.nom }} — {{ depot.agriculteur.nom_complet }}{% endblock %}
+{% block sidebar_nav %}{% include "partials/sidebar_nav.html" %}{% endblock %}
+
+{% block content %}
+<div class="max-w-3xl mx-auto space-y-6">
+
+  <div class="gc-card">
+    <div class="flex items-start justify-between flex-wrap gap-4">
+      <div>
+        <p class="text-xs text-gray-500 mb-1">{% trans "Numéro de reçu" %}</p>
+        <p class="font-mono text-2xl font-bold text-gc-700">{{ depot.numero_recu }}</p>
+      </div>
+      <div class="flex items-center gap-3">
+        <span class="badge badge-{{ depot.statut|lower }} text-sm px-3 py-1">{{ depot.get_statut_display }}</span>
+        <div class="flex items-center gap-2">
+          <span class="sante-dot {{ depot.silo.sante|lower }}"></span>
+          <span class="text-sm text-gray-600">{{ depot.silo.get_sante_display }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div class="gc-card">
+      <h2 class="font-semibold text-gray-900 mb-4">{% trans "Détails du dépôt" %}</h2>
+      <dl class="space-y-3">
+        <div class="flex justify-between text-sm">
+          <dt class="text-gray-500">{% trans "Agriculteur" %}</dt>
+          <dd class="font-medium">{{ depot.agriculteur.nom_complet }}</dd>
+        </div>
+        <div class="flex justify-between text-sm">
+          <dt class="text-gray-500">{% trans "Silo" %}</dt>
+          <dd class="font-medium">{{ depot.silo.nom }}</dd>
+        </div>
+        <div class="flex justify-between text-sm">
+          <dt class="text-gray-500">{% trans "Commune" %}</dt>
+          <dd class="font-medium">{{ depot.silo.commune.nom }}</dd>
+        </div>
+        <div class="flex justify-between text-sm">
+          <dt class="text-gray-500">{% trans "Denrée" %}</dt>
+          <dd class="font-medium">{{ depot.denree.nom }}</dd>
+        </div>
+        <div class="flex justify-between text-sm">
+          <dt class="text-gray-500">{% trans "Quantité initiale" %}</dt>
+          <dd class="font-bold">{{ depot.quantite_initiale_kg|floatformat:0|intcomma }} kg</dd>
+        </div>
+        <div class="flex justify-between text-sm">
+          <dt class="text-gray-500">{% trans "Quantité disponible" %}</dt>
+          <dd class="font-bold text-gc-700">{{ depot.quantite_disponible_kg|floatformat:0|intcomma }} kg</dd>
+        </div>
+        <div class="flex justify-between text-sm">
+          <dt class="text-gray-500">{% trans "Date de dépôt" %}</dt>
+          <dd class="font-medium">{{ depot.date_depot|date:"d/m/Y H:i" }}</dd>
+        </div>
+        {% if depot.prix_reference_fcfa %}
+        <div class="flex justify-between text-sm border-t pt-3">
+          <dt class="text-gray-500">{% trans "Valeur estimée" %}</dt>
+          <dd class="font-bold text-gold-600">{{ depot.valeur_estimee_fcfa|floatformat:0|intcomma }} FCFA</dd>
+        </div>
+        {% endif %}
+      </dl>
+    </div>
+
+    <div class="gc-card">
+      <h2 class="font-semibold text-gray-900 mb-4">{% trans "Warrantage" %}</h2>
+      {% if warrantage %}
+      <div class="space-y-3">
+        <div class="p-3 rounded-lg bg-gc-50 border border-gc-200">
+          <p class="text-sm font-medium text-gc-700 mb-2">{% trans "Crédit en cours" %}</p>
+          <div class="space-y-1 text-sm">
+            <div class="flex justify-between">
+              <span class="text-gray-500">{% trans "Montant demandé" %}</span>
+              <span class="font-medium">{{ warrantage.montant_demande_fcfa|floatformat:0|intcomma }} FCFA</span>
+            </div>
+            {% if warrantage.montant_accorde_fcfa %}
+            <div class="flex justify-between">
+              <span class="text-gray-500">{% trans "Montant accordé" %}</span>
+              <span class="font-bold text-gc-700">{{ warrantage.montant_accorde_fcfa|floatformat:0|intcomma }} FCFA</span>
+            </div>
+            {% endif %}
+            <div class="flex justify-between">
+              <span class="text-gray-500">{% trans "Statut" %}</span>
+              <span class="badge badge-gc text-xs">{{ warrantage.get_statut_display }}</span>
+            </div>
+          </div>
+        </div>
+        <p class="text-xs text-gray-500">⚠️ {% trans "Retrait impossible tant que le crédit n'est pas remboursé." %}</p>
+      </div>
+      {% else %}
+      <p class="text-sm text-gray-500">{% trans "Aucun crédit warrantage sur ce dépôt." %}</p>
+      {% endif %}
+    </div>
+  </div>
+
+  {% if depot.statut in 'ACTIF PARTIEL' %}
+  <div class="gc-card">
+    <h2 class="font-semibold text-gray-900 mb-4">{% trans "Actions" %}</h2>
+    <div class="flex flex-wrap gap-3">
+      {% if not warrantage %}
+      <a href="{% url 'silos:enregistrer_retrait' depot.pk %}" class="btn btn-primary">
+        📦 {% trans "Enregistrer un retrait" %}
+      </a>
+      {% endif %}
+    </div>
+  </div>
+  {% endif %}
+
+  {% if retraits %}
+  <div class="gc-card">
+    <h2 class="font-semibold text-gray-900 mb-4">{% trans "Historique des mouvements" %}</h2>
+    <table class="gc-table">
+      <thead>
+        <tr>
+          <th>{% trans "Date" %}</th>
+          <th>{% trans "Type" %}</th>
+          <th>{% trans "Quantité (kg)" %}</th>
+          <th>{% trans "Prix/kg (FCFA)" %}</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for r in retraits %}
+        <tr>
+          <td>{{ r.date_retrait|date:"d/m/Y H:i" }}</td>
+          <td><span class="badge badge-gc">{{ r.get_type_retrait_display }}</span></td>
+          <td class="font-semibold">{{ r.quantite_kg|floatformat:0|intcomma }}</td>
+          <td>{{ r.prix_vente_fcfa|floatformat:0|default:"—" }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% endif %}
+
+</div>
+{% endblock %}

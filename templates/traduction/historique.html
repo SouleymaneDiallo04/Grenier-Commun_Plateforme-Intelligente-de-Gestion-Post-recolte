@@ -1,0 +1,124 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Historique Traductions" %}{% endblock %}
+{% block page_title %}{% trans "Historique des traductions" %}{% endblock %}
+{% block page_subtitle %}{% blocktrans with count=page.paginator.count %}Vos {{ count }} traductions effectuées{% endblocktrans %}{% endblock %}
+
+{% block sidebar_nav %}{% include "partials/sidebar_nav.html" %}{% endblock %}
+
+{% block content %}
+<div class="space-y-5">
+
+  <div class="gc-card">
+    <form method="GET" class="flex flex-wrap gap-3 items-end">
+      <div>
+        <label class="gc-label">{% trans "Langue cible" %}</label>
+        <select name="langue" class="gc-select">
+          <option value="">{% trans "Toutes les langues" %}</option>
+          {% for code, info in langues.items %}
+          <option value="{{ code }}" {% if filtre_langue == code %}selected{% endif %}>
+            {{ info.flag }} {{ info.nom }}
+          </option>
+          {% endfor %}
+        </select>
+      </div>
+      <div>
+        <label class="gc-label">{% trans "Type de contenu" %}</label>
+        <select name="type" class="gc-select">
+          <option value="">{% trans "Tous les types" %}</option>
+          {% for code, label in types %}
+          <option value="{{ code }}" {% if filtre_type == code %}selected{% endif %}>{{ label }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <button type="submit" class="btn btn-secondary">{% trans "Filtrer" %}</button>
+      <a href="{% url 'traduction:historique' %}" class="btn btn-ghost">{% trans "Réinitialiser" %}</a>
+    </form>
+  </div>
+
+  {% if page.object_list %}
+  <div class="space-y-3">
+    {% for log in page.object_list %}
+    <div class="gc-card animate-fade-in">
+      <div class="flex items-start justify-between gap-4 mb-3">
+        <div class="flex items-center gap-2 flex-wrap">
+          <span class="badge badge-gris text-xs">{{ log.get_type_contenu_display }}</span>
+          <span class="text-gray-400 text-sm">
+            {{ log.langue_source|upper }} → {{ log.langue_cible|upper }}
+          </span>
+          <span class="badge {% if log.moteur == 'NLLB200' %}badge-gc{% else %}badge-bleu{% endif %} text-xs">
+            {{ log.get_moteur_display }}
+          </span>
+          {% if log.depuis_cache %}
+          <span class="badge badge-gris text-xs">⚡ Cache</span>
+          {% endif %}
+        </div>
+        <span class="text-xs text-gray-400 flex-shrink-0">{{ log.cree_le|date:"d/m/Y H:i" }}</span>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-3">
+        <div class="p-3 bg-gray-50 rounded-lg">
+          <p class="text-xs font-medium text-gray-400 mb-1">{% trans "SOURCE" %}</p>
+          <p class="text-sm text-gray-700">{{ log.texte_source|truncatewords:30 }}</p>
+        </div>
+        <div class="p-3 bg-gc-50 border border-gc-200 rounded-lg">
+          <p class="text-xs font-medium text-gc-500 mb-1">{% trans "TRADUCTION" %}</p>
+          <p class="text-sm text-gray-700">{{ log.texte_traduit|truncatewords:30 }}</p>
+        </div>
+      </div>
+
+      {% if log.suggestion_correction %}
+      <div class="p-3 bg-yellow-50 border border-yellow-200 rounded-lg mb-3">
+        <p class="text-xs font-medium text-yellow-700 mb-1">💡 {% trans "Votre suggestion" %}</p>
+        <p class="text-sm text-yellow-800">{{ log.suggestion_correction }}</p>
+      </div>
+      {% else %}
+      <button onclick="document.getElementById('correction-{{ log.pk }}').classList.toggle('hidden')"
+        class="text-xs text-gc-700 hover:underline mb-2">
+        {% trans "Suggérer une correction" %} →
+      </button>
+      <div id="correction-{{ log.pk }}" class="hidden mt-2">
+        <form method="POST" action="{% url 'traduction:evaluer' log.pk %}" class="flex gap-2">
+          {% csrf_token %}
+          <input type="text" name="suggestion" class="gc-input text-sm" placeholder="{% trans 'Votre correction...' %}">
+          <button type="submit" class="btn btn-gold btn-sm flex-shrink-0">{% trans "Envoyer" %}</button>
+        </form>
+      </div>
+      {% endif %}
+
+      <div class="flex items-center justify-between text-xs text-gray-400">
+        <span>{{ log.temps_traitement_ms|default:"—" }} ms</span>
+        <span>#{{ log.pk }}</span>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+  {% if page.has_other_pages %}
+  <div class="flex justify-center gap-2">
+    {% if page.has_previous %}
+    <a href="?page={{ page.previous_page_number }}{% if filtre_langue %}&langue={{ filtre_langue }}{% endif %}{% if filtre_type %}&type={{ filtre_type }}{% endif %}"
+      class="btn btn-secondary btn-sm">← {% trans "Précédent" %}</a>
+    {% endif %}
+    <span class="btn btn-ghost btn-sm">{{ page.number }} / {{ page.paginator.num_pages }}</span>
+    {% if page.has_next %}
+    <a href="?page={{ page.next_page_number }}{% if filtre_langue %}&langue={{ filtre_langue }}{% endif %}{% if filtre_type %}&type={{ filtre_type }}{% endif %}"
+      class="btn btn-secondary btn-sm">{% trans "Suivant" %} →</a>
+    {% endif %}
+  </div>
+  {% endif %}
+
+  {% else %}
+  <div class="gc-card">
+    <div class="empty-state">
+      <div class="empty-state-icon">🌐</div>
+      <h3>{% trans "Aucune traduction pour l'instant" %}</h3>
+      <p>{% trans "Utilisez le module traduction pour traduire vos reçus, alertes et recommandations." %}</p>
+      <a href="{% url 'traduction:traduire' %}" class="btn btn-primary">{% trans "Traduire maintenant" %}</a>
+    </div>
+  </div>
+  {% endif %}
+
+</div>
+{% endblock %}

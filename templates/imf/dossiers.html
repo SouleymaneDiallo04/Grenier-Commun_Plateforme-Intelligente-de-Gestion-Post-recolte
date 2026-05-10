@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% load humanize i18n %}
+
+{% block title %}{% trans "Dossiers Warrantage" %}{% endblock %}
+{% block page_title %}{% trans "Dossiers de warrantage" %}{% endblock %}
+{% block sidebar_nav %}{% include "partials/sidebar_nav.html" %}{% endblock %}
+
+{% block content %}
+<div class="space-y-5">
+
+  <div class="gc-card">
+    <form method="GET" class="flex gap-3 items-end">
+      <div>
+        <label class="gc-label">{% trans "Statut" %}</label>
+        <select name="statut" class="gc-select">
+          <option value="">{% trans "Tous" %}</option>
+          {% for code, label in statuts %}<option value="{{ code }}" {% if statut_filtre == code %}selected{% endif %}>{{ label }}</option>{% endfor %}
+        </select>
+      </div>
+      <button type="submit" class="btn btn-secondary">{% trans "Filtrer" %}</button>
+    </form>
+  </div>
+
+  <div class="gc-card">
+    {% if dossiers %}
+    <table class="gc-table">
+      <thead>
+        <tr>
+          <th>{% trans "Référence" %}</th>
+          <th>{% trans "Agriculteur" %}</th>
+          <th>{% trans "Denrée" %}</th>
+          <th>{% trans "Montant demandé" %}</th>
+          <th>{% trans "Score" %}</th>
+          <th>{% trans "Statut" %}</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for d in dossiers %}
+        <tr>
+          <td class="font-mono text-xs text-gc-700">WA-{{ d.pk|stringformat:"05d" }}</td>
+          <td class="font-medium">{{ d.agriculteur.nom_complet }}</td>
+          <td>{{ d.depot.denree.nom }}</td>
+          <td class="font-bold">{{ d.montant_demande_fcfa|floatformat:0|intcomma }} FCFA</td>
+          <td>
+            <span class="font-bold {% if d.score_credit_snapshot >= 70 %}text-gc-700{% elif d.score_credit_snapshot >= 40 %}text-yellow-600{% else %}text-red-600{% endif %}">
+              {{ d.score_credit_snapshot|default:"—" }}
+            </span>
+          </td>
+          <td><span class="badge badge-{% if d.statut == 'APPROUVE' %}vert{% elif d.statut == 'REFUSE' %}rouge{% else %}orange{% endif %} text-xs">{{ d.get_statut_display }}</span></td>
+          <td><a href="{% url 'imf:detail_dossier' d.pk %}" class="text-gc-700 hover:underline text-sm">{% trans "Voir" %} →</a></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+    <div class="empty-state">
+      <div class="empty-state-icon">📋</div>
+      <h3>{% trans "Aucun dossier" %}</h3>
+    </div>
+    {% endif %}
+  </div>
+
+</div>
+{% endblock %}

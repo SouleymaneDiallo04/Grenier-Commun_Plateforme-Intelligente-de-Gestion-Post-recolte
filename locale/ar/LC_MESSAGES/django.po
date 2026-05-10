@@ -1,0 +1,1244 @@
+# Arabic translations for Grenier Commun
+# Copyright (C) 2024 Grenier Commun
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ar\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+
+# ── Interface commune ──────────────────────────────────────────────────────────
+msgid "Langue"
+msgstr "اللغة"
+
+msgid "Déconnexion"
+msgstr "تسجيل الخروج"
+
+msgid "Traduire"
+msgstr "ترجمة"
+
+msgid "Connexion"
+msgstr "تسجيل الدخول"
+
+msgid "S'inscrire"
+msgstr "إنشاء حساب"
+
+msgid "Aide"
+msgstr "مساعدة"
+
+msgid "Confidentialité"
+msgstr "الخصوصية"
+
+msgid "Stockage intelligent · Financement warrantage · Mise en marché"
+msgstr "تخزين ذكي · تمويل ضماني · تسويق المنتجات"
+
+# ── Navigation gestionnaire silo ──────────────────────────────────────────────
+msgid "Mon Silo"
+msgstr "صومعتي"
+
+msgid "Tableau de bord"
+msgstr "لوحة التحكم"
+
+msgid "Nouveau dépôt"
+msgstr "وديعة جديدة"
+
+msgid "Alertes"
+msgstr "التنبيهات"
+
+msgid "Outils"
+msgstr "الأدوات"
+
+msgid "Traduction IA"
+msgstr "الترجمة الذكية"
+
+# ── Navigation acheteur ────────────────────────────────────────────────────────
+msgid "Marché"
+msgstr "السوق"
+
+msgid "Catalogue"
+msgstr "الكتالوج"
+
+msgid "Nouvelle offre"
+msgstr "عرض جديد"
+
+msgid "Mes transactions"
+msgstr "معاملاتي"
+
+# ── Navigation IMF ─────────────────────────────────────────────────────────────
+msgid "Espace IMF"
+msgstr "فضاء التمويل الأصغر"
+
+msgid "Dossiers warrantage"
+msgstr "ملفات الضمان"
+
+# ── Navigation agriculteur ─────────────────────────────────────────────────────
+msgid "Mes stocks"
+msgstr "مخزوناتي"
+
+msgid "Prix du marché"
+msgstr "أسعار السوق"
+
+msgid "Financement"
+msgstr "التمويل"
+
+msgid "Mes warrantages"
+msgstr "ضماناتي"
+
+msgid "Mes ventes"
+msgstr "مبيعاتي"
+
+msgid "Compte"
+msgstr "الحساب"
+
+msgid "Mon profil"
+msgstr "ملفي الشخصي"
+
+# ── Navigation admin ───────────────────────────────────────────────────────────
+msgid "Administration"
+msgstr "الإدارة"
+
+msgid "Réseau de silos"
+msgstr "شبكة الصوامع"
+
+msgid "Utilisateurs"
+msgstr "المستخدمون"
+
+msgid "Opérations"
+msgstr "العمليات"
+
+msgid "Warrantage"
+msgstr "الضمان"
+
+msgid "Finances"
+msgstr "الماليات"
+
+msgid "Données & IA"
+msgstr "البيانات والذكاء الاصطناعي"
+
+msgid "Traductions"
+msgstr "الترجمات"
+
+# ── Page d'accueil ─────────────────────────────────────────────────────────────
+msgid "Stockez mieux, vendez au bon moment"
+msgstr "خزّن أفضل، بع في الوقت المناسب"
+
+msgid "Plateforme agricole intelligente — Sénégal"
+msgstr "منصة زراعية ذكية — السنغال"
+
+msgid "Stockez mieux."
+msgstr "خزّن بشكل أفضل."
+
+msgid "Vendez au bon prix."
+msgstr "بع بالسعر المناسب."
+
+msgid "Grenier Commun connecte les agriculteurs sénégalais à des silos sécurisés, au financement warrantage et aux meilleurs acheteurs — dans votre langue."
+msgstr "يربط Grenier Commun المزارعين السنغاليين بصوامع آمنة، وبتمويل الضمان وبأفضل المشترين — بلغتك."
+
+msgid "Ouvrir mon compte gratuit"
+msgstr "فتح حسابي المجاني"
+
+msgid "Comment ça marche ?"
+msgstr "كيف تعمل المنصة؟"
+
+msgid "de récoltes perdues"
+msgstr "من المحاصيل مفقودة"
+
+msgid "faute de stockage"
+msgstr "لعدم التخزين"
+
+msgid "le prix peut doubler"
+msgstr "يمكن أن يتضاعف السعر"
+
+msgid "en 3-4 mois"
+msgstr "في غضون 3-4 أشهر"
+
+msgid "du stock valorisable"
+msgstr "من المخزون قابل للتثمين"
+
+msgid "en crédit warrantage"
+msgstr "كقرض ضماني"
+
+msgid "4 langues"
+msgstr "٤ لغات"
+
+msgid "Trois étapes simples pour sortir de la trappe du vendeur contraint"
+msgstr "ثلاث خطوات بسيطة للخروج من فخ البيع المبكر"
+
+msgid "Déposez votre récolte"
+msgstr "أودع حصادك"
+
+msgid "Le gestionnaire de votre silo enregistre votre dépôt. Vous recevez un reçu numérique par SMS et l'état de votre stock est mis à jour en temps réel."
+msgstr "يسجّل مدير الصومعة وديعتك. تتلقى إيصالاً رقمياً عبر الرسائل القصيرة ويُحدَّث مخزونك في الوقت الفعلي."
+
+msgid "Obtenez un crédit"
+msgstr "احصل على تمويل"
+
+msgid "Empruntez jusqu'à 70% de la valeur de votre stock sans vous déplacer. Fonds virés en 48h sur Wave ou Orange Money."
+msgstr "اقترض حتى 70% من قيمة مخزونك دون تنقل. تحويل الأموال خلال 48 ساعة عبر Wave أو Orange Money."
+
+msgid "Vendez au bon moment"
+msgstr "بع في الوقت المناسب"
+
+msgid "Suivez les prix du marché et recevez des recommandations hebdomadaires. Vendez quand les prix sont au plus haut, pas quand vous êtes pressé."
+msgstr "تابع أسعار السوق واحصل على توصيات أسبوعية. بع عندما تكون الأسعار في أعلاها، لا عندما تكون مضطراً."
+
+msgid "Prêt à rejoindre Grenier Commun ?"
+msgstr "هل أنت مستعد للانضمام إلى Grenier Commun؟"
+
+msgid "Que vous soyez agriculteur, gestionnaire de commune ou acheteur professionnel — votre espace vous attend."
+msgstr "سواء كنت مزارعاً أو مدير بلدية أو مشترياً محترفاً — مساحتك في انتظارك."
+
+msgid "Créer mon compte gratuitement"
+msgstr "إنشاء حسابي مجاناً"
+
+# ── Dashboards ─────────────────────────────────────────────────────────────────
+msgid "Rapport mensuel"
+msgstr "التقرير الشهري"
+
+msgid "Dépôts actifs"
+msgstr "الودائع النشطة"
+
+msgid "Stock total"
+msgstr "إجمالي المخزون"
+
+msgid "Alertes actives"
+msgstr "التنبيهات النشطة"
+
+msgid "Agriculteurs"
+msgstr "المزارعون"
+
+msgid "Silos actifs"
+msgstr "الصوامع النشطة"
+
+msgid "Tonnes stockées"
+msgstr "الأطنان المخزنة"
+
+msgid "Valeur totale"
+msgstr "القيمة الإجمالية"
+
+msgid "Offres en attente"
+msgstr "العروض المعلقة"
+
+msgid "Valeur estimée"
+msgstr "القيمة التقديرية"
+
+msgid "Crédits actifs"
+msgstr "الاعتمادات النشطة"
+
+msgid "Capacité du silo"
+msgstr "سعة الصومعة"
+
+msgid "kg utilisés"
+msgstr "كجم مستخدم"
+
+msgid "kg capacité"
+msgstr "كجم سعة"
+
+msgid "Conditions actuelles"
+msgstr "الأحوال الحالية"
+
+msgid "Température"
+msgstr "درجة الحرارة"
+
+msgid "Humidité"
+msgstr "الرطوبة"
+
+msgid "Mettre à jour"
+msgstr "تحديث"
+
+msgid "Aucun silo assigné"
+msgstr "لا توجد صومعة مخصصة"
+
+msgid "Contactez l'administrateur Grenier Commun pour vous assigner un silo."
+msgstr "تواصل مع مسؤول Grenier Commun لتخصيص صومعة لك."
+
+msgid "Gérer →"
+msgstr "إدارة →"
+
+msgid "Acquitter"
+msgstr "إقرار"
+
+msgid "N° Reçu"
+msgstr "رقم الإيصال"
+
+msgid "Denrée"
+msgstr "السلعة"
+
+msgid "Quantité (kg)"
+msgstr "الكمية (كجم)"
+
+msgid "Statut"
+msgstr "الحالة"
+
+msgid "Date"
+msgstr "التاريخ"
+
+msgid "Voir →"
+msgstr "عرض →"
+
+msgid "Aucun dépôt actif"
+msgstr "لا توجد ودائع نشطة"
+
+msgid "Enregistrez le premier dépôt de la saison."
+msgstr "سجّل أول إيداع للموسم."
+
+msgid "Mes stocks en cours"
+msgstr "مخزوناتي الحالية"
+
+msgid "Voir tout →"
+msgstr "عرض الكل →"
+
+msgid "Aucun stock en cours"
+msgstr "لا يوجد مخزون حالي"
+
+msgid "Votre premier dépôt sera enregistré par le gestionnaire de votre silo."
+msgstr "سيتم تسجيل إيداعك الأول بواسطة مدير الصومعة."
+
+msgid "Recommandations cette semaine"
+msgstr "توصيات هذا الأسبوع"
+
+msgid "Recommandations mises à jour chaque lundi."
+msgstr "تُحدَّث التوصيات كل يوم اثنين."
+
+msgid "Voir les prix du marché"
+msgstr "عرض أسعار السوق"
+
+msgid "Dernières notifications"
+msgstr "آخر الإشعارات"
+
+msgid "Voir toutes les notifications →"
+msgstr "عرض جميع الإشعارات →"
+
+msgid "Maintenant"
+msgstr "الآن"
+
+msgid "sem"
+msgstr "أسبوع"
+
+msgid "Vue globale du réseau en temps réel"
+msgstr "نظرة عامة على الشبكة في الوقت الفعلي"
+
+msgid "Carte du réseau de silos"
+msgstr "خريطة شبكة الصوامع"
+
+msgid "Optimal"
+msgstr "مثالي"
+
+msgid "Surveillance"
+msgstr "مراقبة"
+
+msgid "Urgence"
+msgstr "طارئ"
+
+msgid "Alertes critiques"
+msgstr "تنبيهات حرجة"
+
+msgid "Warrantages soumis"
+msgstr "الضمانات المقدمة"
+
+msgid "Traiter →"
+msgstr "معالجة →"
+
+msgid "Voir tous les dossiers"
+msgstr "عرض جميع الملفات"
+
+msgid "Commissions ce mois"
+msgstr "عمولات هذا الشهر"
+
+msgid "de commissions sur ventes"
+msgstr "من عمولات المبيعات"
+
+msgid "Voir les finances"
+msgstr "عرض الماليات"
+
+msgid "Voici l'état de vos stocks et recommandations du jour"
+msgstr "إليك حالة مخزوناتك وتوصيات اليوم"
+
+# ── Connexion / Inscription ────────────────────────────────────────────────────
+msgid "Accédez à votre espace Grenier Commun"
+msgstr "ادخل إلى حسابك في Grenier Commun"
+
+msgid "Mot de passe oublié ?"
+msgstr "هل نسيت كلمة المرور؟"
+
+msgid "Se connecter"
+msgstr "تسجيل الدخول"
+
+msgid "Pas encore de compte ?"
+msgstr "ليس لديك حساب بعد؟"
+
+msgid "Créer un compte"
+msgstr "إنشاء حساب"
+
+msgid "Créer mon compte"
+msgstr "إنشاء حسابي"
+
+msgid "Rejoignez le réseau Grenier Commun"
+msgstr "انضم إلى شبكة Grenier Commun"
+
+msgid "Numéro de téléphone"
+msgstr "رقم الهاتف"
+
+msgid "optionnel"
+msgstr "اختياري"
+
+msgid "Pour recevoir vos alertes et notifications par SMS"
+msgstr "لاستقبال تنبيهاتك وإشعاراتك عبر الرسائل القصيرة"
+
+msgid "Je suis"
+msgstr "أنا"
+
+msgid "Langue préférée"
+msgstr "اللغة المفضلة"
+
+msgid "Confirmer le mot de passe"
+msgstr "تأكيد كلمة المرور"
+
+msgid "Minimum 8 caractères"
+msgstr "8 أحرف على الأقل"
+
+msgid "Répétez le mot de passe"
+msgstr "أعد كتابة كلمة المرور"
+
+msgid "Déjà un compte ?"
+msgstr "هل لديك حساب بالفعل؟"
+
+# ── Marché / Acheteur ─────────────────────────────────────────────────────────
+msgid "Tableau de bord Acheteur"
+msgstr "لوحة تحكم المشتري"
+
+msgid "Mon espace acheteur"
+msgstr "فضائي كمشتري"
+
+msgid "Offres actives"
+msgstr "العروض النشطة"
+
+msgid "denrées suivies"
+msgstr "سلع متابَعة"
+
+msgid "Mes offres en cours"
+msgstr "عروضي الجارية"
+
+msgid "Nouvelle offre"
+msgstr "عرض جديد"
+
+msgid "Aucune offre"
+msgstr "لا توجد عروض"
+
+msgid "Faire une offre"
+msgstr "تقديم عرض"
+
+msgid "Prix du marché"
+msgstr "أسعار السوق"
+
+msgid "Prix mis à jour chaque semaine."
+msgstr "تُحدَّث الأسعار كل أسبوع."
+
+msgid "Voir le catalogue complet"
+msgstr "عرض الكتالوج الكامل"
+
+msgid "Catalogue des stocks disponibles"
+msgstr "كتالوج المخزونات المتاحة"
+
+msgid "Toutes"
+msgstr "الكل"
+
+msgid "Rechercher"
+msgstr "بحث"
+
+msgid "Réinitialiser"
+msgstr "إعادة تعيين"
+
+msgid "Stocks disponibles"
+msgstr "المخزونات المتاحة"
+
+msgid "Faire une offre →"
+msgstr "تقديم عرض →"
+
+msgid "Aucun stock disponible"
+msgstr "لا يوجد مخزون متاح"
+
+msgid "Les stocks apparaissent ici dès que les agriculteurs déposent leurs récoltes."
+msgstr "تظهر المخزونات هنا فور إيداع المزارعين لمحاصيلهم."
+
+msgid "Prix indicatif"
+msgstr "السعر الاسترشادي"
+
+msgid "Soumettre une offre d'achat"
+msgstr "تقديم عرض شراء"
+
+msgid "Sélectionnez"
+msgstr "اختر"
+
+msgid "Quantité souhaitée (kg)"
+msgstr "الكمية المطلوبة (كجم)"
+
+msgid "Prix proposé (FCFA/kg)"
+msgstr "السعر المقترح (فرنك/كجم)"
+
+msgid "Région préférée"
+msgstr "المنطقة المفضلة"
+
+msgid "Délai souhaité (jours)"
+msgstr "المهلة المطلوبة (أيام)"
+
+msgid "Notes complémentaires"
+msgstr "ملاحظات إضافية"
+
+msgid "Qualité souhaitée, conditions particulières..."
+msgstr "الجودة المطلوبة، الشروط الخاصة..."
+
+msgid "Votre offre sera transmise à notre équipe qui identifiera les agriculteurs correspondants et vous contactera sous 48h."
+msgstr "سيتم إرسال عرضك إلى فريقنا الذي سيحدد المزارعين المناسبين ويتواصل معك خلال 48 ساعة."
+
+msgid "Soumettre l'offre"
+msgstr "إرسال العرض"
+
+msgid "Prix marché actuel"
+msgstr "سعر السوق الحالي"
+
+# ── Notifications ─────────────────────────────────────────────────────────────
+msgid "Mes notifications"
+msgstr "إشعاراتي"
+
+msgid "notification(s)"
+msgstr "إشعار(ات)"
+
+msgid "Lu"
+msgstr "مقروء"
+
+msgid "Aucune notification"
+msgstr "لا توجد إشعارات"
+
+msgid "Vos alertes, confirmations et messages apparaîtront ici."
+msgstr "ستظهر هنا تنبيهاتك وتأكيداتك ورسائلك."
+
+# ── Page Mes transactions ──────────────────────────────────────────────────────
+msgid "Historique des transactions"
+msgstr "سجل المعاملات"
+
+msgid "Quantité"
+msgstr "الكمية"
+
+msgid "Montant total"
+msgstr "المبلغ الإجمالي"
+
+msgid "Facture"
+msgstr "الفاتورة"
+
+msgid "Aucune transaction"
+msgstr "لا توجد معاملات"
+
+msgid "Vos achats finalisés apparaîtront ici."
+msgstr "ستظهر مشترياتك المكتملة هنا."
+
+msgid "Voir le catalogue"
+msgstr "عرض الكتالوج"
+
+# ── Silos templates ────────────────────────────────────────────────────────────
+msgid "Rapport Mensuel"
+msgstr "التقرير الشهري"
+
+msgid "Dépôts"
+msgstr "الودائع"
+
+msgid "Kg entrés"
+msgstr "كجم واردة"
+
+msgid "Retraits"
+msgstr "السحوبات"
+
+msgid "Kg sortis"
+msgstr "كجم صادرة"
+
+msgid "Dépôts du mois"
+msgstr "ودائع الشهر"
+
+msgid "Aucun dépôt ce mois-ci."
+msgstr "لا توجد ودائع هذا الشهر."
+
+msgid "Enregistrer un retrait"
+msgstr "تسجيل سحب"
+
+msgid "Type de sortie"
+msgstr "نوع الخروج"
+
+msgid "Retrait par l'agriculteur"
+msgstr "سحب بواسطة المزارع"
+
+msgid "Vente via la plateforme"
+msgstr "بيع عبر المنصة"
+
+msgid "Quantité à retirer (kg)"
+msgstr "الكمية المسحوبة (كجم)"
+
+msgid "Maximum disponible"
+msgstr "الحد الأقصى المتاح"
+
+msgid "Prix de vente (FCFA/kg)"
+msgstr "سعر البيع (فرنك/كجم)"
+
+msgid "Prix négocié avec l'acheteur"
+msgstr "السعر المتفاوض عليه مع المشتري"
+
+msgid "Observations"
+msgstr "الملاحظات"
+
+msgid "Confirmer ce retrait ?"
+msgstr "تأكيد هذا السحب؟"
+
+msgid "Confirmer le retrait"
+msgstr "تأكيد السحب"
+
+msgid "Annuler"
+msgstr "إلغاء"
+
+msgid "Numéro de reçu"
+msgstr "رقم الإيصال"
+
+msgid "Silo"
+msgstr "الصومعة"
+
+msgid "Commune"
+msgstr "البلدية"
+
+msgid "Quantité initiale"
+msgstr "الكمية الأولية"
+
+msgid "Quantité disponible"
+msgstr "الكمية المتاحة"
+
+msgid "Date de dépôt"
+msgstr "تاريخ الإيداع"
+
+msgid "Crédit en cours"
+msgstr "تمويل جارٍ"
+
+msgid "Retrait impossible tant que le crédit n'est pas remboursé."
+msgstr "السحب غير ممكن حتى يتم سداد التمويل."
+
+msgid "Aucun crédit warrantage sur ce dépôt."
+msgstr "لا يوجد تمويل ضمان على هذه الوديعة."
+
+msgid "Actions"
+msgstr "الإجراءات"
+
+msgid "Historique des mouvements"
+msgstr "سجل الحركات"
+
+msgid "Type"
+msgstr "النوع"
+
+msgid "Prix/kg (FCFA)"
+msgstr "السعر/كجم (فرنك)"
+
+msgid "Alertes du silo"
+msgstr "تنبيهات الصومعة"
+
+msgid "Mesuré"
+msgstr "مقاس"
+
+msgid "Seuil"
+msgstr "الحد"
+
+msgid "Décrivez l action corrective prise..."
+msgstr "صف الإجراء التصحيحي المتخذ..."
+
+msgid "Aucune alerte active"
+msgstr "لا توجد تنبيهات نشطة"
+
+msgid "Toutes les conditions du silo sont dans les normes."
+msgstr "جميع أحوال الصومعة ضمن المعايير."
+
+msgid "Retour au tableau de bord"
+msgstr "العودة إلى لوحة التحكم"
+
+msgid "Capacité disponible"
+msgstr "السعة المتاحة"
+
+msgid "utilisé"
+msgstr "مستخدم"
+
+msgid "Informations du dépôt"
+msgstr "معلومات الإيداع"
+
+msgid "L'agriculteur recevra un SMS de confirmation"
+msgstr "سيتلقى المزارع رسالة SMS للتأكيد"
+
+msgid "Prix de référence (FCFA/kg)"
+msgstr "السعر المرجعي (فرنك/كجم)"
+
+msgid "Enregistrer le dépôt"
+msgstr "تسجيل الوديعة"
+
+msgid "Disponible"
+msgstr "متاح"
+
+msgid "Reçu N°"
+msgstr "إيصال رقم"
+
+# ── IMF templates ──────────────────────────────────────────────────────────────
+msgid "En instruction"
+msgstr "قيد الدراسة"
+
+msgid "Approuvés"
+msgstr "موافق عليهم"
+
+msgid "Remboursés"
+msgstr "مسددون"
+
+msgid "En défaut"
+msgstr "في حالة تعثر"
+
+msgid "Dossiers en attente de décision"
+msgstr "الملفات في انتظار القرار"
+
+msgid "Tous les dossiers"
+msgstr "جميع الملفات"
+
+msgid "Score crédit"
+msgstr "درجة الائتمان"
+
+msgid "Instruire"
+msgstr "دراسة"
+
+msgid "Aucun dossier en attente"
+msgstr "لا توجد ملفات معلقة"
+
+msgid "Dossiers Warrantage"
+msgstr "ملفات الضمان"
+
+msgid "Dossiers de warrantage"
+msgstr "ملفات الضمان الزراعي"
+
+msgid "Tous"
+msgstr "الكل"
+
+msgid "Filtrer"
+msgstr "تصفية"
+
+msgid "Référence"
+msgstr "المرجع"
+
+msgid "Montant demandé"
+msgstr "المبلغ المطلوب"
+
+msgid "Score"
+msgstr "الدرجة"
+
+msgid "Voir"
+msgstr "عرض"
+
+msgid "Aucun dossier"
+msgstr "لا توجد ملفات"
+
+msgid "Dossier warrantage"
+msgstr "ملف الضمان الزراعي"
+
+msgid "Nom"
+msgstr "الاسم"
+
+msgid "Téléphone"
+msgstr "الهاتف"
+
+msgid "Village"
+msgstr "القرية"
+
+msgid "Stock en garantie"
+msgstr "المخزون كضمان"
+
+msgid "Demande de crédit"
+msgstr "طلب التمويل"
+
+msgid "Durée souhaitée"
+msgstr "المدة المطلوبة"
+
+msgid "mois"
+msgstr "أشهر"
+
+msgid "Mode de paiement"
+msgstr "طريقة الدفع"
+
+msgid "Numéro"
+msgstr "الرقم"
+
+msgid "Prendre une décision"
+msgstr "اتخاذ قرار"
+
+msgid "Historique de cet agriculteur"
+msgstr "سجل هذا المزارع"
+
+msgid "Décision Dossier"
+msgstr "قرار الملف"
+
+msgid "Dossier"
+msgstr "الملف"
+
+msgid "Durée"
+msgstr "المدة"
+
+msgid "Approuver le crédit"
+msgstr "الموافقة على التمويل"
+
+msgid "Montant accordé (FCFA)"
+msgstr "المبلغ الممنوح (فرنك)"
+
+msgid "Maximum"
+msgstr "الحد الأقصى"
+
+msgid "Taux d'intérêt mensuel (%)"
+msgstr "نسبة الفائدة الشهرية (%)"
+
+msgid "Durée accordée (mois)"
+msgstr "المدة الممنوحة (أشهر)"
+
+msgid "Approuver et notifier l'agriculteur"
+msgstr "الموافقة وإشعار المزارع"
+
+msgid "Refuser le dossier"
+msgstr "رفض الملف"
+
+msgid "Motif du refus"
+msgstr "سبب الرفض"
+
+msgid "Expliquez brièvement la raison du refus..."
+msgstr "اشرح سبب الرفض باختصار..."
+
+msgid "Refuser et notifier l'agriculteur"
+msgstr "الرفض وإشعار المزارع"
+
+msgid "Retour au dossier"
+msgstr "العودة إلى الملف"
+
+# ── Administration templates ───────────────────────────────────────────────────
+msgid "Données & Intelligence IA"
+msgstr "البيانات والذكاء الاصطناعي المتقدم"
+
+msgid "Volumes stockés par denrée"
+msgstr "الكميات المخزنة حسب السلعة"
+
+msgid "Aucun stock actif dans le réseau."
+msgstr "لا يوجد مخزون نشط في الشبكة."
+
+msgid "Recommandations IA à valider"
+msgstr "توصيات الذكاء الاصطناعي للتحقق"
+
+msgid "Publier"
+msgstr "نشر"
+
+msgid "Aucune recommandation en attente"
+msgstr "لا توجد توصيات معلقة"
+
+msgid "Les recommandations sont générées automatiquement chaque lundi."
+msgstr "تُولَّد التوصيات تلقائياً كل يوم اثنين."
+
+msgid "Tableau financier"
+msgstr "الجدول المالي"
+
+msgid "Total commissions sur ventes"
+msgstr "إجمالي العمولات على المبيعات"
+
+msgid "depuis le début"
+msgstr "منذ البداية"
+
+msgid "Crédits warrantage actifs"
+msgstr "تمويلات الضمان النشطة"
+
+msgid "encours total"
+msgstr "الرصيد الإجمالي"
+
+msgid "Dernières transactions"
+msgstr "آخر المعاملات"
+
+msgid "Commission GC (2%)"
+msgstr "عمولة GC (2%)"
+
+msgid "Les transactions apparaîtront ici une fois les premières ventes finalisées."
+msgstr "ستظهر المعاملات هنا بمجرد اكتمال أولى المبيعات."
+
+msgid "Gestion Marché"
+msgstr "إدارة السوق"
+
+msgid "Gestion du marché"
+msgstr "إدارة السوق"
+
+msgid "Offres d'achat et matching"
+msgstr "عروض الشراء والمطابقة"
+
+msgid "Offres d'achat reçues"
+msgstr "عروض الشراء الواردة"
+
+msgid "Réf."
+msgstr "المرجع"
+
+msgid "Acheteur"
+msgstr "المشتري"
+
+msgid "Prix proposé"
+msgstr "السعر المقترح"
+
+msgid "Région"
+msgstr "المنطقة"
+
+msgid "Action"
+msgstr "الإجراء"
+
+msgid "Matcher"
+msgstr "مطابقة"
+
+msgid "Stocks disponibles pour l'offre"
+msgstr "المخزونات المتاحة للعرض"
+
+msgid "Prix ref"
+msgstr "السعر المرجعي"
+
+msgid "Aucun stock correspondant disponible pour cette offre."
+msgstr "لا يوجد مخزون مطابق متاح لهذا العرض."
+
+msgid "Gestion des Silos"
+msgstr "إدارة الصوامع"
+
+msgid "silo(s) dans le réseau"
+msgstr "صومعة/صوامع في الشبكة"
+
+msgid "Commune / Région"
+msgstr "البلدية / المنطقة"
+
+msgid "Gestionnaire"
+msgstr "المدير"
+
+msgid "Capacité"
+msgstr "السعة"
+
+msgid "Remplissage"
+msgstr "نسبة الامتلاء"
+
+msgid "Santé"
+msgstr "الحالة الصحية"
+
+msgid "Non assigné"
+msgstr "غير مخصص"
+
+msgid "Aucun silo dans le réseau"
+msgstr "لا توجد صوامع في الشبكة"
+
+msgid "Gestion Utilisateurs"
+msgstr "إدارة المستخدمين"
+
+msgid "Gestion des utilisateurs"
+msgstr "إدارة المستخدمين"
+
+msgid "utilisateur(s)"
+msgstr "مستخدم/مستخدمون"
+
+msgid "Rôle"
+msgstr "الدور"
+
+msgid "Tous les rôles"
+msgstr "جميع الأدوار"
+
+msgid "Utilisateur"
+msgstr "المستخدم"
+
+msgid "Contact"
+msgstr "جهة الاتصال"
+
+msgid "Pays"
+msgstr "البلد"
+
+msgid "Vérifié"
+msgstr "موثق"
+
+msgid "Actif"
+msgstr "نشط"
+
+msgid "Inactif"
+msgstr "غير نشط"
+
+msgid "Inscrit le"
+msgstr "تاريخ التسجيل"
+
+msgid "Valider"
+msgstr "تحقق"
+
+msgid "Aucun utilisateur trouvé"
+msgstr "لم يتم العثور على مستخدمين"
+
+msgid "Gestion Warrantage"
+msgstr "إدارة الضمان"
+
+msgid "Gestion du warrantage"
+msgstr "إدارة الضمان الزراعي"
+
+msgid "Tout voir"
+msgstr "عرض الكل"
+
+msgid "Denrée / Silo"
+msgstr "السلعة / الصومعة"
+
+msgid "IMF"
+msgstr "التمويل الأصغر"
+
+msgid "Supervision Traductions"
+msgstr "الإشراف على الترجمات"
+
+msgid "Supervision du module traduction"
+msgstr "الإشراف على وحدة الترجمة"
+
+msgid "Français"
+msgstr "الفرنسية"
+
+msgid "Anglais"
+msgstr "الإنجليزية"
+
+msgid "note moyenne"
+msgstr "المعدل"
+
+msgid "Suggestions de correction soumises"
+msgstr "اقتراحات التصحيح المقدمة"
+
+msgid "SOURCE"
+msgstr "المصدر"
+
+msgid "TRADUCTION"
+msgstr "الترجمة"
+
+msgid "SUGGESTION"
+msgstr "الاقتراح"
+
+msgid "Par"
+msgstr "بواسطة"
+
+msgid "Anonyme"
+msgstr "مجهول"
+
+msgid "Marquer traitée"
+msgstr "وضع علامة كمعالجة"
+
+msgid "Traitée"
+msgstr "تمت المعالجة"
+
+msgid "Aucune correction soumise"
+msgstr "لم يتم تقديم أي تصحيح"
+
+msgid "Les suggestions des utilisateurs pour améliorer les traductions apparaîtront ici."
+msgstr "ستظهر هنا اقتراحات المستخدمين لتحسين الترجمات."
+
+# ── Warrantage / Marché / Comptes ──────────────────────────────────────────────
+msgid "Détail du warrantage"
+msgstr "تفاصيل الضمان الزراعي"
+
+msgid "Dépôt concerné"
+msgstr "الوديعة المعنية"
+
+msgid "Denrée en garantie"
+msgstr "السلعة كضمان"
+
+msgid "Montant accordé"
+msgstr "المبلغ الممنوح"
+
+msgid "Taux mensuel"
+msgstr "الفائدة الشهرية"
+
+msgid "IMF partenaire"
+msgstr "التمويل الأصغر الشريك"
+
+msgid "Date de demande"
+msgstr "تاريخ الطلب"
+
+msgid "Retour"
+msgstr "رجوع"
+
+msgid "Offre"
+msgstr "العرض"
+
+msgid "Détail de l'offre"
+msgstr "تفاصيل العرض"
+
+msgid "Quantité souhaitée"
+msgstr "الكمية المطلوبة"
+
+msgid "Date de soumission"
+msgstr "تاريخ الإرسال"
+
+msgid "Notes"
+msgstr "ملاحظات"
+
+msgid "Mon Profil"
+msgstr "ملفي الشخصي"
+
+msgid "Modifier mes informations"
+msgstr "تعديل معلوماتي"
+
+msgid "Prénom"
+msgstr "الاسم الأول"
+
+msgid "Les SMS et notifications vous seront envoyés dans cette langue"
+msgstr "ستُرسَل إليك الرسائل والإشعارات بهذه اللغة"
+
+msgid "Photo de profil"
+msgstr "صورة الملف الشخصي"
+
+msgid "Enregistrer les modifications"
+msgstr "حفظ التغييرات"
+
+msgid "Vérification OTP"
+msgstr "التحقق بكلمة المرور المؤقتة"
+
+msgid "Vérification du téléphone"
+msgstr "التحقق من الهاتف"
+
+msgid "Entrez le code à 6 chiffres reçu par SMS"
+msgstr "أدخل الرمز المكون من 6 أرقام المستلم عبر الرسائل القصيرة"
+
+msgid "Code OTP"
+msgstr "رمز التحقق OTP"
+
+msgid "Vérifier mon numéro"
+msgstr "التحقق من رقمي"
+
+# ── Agriculteurs templates ─────────────────────────────────────────────────────
+msgid "Superficie (hectares)"
+msgstr "المساحة (هكتار)"
+
+msgid "Présentation"
+msgstr "نبذة تعريفية"
+
+msgid "Score de crédit"
+msgstr "درجة الائتمان"
+
+msgid "Catégorie"
+msgstr "الفئة"
+
+msgid "Le score s'améliore avec l'ancienneté et les remboursements"
+msgstr "تتحسن الدرجة مع الخبرة والسداد"
+
+msgid "Adresse email"
+msgstr "عنوان البريد الإلكتروني"
+
+msgid "Mot de passe"
+msgstr "كلمة المرور"
+
+msgid "Approuver ce crédit ?"
+msgstr "هل تريد الموافقة على هذا التمويل؟"
+
+msgid "Refuser ce dossier ?"
+msgstr "هل تريد رفض هذا الملف؟"
+
+# ── Traduction templates ───────────────────────────────────────────────────────
+msgid "Historique Traductions"
+msgstr "سجل الترجمات"
+
+msgid "Historique des traductions"
+msgstr "سجل الترجمات"
+
+msgid "Toutes les langues"
+msgstr "جميع اللغات"
+
+msgid "Tous les types"
+msgstr "جميع الأنواع"
+
+msgid "Votre suggestion"
+msgstr "اقتراحك"
+
+msgid "Suggérer une correction"
+msgstr "اقتراح تصحيح"
+
+msgid "Votre correction..."
+msgstr "تصحيحك..."
+
+msgid "Envoyer"
+msgstr "إرسال"
+
+msgid "Précédent"
+msgstr "السابق"
+
+msgid "Suivant"
+msgstr "التالي"
+
+msgid "Aucune traduction pour l'instant"
+msgstr "لا توجد ترجمات بعد"
+
+msgid "Utilisez le module traduction pour traduire vos reçus, alertes et recommandations."
+msgstr "استخدم وحدة الترجمة لترجمة إيصالاتك وتنبيهاتك وتوصياتك."
+
+msgid "Traduire maintenant"
+msgstr "ترجم الآن"
+
+msgid "Module Traduction IA"
+msgstr "وحدة الترجمة الذكية"
+
+msgid "Traduisez le contenu métier en Français, Anglais, Arabe et Wolof"
+msgstr "ترجم المحتوى المهني إلى الفرنسية والإنجليزية والعربية والولوف"
+
+msgid "Traduction intelligente multilingue"
+msgstr "الترجمة الذكية متعددة اللغات"
+
+msgid "Ce module utilise Google Translate pour le Français, l'Anglais et l'Arabe, et Meta NLLB-200 pour le Wolof."
+msgstr "تستخدم هذه الوحدة Google Translate للفرنسية والإنجليزية والعربية، وMeta NLLB-200 للولوف."
+
+msgid "La traduction Wolof nécessite une clé Hugging Face (HUGGINGFACE_API_KEY)."
+msgstr "تتطلب الترجمة إلى الولوف مفتاح Hugging Face (HUGGINGFACE_API_KEY)."
+
+msgid "Traduire un contenu"
+msgstr "ترجمة محتوى"
+
+msgid "Langue source"
+msgstr "اللغة المصدر"
+
+msgid "Type de contenu"
+msgstr "نوع المحتوى"
+
+msgid "Aide à améliorer la qualité des traductions futures"
+msgstr "يساعد على تحسين جودة الترجمات المستقبلية"
+
+msgid "Texte à traduire"
+msgstr "النص المراد ترجمته"
+
+msgid "Collez ici le texte à traduire : reçu de dépôt, message alerte, recommandation..."
+msgstr "الصق هنا النص المراد ترجمته: إيصال الإيداع، رسالة التنبيه، التوصية..."
+
+msgid "Contenu métier uniquement — reçus, alertes, recommandations, messages"
+msgstr "المحتوى المهني فقط — الإيصالات والتنبيهات والتوصيات والرسائل"
+
+msgid "0 caractères"
+msgstr "٠ أحرف"
+
+msgid "caractères"
+msgstr "أحرف"
+
+msgid "Traduire"
+msgstr "ترجم"
+
+msgid "Traduction"
+msgstr "الترجمة"
+
+msgid "Copier"
+msgstr "نسخ"
+
+msgid "Copié !"
+msgstr "تم النسخ!"
+
+msgid "Votre suggestion aide à améliorer les traductions futures en Wolof"
+msgstr "يساعد اقتراحك على تحسين الترجمات المستقبلية إلى الولوف"
+
+msgid "Écrivez ici la meilleure traduction selon vous..."
+msgstr "اكتب هنا أفضل ترجمة برأيك..."
+
+msgid "Envoyer la suggestion"
+msgstr "إرسال الاقتراح"
+
+msgid "La traduction a échoué"
+msgstr "فشلت الترجمة"
+
+msgid "Veuillez réessayer."
+msgstr "يرجى المحاولة مجدداً."
+
+msgid "Voir mon historique"
+msgstr "عرض سجلي"
+
+msgid "Corriger"
+msgstr "تصحيح"
+
+msgid "Traduction indisponible. Veuillez réessayer."
+msgstr "الترجمة غير متاحة. يرجى المحاولة مجدداً."

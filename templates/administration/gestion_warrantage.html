@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+{% load humanize i18n %}
+
+{% block title %}{% trans "Gestion Warrantage" %}{% endblock %}
+{% block page_title %}{% trans "Gestion du warrantage" %}{% endblock %}
+{% block sidebar_nav %}{% include "partials/sidebar_nav.html" %}{% endblock %}
+
+{% block content %}
+<div class="space-y-6">
+
+  <div class="gc-card">
+    <form method="GET" class="flex flex-wrap gap-3 items-end">
+      <div>
+        <label class="gc-label">{% trans "Statut" %}</label>
+        <select name="statut" class="gc-select">
+          <option value="">{% trans "Tous" %}</option>
+          {% for code, label in statuts %}
+          <option value="{{ code }}" {% if statut_filtre == code %}selected{% endif %}>{{ label }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <button type="submit" class="btn btn-secondary">{% trans "Filtrer" %}</button>
+      <a href="{% url 'administration:gestion_warrantage' %}" class="btn btn-ghost">{% trans "Tout voir" %}</a>
+    </form>
+  </div>
+
+  <div class="gc-card">
+    <div class="overflow-x-auto">
+      <table class="gc-table">
+        <thead>
+          <tr>
+            <th>{% trans "Référence" %}</th>
+            <th>{% trans "Agriculteur" %}</th>
+            <th>{% trans "Denrée / Silo" %}</th>
+            <th>{% trans "Montant demandé" %}</th>
+            <th>{% trans "Score" %}</th>
+            <th>{% trans "IMF" %}</th>
+            <th>{% trans "Statut" %}</th>
+            <th>{% trans "Action" %}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for w in warrantages %}
+          <tr>
+            <td class="font-mono text-xs text-gc-700 font-bold">WA-{{ w.pk|stringformat:"05d" }}</td>
+            <td>
+              <p class="font-medium">{{ w.agriculteur.nom_complet }}</p>
+              <p class="text-xs text-gray-400">{{ w.date_demande|date:"d/m/Y" }}</p>
+            </td>
+            <td>
+              <p class="text-sm font-medium">{{ w.depot.denree.nom }}</p>
+              <p class="text-xs text-gray-400">{{ w.depot.silo.nom }}</p>
+            </td>
+            <td class="font-bold">{{ w.montant_demande_fcfa|floatformat:0|intcomma }} FCFA</td>
+            <td>
+              <span class="font-bold text-sm
+                {% if w.score_credit_snapshot >= 70 %}text-gc-700
+                {% elif w.score_credit_snapshot >= 40 %}text-yellow-600
+                {% else %}text-red-600{% endif %}">
+                {{ w.score_credit_snapshot|default:"—" }}
+              </span>
+            </td>
+            <td class="text-sm">{{ w.imf.sigle|default:"—" }}</td>
+            <td>
+              <span class="badge text-xs
+                {% if w.statut == 'APPROUVE' or w.statut == 'VIRE' %}badge-vert
+                {% elif w.statut == 'REFUSE' %}badge-rouge
+                {% elif w.statut == 'REMBOURSE' %}badge-gc
+                {% else %}badge-orange{% endif %}">
+                {{ w.get_statut_display }}
+              </span>
+            </td>
+            <td>
+              {% if w.statut == 'SOUMIS' %}
+              <form method="POST" class="flex gap-2 items-center">
+                {% csrf_token %}
+                <input type="hidden" name="action" value="transmettre_imf">
+                <input type="hidden" name="warrantage_id" value="{{ w.pk }}">
+                <select name="imf_id" class="gc-select text-xs py-1">
+                  <option value="">IMF...</option>
+                  {% for imf in imfs %}
+                  <option value="{{ imf.pk }}">{{ imf.sigle|default:imf.nom }}</option>
+                  {% endfor %}
+                </select>
+                <button type="submit" class="btn btn-primary btn-sm">→</button>
+              </form>
+              {% else %}
+              <a href="{% url 'imf:detail_dossier' w.pk %}" class="text-xs text-gc-700 hover:underline">{% trans "Voir" %} →</a>
+              {% endif %}
+            </td>
+          </tr>
+          {% empty %}
+          <tr><td colspan="8" class="text-center text-gray-400 py-8">{% trans "Aucun dossier" %}</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+{% endblock %}
