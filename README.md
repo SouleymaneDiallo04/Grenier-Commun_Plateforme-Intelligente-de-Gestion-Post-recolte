@@ -15,7 +15,7 @@
 
 ## Le problème : trois injustices qui se répètent chaque saison
 
-Au Sénégal, l'agriculture emploie plus de **60 % de la population active**. Pourtant, saison après saison, des millions de petits agriculteurs subissent les mêmes trois injustices — non pas par manque de travail, mais par manque d'infrastructure, de financement et d'information.
+Au Sénégal, l'agriculture emploie plus de **22 % de la population active**. Pourtant, saison après saison, des millions de petits agriculteurs subissent les mêmes trois injustices — non pas par manque de travail, mais par manque d'infrastructure, de financement et d'information.
 
 ### 1. La trappe du vendeur contraint
 
@@ -37,7 +37,7 @@ Le petit agriculteur n'a pas accès au crédit bancaire classique. Il n'a pas de
 
 **Grenier Commun** est la première plateforme intégrée d'Afrique de l'Ouest qui résout ces trois problèmes simultanément, dans un seul produit numérique.
 
-> *Stocker mieux. Financer plus vite. Vendre au bon moment.*
+> ***Stocker mieux. Financer plus vite. Vendre au bon moment.***
 
 La plateforme repose sur un réseau de **silos physiques connectés** déployés dans les communes rurales sénégalaises, pilotés par une interface web multi-acteurs accessible en **quatre langues** — dont le Wolof, la langue nationale parlée par plus de 80 % des Sénégalais — et assistée par un **chatbot IA contextuel** qui accompagne chaque utilisateur dans sa langue, avec accès aux données réelles de la plateforme.
 
