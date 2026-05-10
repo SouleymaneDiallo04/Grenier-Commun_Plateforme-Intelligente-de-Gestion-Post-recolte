@@ -44,7 +44,7 @@ Ce n'est pas une application de plus. C'est une **infrastructure digitale agrico
 
 ---
 
-![Page Visiteur](screenshots/visitor.png)
+![Page Visiteur](screenshoots/visitor.png)
 
 ## Ce qui rend ce projet unique
 
