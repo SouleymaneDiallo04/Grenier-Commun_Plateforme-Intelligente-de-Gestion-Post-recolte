@@ -75,6 +75,8 @@ LOCAL_APPS = [
     'apps.intelligence',
     # Administration GC
     'apps.administration',
+    # Chatbot IA
+    'apps.chatbot',
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -218,7 +220,10 @@ EMAIL_PORT = config('EMAIL_PORT', default=587, cast=int)
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = config('EMAIL_HOST_USER', default='')
 EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD', default='')
-DEFAULT_FROM_EMAIL = 'Grenier Commun <noreply@greniercommun.sn>'
+DEFAULT_FROM_EMAIL = config(
+    'DEFAULT_FROM_EMAIL',
+    default=f"Grenier Commun <{config('EMAIL_HOST_USER', default='noreply@greniercommun.sn')}>",
+)
 
 # ─── CELERY ───────────────────────────────────────────────────────────────────
 CELERY_BROKER_URL = config('CELERY_BROKER_URL', default=REDIS_URL)
@@ -269,6 +274,8 @@ AXES_FAILURE_LIMIT = 5
 AXES_COOLOFF_TIME = 1  # heure
 AXES_LOCKOUT_TEMPLATE = 'auth/compte_bloque.html'
 AXES_RESET_ON_SUCCESS = True
+# axes 6.x + Django 5 : session_hash NOT NULL avant que la session soit créée
+AXES_DISABLE_ACCESS_LOG = True
 
 # ─── CRISPY FORMS ─────────────────────────────────────────────────────────────
 CRISPY_ALLOWED_TEMPLATE_PACKS = 'tailwind'
@@ -281,6 +288,10 @@ PHONENUMBER_DEFAULT_REGION = 'SN'  # Sénégal par défaut
 TWILIO_ACCOUNT_SID = config('TWILIO_ACCOUNT_SID', default='')
 TWILIO_AUTH_TOKEN = config('TWILIO_AUTH_TOKEN', default='')
 TWILIO_PHONE_NUMBER = config('TWILIO_PHONE_NUMBER', default='')
+
+# ─── IA CHATBOT ───────────────────────────────────────────────────────────────
+ANTHROPIC_API_KEY = config('ANTHROPIC_API_KEY', default='')
+MISTRAL_API_KEY = config('MISTRAL_API_KEY', default='')
 
 # ─── TRADUCTION IA ────────────────────────────────────────────────────────────
 HUGGINGFACE_API_KEY = config('HUGGINGFACE_API_KEY', default='')

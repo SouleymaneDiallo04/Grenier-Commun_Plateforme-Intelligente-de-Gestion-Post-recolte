@@ -50,6 +50,9 @@ urlpatterns += i18n_patterns(
     # ── Module Traduction ────────────────────────────────────────────────────
     path('traduction/', include('apps.traduction.urls', namespace='traduction')),
 
+    # ── Chatbot IA ───────────────────────────────────────────────────────────
+    path('chatbot/', include('apps.chatbot.urls', namespace='chatbot')),
+
     prefix_default_language=True,
 )
 

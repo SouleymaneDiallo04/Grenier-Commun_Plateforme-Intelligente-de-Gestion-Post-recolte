@@ -326,6 +326,11 @@
   </div>
   {% endif %}
 
+  <!-- Chatbot IA -->
+  {% if user.is_authenticated %}
+    {% include "chatbot/widget.html" %}
+  {% endif %}
+
   <!-- Scripts globaux -->
   {% block extra_scripts %}{% endblock %}
 

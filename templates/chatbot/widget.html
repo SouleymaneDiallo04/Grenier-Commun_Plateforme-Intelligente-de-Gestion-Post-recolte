@@ -1,0 +1,221 @@
+{% load i18n %}
+<div id="gc-chatbot" x-data="gcChatbot()" class="fixed bottom-6 right-6 z-50 rtl:right-auto rtl:left-6">
+
+  <!-- Bouton flottant -->
+  <button @click="toggle()"
+    class="w-14 h-14 bg-gc-700 hover:bg-gc-800 text-white rounded-full shadow-xl flex items-center justify-center transition-all duration-200 hover:scale-105 relative"
+    :class="open ? 'rotate-90' : ''"
+    title="{% trans 'Assistant Grenier Commun' %}">
+    <svg x-show="!open" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+        d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+    </svg>
+    <svg x-show="open" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+    </svg>
+    <!-- Badge non lus -->
+    {% if notifications_non_lues %}
+    <span x-show="!open"
+      class="absolute -top-1 -right-1 w-5 h-5 bg-red-500 text-white text-xs rounded-full flex items-center justify-center font-bold">
+      !
+    </span>
+    {% endif %}
+  </button>
+
+  <!-- Panel chat -->
+  <div x-show="open"
+    x-transition:enter="transition ease-out duration-200"
+    x-transition:enter-start="opacity-0 scale-95 translate-y-4"
+    x-transition:enter-end="opacity-100 scale-100 translate-y-0"
+    x-transition:leave="transition ease-in duration-150"
+    x-transition:leave-start="opacity-100 scale-100 translate-y-0"
+    x-transition:leave-end="opacity-0 scale-95 translate-y-4"
+    class="absolute bottom-16 right-0 rtl:right-auto rtl:left-0 w-80 sm:w-96 bg-white rounded-2xl shadow-2xl border border-gray-100 flex flex-col overflow-hidden"
+    style="height: 520px; display: none;">
+
+    <!-- Header -->
+    <div class="bg-gc-700 px-4 py-3 flex items-center gap-3 flex-shrink-0">
+      <div class="w-9 h-9 bg-gold-500 rounded-full flex items-center justify-center flex-shrink-0 shadow">
+        <span class="text-base">🌾</span>
+      </div>
+      <div class="flex-1 min-w-0">
+        <p class="text-white font-semibold text-sm leading-none">{% trans "Assistant Grenier Commun" %}</p>
+        <div class="flex items-center gap-1.5 mt-1">
+          <span class="w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse"></span>
+          <p class="text-gc-200 text-xs">Claude Haiku · IA</p>
+        </div>
+      </div>
+      <button @click="clearHistory()"
+        class="text-gc-300 hover:text-white transition-colors text-xs px-2 py-1 rounded hover:bg-gc-600"
+        title="{% trans 'Effacer la conversation' %}">
+        {% trans "Effacer" %}
+      </button>
+    </div>
+
+    <!-- Messages -->
+    <div id="chat-messages"
+      class="flex-1 overflow-y-auto p-4 space-y-3"
+      x-ref="messages">
+
+      <!-- Message de bienvenue -->
+      <div class="flex gap-2">
+        <div class="w-7 h-7 bg-gold-500 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+          <span class="text-xs">🌾</span>
+        </div>
+        <div class="bg-gray-100 rounded-2xl rounded-tl-sm px-3 py-2 max-w-[82%]">
+          <p class="text-sm text-gray-800 leading-relaxed">
+            {% blocktrans with prenom=user.prenom %}Bonjour {{ prenom }} ! Je suis votre assistant Grenier Commun. Je peux consulter vos stocks, prix du marché, warrantages, alertes et bien plus. Comment puis-je vous aider ?{% endblocktrans %}
+          </p>
+        </div>
+      </div>
+
+      <!-- Suggestions rapides -->
+      <div class="flex flex-wrap gap-1.5 pl-9" id="chat-suggestions">
+        {% if user.est_agriculteur %}
+        <button onclick="gcSendSuggestion('{% trans "Montre-moi mes stocks" %}')"
+          class="text-xs px-2.5 py-1 bg-gc-50 text-gc-700 rounded-full border border-gc-200 hover:bg-gc-100 transition-colors">
+          📦 {% trans "Mes stocks" %}
+        </button>
+        <button onclick="gcSendSuggestion('{% trans "Prix du marché aujourd\'hui" %}')"
+          class="text-xs px-2.5 py-1 bg-gc-50 text-gc-700 rounded-full border border-gc-200 hover:bg-gc-100 transition-colors">
+          📈 {% trans "Prix marché" %}
+        </button>
+        <button onclick="gcSendSuggestion('{% trans "Mes demandes de warrantage" %}')"
+          class="text-xs px-2.5 py-1 bg-gc-50 text-gc-700 rounded-full border border-gc-200 hover:bg-gc-100 transition-colors">
+          💳 {% trans "Warrantages" %}
+        </button>
+        {% elif user.est_gestionnaire %}
+        <button onclick="gcSendSuggestion('{% trans "État de mon silo" %}')"
+          class="text-xs px-2.5 py-1 bg-gc-50 text-gc-700 rounded-full border border-gc-200 hover:bg-gc-100 transition-colors">
+          🏪 {% trans "Mon silo" %}
+        </button>
+        <button onclick="gcSendSuggestion('{% trans "Alertes actives" %}')"
+          class="text-xs px-2.5 py-1 bg-gc-50 text-gc-700 rounded-full border border-gc-200 hover:bg-gc-100 transition-colors">
+          🔔 {% trans "Alertes" %}
+        </button>
+        {% elif user.est_imf %}
+        <button onclick="gcSendSuggestion('{% trans "Dossiers en attente" %}')"
+          class="text-xs px-2.5 py-1 bg-gc-50 text-gc-700 rounded-full border border-gc-200 hover:bg-gc-100 transition-colors">
+          📋 {% trans "Dossiers" %}
+        </button>
+        {% elif user.est_acheteur %}
+        <button onclick="gcSendSuggestion('{% trans "Offres disponibles sur le marché" %}')"
+          class="text-xs px-2.5 py-1 bg-gc-50 text-gc-700 rounded-full border border-gc-200 hover:bg-gc-100 transition-colors">
+          🛒 {% trans "Offres marché" %}
+        </button>
+        {% elif user.est_admin_gc %}
+        <button onclick="gcSendSuggestion('{% trans "Statistiques de la plateforme" %}')"
+          class="text-xs px-2.5 py-1 bg-gc-50 text-gc-700 rounded-full border border-gc-200 hover:bg-gc-100 transition-colors">
+          📊 {% trans "Statistiques" %}
+        </button>
+        {% endif %}
+        <button onclick="gcSendSuggestion('{% trans "Comment fonctionne le warrantage ?" %}')"
+          class="text-xs px-2.5 py-1 bg-gray-50 text-gray-600 rounded-full border border-gray-200 hover:bg-gray-100 transition-colors">
+          ❓ {% trans "Aide" %}
+        </button>
+      </div>
+    </div>
+
+    <!-- Indicateur de frappe -->
+    <div id="chat-typing" class="hidden px-4 pb-2 flex-shrink-0">
+      <div class="flex gap-2 items-center">
+        <div class="w-7 h-7 bg-gold-500 rounded-full flex items-center justify-center flex-shrink-0">
+          <span class="text-xs">🌾</span>
+        </div>
+        <div class="bg-gray-100 rounded-2xl rounded-tl-sm px-3 py-2.5">
+          <div class="flex gap-1 items-center">
+            <span class="w-2 h-2 bg-gray-400 rounded-full inline-block" style="animation: bounce 1s infinite 0ms"></span>
+            <span class="w-2 h-2 bg-gray-400 rounded-full inline-block" style="animation: bounce 1s infinite 150ms"></span>
+            <span class="w-2 h-2 bg-gray-400 rounded-full inline-block" style="animation: bounce 1s infinite 300ms"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Zone de saisie -->
+    <div class="p-3 border-t border-gray-100 bg-white flex-shrink-0">
+      <form id="chat-form"
+        hx-post="{% url 'chatbot:message' %}"
+        hx-target="#chat-messages"
+        hx-swap="beforeend"
+        hx-on::before-request="gcChatBeforeRequest()"
+        hx-on::after-request="gcChatAfterRequest()"
+        class="flex gap-2 items-center">
+        {% csrf_token %}
+        <input type="text" name="message" id="chat-input"
+          placeholder="{% trans 'Posez votre question...' %}"
+          class="flex-1 text-sm px-3 py-2 border border-gray-200 rounded-xl focus:outline-none focus:border-gc-500 focus:ring-1 focus:ring-gc-500 transition-colors"
+          autocomplete="off" maxlength="500">
+        <button type="submit"
+          class="w-9 h-9 bg-gc-700 hover:bg-gc-800 disabled:opacity-50 text-white rounded-xl flex items-center justify-center transition-colors flex-shrink-0"
+          id="chat-send-btn">
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
+          </svg>
+        </button>
+      </form>
+      <p class="text-xs text-gray-400 text-center mt-1.5">Powered by Claude Haiku · Anthropic</p>
+    </div>
+  </div>
+</div>
+
+<script>
+function gcChatbot() {
+  return {
+    open: false,
+    toggle() {
+      this.open = !this.open;
+      if (this.open) {
+        this.$nextTick(() => {
+          document.getElementById('chat-input')?.focus();
+          gcScrollChatBottom();
+        });
+      }
+    },
+    clearHistory() {
+      fetch("{% url 'chatbot:clear' %}", {
+        method: 'POST',
+        headers: {'X-CSRFToken': '{{ csrf_token }}'}
+      }).then(() => {
+        const msgs = document.getElementById('chat-messages');
+        const children = Array.from(msgs.children);
+        // Garder seulement le message de bienvenue (2 premiers enfants)
+        children.slice(2).forEach(el => el.remove());
+      });
+    }
+  }
+}
+
+function gcScrollChatBottom() {
+  const msgs = document.getElementById('chat-messages');
+  if (msgs) setTimeout(() => { msgs.scrollTop = msgs.scrollHeight; }, 50);
+}
+
+function gcChatBeforeRequest() {
+  const input = document.getElementById('chat-input');
+  if (!input?.value.trim()) { event.preventDefault(); return; }
+  document.getElementById('chat-typing').classList.remove('hidden');
+  document.getElementById('chat-send-btn').disabled = true;
+  // Masquer les suggestions après le premier envoi
+  const sugg = document.getElementById('chat-suggestions');
+  if (sugg) sugg.style.display = 'none';
+  gcScrollChatBottom();
+}
+
+function gcChatAfterRequest() {
+  document.getElementById('chat-typing').classList.add('hidden');
+  document.getElementById('chat-send-btn').disabled = false;
+  document.getElementById('chat-input').value = '';
+  document.getElementById('chat-input').focus();
+  gcScrollChatBottom();
+}
+
+function gcSendSuggestion(text) {
+  const input = document.getElementById('chat-input');
+  if (input) {
+    input.value = text;
+    document.getElementById('chat-form').dispatchEvent(new Event('submit', {bubbles: true}));
+  }
+}
+</script>
